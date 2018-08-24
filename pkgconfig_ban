@@ -1,0 +1,11 @@
+# This file contains pkgconfig build requirements that get picked up
+# but are undesirable. One entry per line, no whitespace.
+lqr-1
+lensfun${version_string}
+libavcodec
+libavdevice
+libavfilter
+libavformat
+libavutil
+libpostproc
+libswscale

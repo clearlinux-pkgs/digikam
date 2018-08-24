@@ -1,0 +1,12 @@
+6.0.0.beta1
+eigen-dev
+kfilemetadata-dev
+kiconthemes-dev
+knotifications-dev
+knotifyconfig-dev
+kwindowsystem-dev
+kxmlgui-dev
+lensfun-dev
+pkgconfig(lensfun)
+solid-dev
+threadweaver-dev

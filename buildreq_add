@@ -1,0 +1,12 @@
+# This file contains additional build requirements that did not get
+# picked up automatically. One name per line, no whitespace.
+buildreq-kde
+exiv2-dev
+opencv-dev
+mesa-dev
+kcompletion-dev
+libxslt-dev
+kio-dev
+kcodecs-dev
+kwidgetsaddons-dev
+qtwebengine-dev
