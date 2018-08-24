@@ -4,7 +4,7 @@
 #
 Name     : digikam
 Version  : 6.0.0.beta1
-Release  : 1
+Release  : 2
 URL      : https://github.com/KDE/digikam/archive/v6.0.0-beta1.tar.gz
 Source0  : https://github.com/KDE/digikam/archive/v6.0.0-beta1.tar.gz
 Summary  : No detailed summary available
@@ -125,21 +125,39 @@ man components for the digikam package.
 
 %prep
 %setup -q -n digikam-6.0.0-beta1
+pushd ..
+cp -a digikam-6.0.0-beta1 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1535119263
+export SOURCE_DATE_EPOCH=1535128320
 mkdir clr-build
 pushd clr-build
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 %cmake .. -DENABLE_QWEBENGINE=TRUE
 make  %{?_smp_mflags}
 popd
+mkdir clr-build-avx2
+pushd clr-build-avx2
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -march=haswell "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -march=haswell "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -march=haswell "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -march=haswell "
+export CFLAGS="$CFLAGS -march=haswell -m64"
+export CXXFLAGS="$CXXFLAGS -march=haswell -m64"
+%cmake .. -DENABLE_QWEBENGINE=TRUE
+make VERBOSE=1  %{?_smp_mflags}  || :
+popd
 
 %install
-export SOURCE_DATE_EPOCH=1535119263
+export SOURCE_DATE_EPOCH=1535128320
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/digikam
 cp COPYING %{buildroot}/usr/share/doc/digikam/COPYING
@@ -154,6 +172,9 @@ cp core/utilities/assistants/webservices/common/o2/LICENSE %{buildroot}/usr/shar
 cp core/utilities/mediaserver/upnpsdk/Platinum/LICENSE.txt %{buildroot}/usr/share/doc/digikam/core_utilities_mediaserver_upnpsdk_Platinum_LICENSE.txt
 cp project/bundles/macports/installer/GPL.txt %{buildroot}/usr/share/doc/digikam/project_bundles_macports_installer_GPL.txt
 cp project/bundles/mxe/installer/GPL.txt %{buildroot}/usr/share/doc/digikam/project_bundles_mxe_installer_GPL.txt
+pushd clr-build-avx2
+%make_install_avx2  || :
+popd
 pushd clr-build
 %make_install
 popd
@@ -166,6 +187,8 @@ popd
 /usr/bin/cleanup_digikamdb
 /usr/bin/digikam
 /usr/bin/digitaglinktree
+/usr/bin/haswell/digikam
+/usr/bin/haswell/showfoto
 /usr/bin/showfoto
 
 %files data
@@ -650,12 +673,18 @@ popd
 
 %files dev
 %defattr(-,root,root,-)
+/usr/lib64/haswell/libdigikamcore.so
+/usr/lib64/haswell/libdigikamdatabase.so
+/usr/lib64/haswell/libdigikamgui.so
 /usr/lib64/libdigikamcore.so
 /usr/lib64/libdigikamdatabase.so
 /usr/lib64/libdigikamgui.so
 
 %files lib
 %defattr(-,root,root,-)
+/usr/lib64/haswell/libdigikamcore.so.6.0.0
+/usr/lib64/haswell/libdigikamdatabase.so.6.0.0
+/usr/lib64/haswell/libdigikamgui.so.6.0.0
 /usr/lib64/libdigikamcore.so.6.0.0
 /usr/lib64/libdigikamdatabase.so.6.0.0
 /usr/lib64/libdigikamgui.so.6.0.0
