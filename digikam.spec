@@ -4,7 +4,7 @@
 #
 Name     : digikam
 Version  : 6.0.0
-Release  : 4
+Release  : 5
 URL      : https://github.com/KDE/digikam/archive/v6.0.0.tar.gz
 Source0  : https://github.com/KDE/digikam/archive/v6.0.0.tar.gz
 Summary  : An advanced digital photo management application
