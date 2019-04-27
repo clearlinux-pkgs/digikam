@@ -4,7 +4,7 @@
 #
 Name     : digikam
 Version  : 6.1.0
-Release  : 7
+Release  : 8
 URL      : https://github.com/KDE/digikam/archive/v6.1.0/digikam-6.1.0.tar.gz
 Source0  : https://github.com/KDE/digikam/archive/v6.1.0/digikam-6.1.0.tar.gz
 Summary  : An advanced digital photo management application
@@ -48,6 +48,7 @@ BuildRequires : libksane-dev
 BuildRequires : libpng-dev
 BuildRequires : libxml2-dev
 BuildRequires : libxslt-dev
+BuildRequires : marble-dev
 BuildRequires : mesa-dev
 BuildRequires : opencv-dev
 BuildRequires : pkg-config
@@ -145,7 +146,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1556393542
+export SOURCE_DATE_EPOCH=1556398327
 mkdir -p clr-build
 pushd clr-build
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
@@ -168,7 +169,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1556393542
+export SOURCE_DATE_EPOCH=1556398327
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/digikam
 cp COPYING %{buildroot}/usr/share/package-licenses/digikam/COPYING
@@ -840,6 +841,8 @@ popd
 /usr/lib64/qt5/plugins/digikam/generic/Generic_FileTransfer_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Flickr_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Flickr_Plugin.so.avx2
+/usr/lib64/qt5/plugins/digikam/generic/Generic_GeolocationEdit_Plugin.so
+/usr/lib64/qt5/plugins/digikam/generic/Generic_GeolocationEdit_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Google_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Google_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_HtmlGallery_Plugin.so
