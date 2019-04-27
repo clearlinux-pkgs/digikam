@@ -4,8 +4,5 @@ lqr-1
 lensfun${version_string}
 libavcodec
 libavdevice
-libavfilter
 libavformat
-libavutil
 libpostproc
-libswscale

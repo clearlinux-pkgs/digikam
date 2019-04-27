@@ -4,7 +4,7 @@
 #
 Name     : digikam
 Version  : 6.1.0
-Release  : 6
+Release  : 7
 URL      : https://github.com/KDE/digikam/archive/v6.1.0/digikam-6.1.0.tar.gz
 Source0  : https://github.com/KDE/digikam/archive/v6.1.0/digikam-6.1.0.tar.gz
 Summary  : An advanced digital photo management application
@@ -15,6 +15,7 @@ Requires: digikam-data = %{version}-%{release}
 Requires: digikam-lib = %{version}-%{release}
 Requires: digikam-license = %{version}-%{release}
 Requires: digikam-man = %{version}-%{release}
+BuildRequires : ImageMagick
 BuildRequires : akonadi-contacts-dev
 BuildRequires : bison-dev
 BuildRequires : boost-dev
@@ -33,11 +34,17 @@ BuildRequires : kcalcore-dev
 BuildRequires : kcodecs-dev
 BuildRequires : kcompletion-dev
 BuildRequires : kfilemetadata-dev
+BuildRequires : kiconthemes-dev
 BuildRequires : kio-dev
+BuildRequires : knotifications-dev
 BuildRequires : knotifyconfig-dev
 BuildRequires : kwidgetsaddons-dev
+BuildRequires : kwindowsystem-dev
+BuildRequires : kxmlgui-dev
+BuildRequires : lensfun-dev
 BuildRequires : libX11-dev libICE-dev libSM-dev libXau-dev libXcomposite-dev libXcursor-dev libXdamage-dev libXdmcp-dev libXext-dev libXfixes-dev libXft-dev libXi-dev libXinerama-dev libXi-dev libXmu-dev libXpm-dev libXrandr-dev libXrender-dev libXres-dev libXScrnSaver-dev libXt-dev libXtst-dev libXv-dev libXxf86misc-dev libXxf86vm-dev
 BuildRequires : libjpeg-turbo-dev
+BuildRequires : libksane-dev
 BuildRequires : libpng-dev
 BuildRequires : libxml2-dev
 BuildRequires : libxslt-dev
@@ -48,10 +55,14 @@ BuildRequires : pkgconfig(exiv2)
 BuildRequires : pkgconfig(glib-2.0)
 BuildRequires : pkgconfig(lcms2)
 BuildRequires : pkgconfig(lensfun)
+BuildRequires : pkgconfig(libavfilter)
+BuildRequires : pkgconfig(libavutil)
 BuildRequires : pkgconfig(libgphoto2)
+BuildRequires : pkgconfig(libswscale)
 BuildRequires : qtbase-dev mesa-dev
 BuildRequires : qtwebengine-dev
 BuildRequires : ruby
+BuildRequires : solid-dev
 BuildRequires : subversion
 BuildRequires : threadweaver-dev
 BuildRequires : tiff-dev
@@ -134,7 +145,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1555257408
+export SOURCE_DATE_EPOCH=1556393542
 mkdir -p clr-build
 pushd clr-build
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
@@ -157,7 +168,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1555257408
+export SOURCE_DATE_EPOCH=1556393542
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/digikam
 cp COPYING %{buildroot}/usr/share/package-licenses/digikam/COPYING
@@ -800,6 +811,7 @@ popd
 /usr/lib64/qt5/plugins/digikam/editor/Editor_PerspectiveTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_PerspectiveTool_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/editor/Editor_PrintTool_Plugin.so
+/usr/lib64/qt5/plugins/digikam/editor/Editor_PrintTool_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/editor/Editor_ProfileConversionTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_RainDropTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_RatioCropTool_Plugin.so
@@ -808,6 +820,7 @@ popd
 /usr/lib64/qt5/plugins/digikam/editor/Editor_ResizeTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_ResizeTool_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/editor/Editor_RestorationTool_Plugin.so
+/usr/lib64/qt5/plugins/digikam/editor/Editor_RestorationTool_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/editor/Editor_SharpenTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_ShearTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_TextureTool_Plugin.so
@@ -815,19 +828,25 @@ popd
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Box_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Calendar_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Calendar_Plugin.so.avx2
+/usr/lib64/qt5/plugins/digikam/generic/Generic_DigitalScanner_Plugin.so
+/usr/lib64/qt5/plugins/digikam/generic/Generic_DigitalScanner_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_DropBox_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_ExpoBlending_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_ExpoBlending_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_FaceBook_Plugin.so
+/usr/lib64/qt5/plugins/digikam/generic/Generic_FaceBook_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_FileCopy_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_FileTransfer_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_FileTransfer_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Flickr_Plugin.so
+/usr/lib64/qt5/plugins/digikam/generic/Generic_Flickr_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Google_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Google_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_HtmlGallery_Plugin.so
+/usr/lib64/qt5/plugins/digikam/generic/Generic_HtmlGallery_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_ImageShack_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_ImgUr_Plugin.so
+/usr/lib64/qt5/plugins/digikam/generic/Generic_ImgUr_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_IpFs_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_JAlbum_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_MediaServer_Plugin.so
@@ -846,8 +865,10 @@ popd
 /usr/lib64/qt5/plugins/digikam/generic/Generic_PrintCreator_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_PrintCreator_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Rajce_Plugin.so
+/usr/lib64/qt5/plugins/digikam/generic/Generic_Rajce_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_SendByMail_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_SmugMug_Plugin.so
+/usr/lib64/qt5/plugins/digikam/generic/Generic_SmugMug_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_TimeAdjust_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Twitter_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Wallpaper_Plugin.so

@@ -1,4 +1,5 @@
 6.1.0
+ImageMagick
 akonadi-contacts-dev
 eigen-dev
 kcalcore-dev
@@ -9,6 +10,10 @@ knotifyconfig-dev
 kwindowsystem-dev
 kxmlgui-dev
 lensfun-dev
+libksane-dev
 pkgconfig(lensfun)
+pkgconfig(libavfilter)
+pkgconfig(libavutil)
+pkgconfig(libswscale)
 solid-dev
 threadweaver-dev
