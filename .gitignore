@@ -1,5 +1,7 @@
 .*~
 *~
+*.info
+*.mod
 *.swp
 .repo-index
 *.log
@@ -11,3 +13,4 @@ build.log.round*
 commitmsg
 results/
 rpms/
+for-review.txt
