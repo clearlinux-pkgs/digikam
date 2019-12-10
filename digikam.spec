@@ -4,7 +4,7 @@
 #
 Name     : digikam
 Version  : 6.2.0
-Release  : 9
+Release  : 10
 URL      : https://github.com/KDE/digikam/archive/v6.2.0/digikam-6.2.0.tar.gz
 Source0  : https://github.com/KDE/digikam/archive/v6.2.0/digikam-6.2.0.tar.gz
 Summary  : HEIF image codec.
@@ -35,9 +35,14 @@ BuildRequires : kcalcore-dev
 BuildRequires : kcodecs-dev
 BuildRequires : kcompletion-dev
 BuildRequires : kfilemetadata-dev
+BuildRequires : kiconthemes-dev
 BuildRequires : kio-dev
+BuildRequires : knotifications-dev
 BuildRequires : knotifyconfig-dev
 BuildRequires : kwidgetsaddons-dev
+BuildRequires : kwindowsystem-dev
+BuildRequires : kxmlgui-dev
+BuildRequires : lensfun-dev
 BuildRequires : libX11-dev libICE-dev libSM-dev libXau-dev libXcomposite-dev libXcursor-dev libXdamage-dev libXdmcp-dev libXext-dev libXfixes-dev libXft-dev libXi-dev libXinerama-dev libXi-dev libXmu-dev libXpm-dev libXrandr-dev libXrender-dev libXres-dev libXScrnSaver-dev libXt-dev libXtst-dev libXv-dev libXxf86misc-dev libXxf86vm-dev
 BuildRequires : libjpeg-turbo-dev
 BuildRequires : libksane-dev
@@ -59,6 +64,7 @@ BuildRequires : pkgconfig(libswscale)
 BuildRequires : qtbase-dev mesa-dev
 BuildRequires : qtwebengine-dev
 BuildRequires : ruby
+BuildRequires : solid-dev
 BuildRequires : subversion
 BuildRequires : threadweaver-dev
 BuildRequires : tiff-dev
@@ -128,13 +134,14 @@ man components for the digikam package.
 
 %prep
 %setup -q -n digikam-6.2.0
+cd %{_builddir}/digikam-6.2.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1564862123
+export SOURCE_DATE_EPOCH=1576014813
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -142,8 +149,9 @@ export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-se
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-%cmake .. -DENABLE_QWEBENGINE=TRUE
-make  %{?_smp_mflags} VERBOSE=1
+%cmake .. -DENABLE_QWEBENGINE=TRUE \
+-DBUILD_TESTING=OFF
+make  %{?_smp_mflags}  -w
 popd
 mkdir -p clr-build-avx2
 pushd clr-build-avx2
@@ -154,26 +162,27 @@ export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-se
 export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math -march=haswell "
 export CFLAGS="$CFLAGS -march=haswell -m64"
 export CXXFLAGS="$CXXFLAGS -march=haswell -m64"
-%cmake .. -DENABLE_QWEBENGINE=TRUE
-make  %{?_smp_mflags} VERBOSE=1
+%cmake .. -DENABLE_QWEBENGINE=TRUE \
+-DBUILD_TESTING=OFF
+make  %{?_smp_mflags}  -w
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1564862123
+export SOURCE_DATE_EPOCH=1576014813
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/digikam
-cp COPYING %{buildroot}/usr/share/package-licenses/digikam/COPYING
-cp COPYING-CMAKE-SCRIPTS %{buildroot}/usr/share/package-licenses/digikam/COPYING-CMAKE-SCRIPTS
-cp COPYING.LIB %{buildroot}/usr/share/package-licenses/digikam/COPYING.LIB
-cp core/dplugins/generic/tools/mediaserver/upnpsdk/Platinum/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/core_dplugins_generic_tools_mediaserver_upnpsdk_Platinum_LICENSE.txt
-cp core/libs/dimg/filters/greycstoration/cimg/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/core_libs_dimg_filters_greycstoration_cimg_LICENSE.txt
-cp core/libs/dplugins/webservices/o2/LICENSE %{buildroot}/usr/share/package-licenses/digikam/core_libs_dplugins_webservices_o2_LICENSE
-cp core/libs/rawengine/libraw/COPYRIGHT %{buildroot}/usr/share/package-licenses/digikam/core_libs_rawengine_libraw_COPYRIGHT
-cp core/libs/rawengine/libraw/LICENSE.CDDL %{buildroot}/usr/share/package-licenses/digikam/core_libs_rawengine_libraw_LICENSE.CDDL
-cp core/libs/rawengine/libraw/LICENSE.LGPL %{buildroot}/usr/share/package-licenses/digikam/core_libs_rawengine_libraw_LICENSE.LGPL
-cp core/tests/modeltest/LICENSE.GPL %{buildroot}/usr/share/package-licenses/digikam/core_tests_modeltest_LICENSE.GPL
-cp project/bundles/macports/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/project_bundles_macports_installer_GPL.txt
-cp project/bundles/mxe/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/project_bundles_mxe_installer_GPL.txt
+cp %{_builddir}/digikam-6.2.0/COPYING %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
+cp %{_builddir}/digikam-6.2.0/COPYING-CMAKE-SCRIPTS %{buildroot}/usr/share/package-licenses/digikam/ff3ed70db4739b3c6747c7f624fe2bad70802987
+cp %{_builddir}/digikam-6.2.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/digikam/1568befcb09e881d29dd760911ceeb4e2d810884
+cp %{_builddir}/digikam-6.2.0/core/dplugins/generic/tools/mediaserver/upnpsdk/Platinum/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/a5bbd41410f38b2dd525e6c601f29b1736db13f9
+cp %{_builddir}/digikam-6.2.0/core/libs/dimg/filters/greycstoration/cimg/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/2da2357c9706c1416e5d65e4a2e21a1c77fc9dff
+cp %{_builddir}/digikam-6.2.0/core/libs/dplugins/webservices/o2/LICENSE %{buildroot}/usr/share/package-licenses/digikam/5be7b6f190b991f6c1029fd38d785c3ba54e255f
+cp %{_builddir}/digikam-6.2.0/core/libs/rawengine/libraw/COPYRIGHT %{buildroot}/usr/share/package-licenses/digikam/aae7ee73fdea4b41593aa2eca7ce3122e6f9d392
+cp %{_builddir}/digikam-6.2.0/core/libs/rawengine/libraw/LICENSE.CDDL %{buildroot}/usr/share/package-licenses/digikam/c24b9c7ef03687bf0141f85a1b7ed81459944c3c
+cp %{_builddir}/digikam-6.2.0/core/libs/rawengine/libraw/LICENSE.LGPL %{buildroot}/usr/share/package-licenses/digikam/39a21f33cadea18adcc23bf808d7d5ea6419c8b1
+cp %{_builddir}/digikam-6.2.0/core/tests/modeltest/LICENSE.GPL %{buildroot}/usr/share/package-licenses/digikam/831885f4ef4eccb4965bcddee48f0de3b5aea2d1
+cp %{_builddir}/digikam-6.2.0/project/bundles/macports/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
+cp %{_builddir}/digikam-6.2.0/project/bundles/mxe/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/ef250cb30fe89ea6687a0fe04fd552dbdc93e0e0
 pushd clr-build-avx2
 %make_install_avx2  || :
 popd
@@ -869,18 +878,17 @@ popd
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/digikam/COPYING
-/usr/share/package-licenses/digikam/COPYING-CMAKE-SCRIPTS
-/usr/share/package-licenses/digikam/COPYING.LIB
-/usr/share/package-licenses/digikam/core_dplugins_generic_tools_mediaserver_upnpsdk_Platinum_LICENSE.txt
-/usr/share/package-licenses/digikam/core_libs_dimg_filters_greycstoration_cimg_LICENSE.txt
-/usr/share/package-licenses/digikam/core_libs_dplugins_webservices_o2_LICENSE
-/usr/share/package-licenses/digikam/core_libs_rawengine_libraw_COPYRIGHT
-/usr/share/package-licenses/digikam/core_libs_rawengine_libraw_LICENSE.CDDL
-/usr/share/package-licenses/digikam/core_libs_rawengine_libraw_LICENSE.LGPL
-/usr/share/package-licenses/digikam/core_tests_modeltest_LICENSE.GPL
-/usr/share/package-licenses/digikam/project_bundles_macports_installer_GPL.txt
-/usr/share/package-licenses/digikam/project_bundles_mxe_installer_GPL.txt
+/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
+/usr/share/package-licenses/digikam/1568befcb09e881d29dd760911ceeb4e2d810884
+/usr/share/package-licenses/digikam/2da2357c9706c1416e5d65e4a2e21a1c77fc9dff
+/usr/share/package-licenses/digikam/39a21f33cadea18adcc23bf808d7d5ea6419c8b1
+/usr/share/package-licenses/digikam/5be7b6f190b991f6c1029fd38d785c3ba54e255f
+/usr/share/package-licenses/digikam/831885f4ef4eccb4965bcddee48f0de3b5aea2d1
+/usr/share/package-licenses/digikam/a5bbd41410f38b2dd525e6c601f29b1736db13f9
+/usr/share/package-licenses/digikam/aae7ee73fdea4b41593aa2eca7ce3122e6f9d392
+/usr/share/package-licenses/digikam/c24b9c7ef03687bf0141f85a1b7ed81459944c3c
+/usr/share/package-licenses/digikam/ef250cb30fe89ea6687a0fe04fd552dbdc93e0e0
+/usr/share/package-licenses/digikam/ff3ed70db4739b3c6747c7f624fe2bad70802987
 
 %files man
 %defattr(0644,root,root,0755)
