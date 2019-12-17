@@ -1,13 +1,27 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
+ImageMagick
+akonadi-contacts-dev
 buildreq-kde
+eigen-dev
 exiv2-dev
-opencv-dev
-mesa-dev
-kcompletion-dev
-libxslt-dev
-kio-dev
+kcalendarcore-dev
 kcodecs-dev
+kcompletion-dev
+kfilemetadata-dev
+kiconthemes-dev
+kio-dev
+knotifications-dev
+knotifyconfig-dev
 kwidgetsaddons-dev
-qtwebengine-dev
+kwindowsystem-dev
+kxmlgui-dev
+lensfun-dev
+libksane-dev
+libxslt-dev
 marble-dev
+mesa-dev
+opencv-dev
+qtwebengine-dev
+solid-dev
+threadweaver-dev
