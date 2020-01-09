@@ -4,7 +4,7 @@
 #
 Name     : digikam
 Version  : 6.2.0
-Release  : 10
+Release  : 11
 URL      : https://github.com/KDE/digikam/archive/v6.2.0/digikam-6.2.0.tar.gz
 Source0  : https://github.com/KDE/digikam/archive/v6.2.0/digikam-6.2.0.tar.gz
 Summary  : HEIF image codec.
