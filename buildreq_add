@@ -5,6 +5,7 @@ akonadi-contacts-dev
 buildreq-kde
 eigen-dev
 exiv2-dev
+exiv2-staticdev
 kcalendarcore-dev
 kcodecs-dev
 kcompletion-dev

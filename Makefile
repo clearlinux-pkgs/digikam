@@ -1,5 +1,5 @@
 PKG_NAME := digikam
-URL = https://github.com/KDE/digikam/archive/v6.2.0/digikam-6.2.0.tar.gz
+URL = https://download.kde.org/stable/digikam/6.4.0/digikam-6.4.0.tar.xz
 ARCHIVES = 
 
 include ../common/Makefile.common
