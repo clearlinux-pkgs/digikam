@@ -6,7 +6,7 @@
 #
 Name     : digikam
 Version  : 6.4.0.03
-Release  : 14
+Release  : 15
 URL      : https://download.kde.org/stable/digikam/6.4.0/digikam-6.4.0-03.tar.xz
 Source0  : https://download.kde.org/stable/digikam/6.4.0/digikam-6.4.0-03.tar.xz
 Source1  : https://download.kde.org/stable/digikam/6.4.0/digikam-6.4.0-03.tar.xz.sig
@@ -160,7 +160,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1578703568
+export SOURCE_DATE_EPOCH=1578706046
 mkdir -p clr-build
 pushd clr-build
 # -Werror is for werrorists
@@ -189,7 +189,7 @@ make  %{?_smp_mflags}  -w
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1578703568
+export SOURCE_DATE_EPOCH=1578706046
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/digikam
 cp %{_builddir}/digikam-6.4.0/COPYING %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
