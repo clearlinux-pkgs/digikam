@@ -5,12 +5,12 @@
 # Source0 file verified with key 0x4A77747BC2386E50 (digikamdeveloper@gmail.com)
 #
 Name     : digikam
-Version  : 6.4.0
-Release  : 13
-URL      : https://download.kde.org/stable/digikam/6.4.0/digikam-6.4.0.tar.xz
-Source0  : https://download.kde.org/stable/digikam/6.4.0/digikam-6.4.0.tar.xz
-Source1  : https://download.kde.org/stable/digikam/6.4.0/digikam-6.4.0.tar.xz.sig
-Summary  : No detailed summary available
+Version  : 6.4.0.03
+Release  : 14
+URL      : https://download.kde.org/stable/digikam/6.4.0/digikam-6.4.0-03.tar.xz
+Source0  : https://download.kde.org/stable/digikam/6.4.0/digikam-6.4.0-03.tar.xz
+Source1  : https://download.kde.org/stable/digikam/6.4.0/digikam-6.4.0-03.tar.xz.sig
+Summary  : An advanced digital photo management application
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause CDDL-1.1 CECILL-1.1 GPL-2.0 LGPL-2.1
 Requires: digikam-bin = %{version}-%{release}
@@ -75,9 +75,14 @@ BuildRequires : tiff-dev
 Patch1: Fix-build-with-opencv-4.2.patch
 
 %description
-RESUME
-------
-These scripts build a binary digiKam AppImage bundle for Linux using Mageia version 6 32 and 64 bits.
+The file Metadata manipulation Qt wrapper:
+- containers : all metadata classes to group information by categories.
+- engine     : the low level metadata extraction class based on Exiv2 API and managing :
+* C++ exception from this library.
+* All API call protected by a common mutex to fix non re-entrancy from Exiv2.
+* All Exiv2 API are only used in this area to not expose all digiKam core classes of API changes.
+- dmetadata  : the high level metadata class, based on metadata engine, but not based on Exiv2 API.
+This class must be used everywhere in digiKam.
 
 %package bin
 Summary: bin components for the digikam package.
@@ -104,6 +109,7 @@ Requires: digikam-lib = %{version}-%{release}
 Requires: digikam-bin = %{version}-%{release}
 Requires: digikam-data = %{version}-%{release}
 Provides: digikam-devel = %{version}-%{release}
+Requires: digikam = %{version}-%{release}
 Requires: digikam = %{version}-%{release}
 
 %description dev
@@ -154,9 +160,10 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1578681451
+export SOURCE_DATE_EPOCH=1578703568
 mkdir -p clr-build
 pushd clr-build
+# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
@@ -168,6 +175,7 @@ make  %{?_smp_mflags}  -w
 popd
 mkdir -p clr-build-avx2
 pushd clr-build-avx2
+# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math -march=haswell "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math -march=haswell "
@@ -181,7 +189,7 @@ make  %{?_smp_mflags}  -w
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1578681451
+export SOURCE_DATE_EPOCH=1578703568
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/digikam
 cp %{_builddir}/digikam-6.4.0/COPYING %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
