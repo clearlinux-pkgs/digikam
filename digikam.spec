@@ -6,7 +6,7 @@
 #
 Name     : digikam
 Version  : 6.4.0.03
-Release  : 18
+Release  : 19
 URL      : https://download.kde.org/stable/digikam/6.4.0/digikam-6.4.0-03.tar.xz
 Source0  : https://download.kde.org/stable/digikam/6.4.0/digikam-6.4.0-03.tar.xz
 Source1  : https://download.kde.org/stable/digikam/6.4.0/digikam-6.4.0-03.tar.xz.sig
