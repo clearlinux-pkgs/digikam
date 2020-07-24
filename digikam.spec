@@ -5,12 +5,12 @@
 # Source0 file verified with key 0x4A77747BC2386E50 (digikamdeveloper@gmail.com)
 #
 Name     : digikam
-Version  : 6.4.0.03
-Release  : 19
-URL      : https://download.kde.org/stable/digikam/6.4.0/digikam-6.4.0-03.tar.xz
-Source0  : https://download.kde.org/stable/digikam/6.4.0/digikam-6.4.0-03.tar.xz
-Source1  : https://download.kde.org/stable/digikam/6.4.0/digikam-6.4.0-03.tar.xz.sig
-Summary  : An advanced digital photo management application
+Version  : 7.0.0
+Release  : 20
+URL      : https://download.kde.org/stable/digikam/7.0.0/digikam-7.0.0.tar.xz
+Source0  : https://download.kde.org/stable/digikam/7.0.0/digikam-7.0.0.tar.xz
+Source1  : https://download.kde.org/stable/digikam/7.0.0/digikam-7.0.0.tar.xz.sig
+Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause CDDL-1.1 CECILL-1.1 GPL-2.0 LGPL-2.1
 Requires: digikam-bin = %{version}-%{release}
@@ -28,17 +28,20 @@ BuildRequires : buildreq-kde
 BuildRequires : buildreq-qmake
 BuildRequires : cmake
 BuildRequires : doxygen
+BuildRequires : eigen-data
 BuildRequires : eigen-dev
 BuildRequires : exiv2-dev
 BuildRequires : exiv2-staticdev
 BuildRequires : expat-dev
 BuildRequires : extra-cmake-modules pkgconfig(glib-2.0)
+BuildRequires : extra-cmake-modules-data
 BuildRequires : flex
 BuildRequires : gettext-dev
 BuildRequires : glibc-dev
 BuildRequires : kcalendarcore-dev
 BuildRequires : kcodecs-dev
 BuildRequires : kcompletion-dev
+BuildRequires : kcontacts-dev
 BuildRequires : kfilemetadata-dev
 BuildRequires : kiconthemes-dev
 BuildRequires : kio-dev
@@ -65,24 +68,21 @@ BuildRequires : pkgconfig(libavfilter)
 BuildRequires : pkgconfig(libavutil)
 BuildRequires : pkgconfig(libgphoto2)
 BuildRequires : pkgconfig(libswscale)
+BuildRequires : qtbase-dev
 BuildRequires : qtbase-dev mesa-dev
+BuildRequires : qtkeychain-dev
+BuildRequires : qtscript-dev
 BuildRequires : qtwebengine-dev
 BuildRequires : ruby
 BuildRequires : solid-dev
 BuildRequires : subversion
 BuildRequires : threadweaver-dev
 BuildRequires : tiff-dev
-Patch1: Fix-build-with-opencv-4.2.patch
 
 %description
-The file Metadata manipulation Qt wrapper:
-- containers : all metadata classes to group information by categories.
-- engine     : the low level metadata extraction class based on Exiv2 API and managing :
-* C++ exception from this library.
-* All API call protected by a common mutex to fix non re-entrancy from Exiv2.
-* All Exiv2 API are only used in this area to not expose all digiKam core classes of API changes.
-- dmetadata  : the high level metadata class, based on metadata engine, but not based on Exiv2 API.
-This class must be used everywhere in digiKam.
+RESUME
+------
+These scripts build a binary digiKam AppImage bundle for Linux using Mageia version 6 32 and 64 bits.
 
 %package bin
 Summary: bin components for the digikam package.
@@ -109,7 +109,6 @@ Requires: digikam-lib = %{version}-%{release}
 Requires: digikam-bin = %{version}-%{release}
 Requires: digikam-data = %{version}-%{release}
 Provides: digikam-devel = %{version}-%{release}
-Requires: digikam = %{version}-%{release}
 Requires: digikam = %{version}-%{release}
 
 %description dev
@@ -151,23 +150,21 @@ man components for the digikam package.
 
 
 %prep
-%setup -q -n digikam-6.4.0
-cd %{_builddir}/digikam-6.4.0
-%patch1 -p1
+%setup -q -n digikam-7.0.0
+cd %{_builddir}/digikam-7.0.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1578706046
+export SOURCE_DATE_EPOCH=1595609352
 mkdir -p clr-build
 pushd clr-build
-# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FCFLAGS="$FFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FFLAGS="$FFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 %cmake .. -DENABLE_QWEBENGINE=TRUE \
 -DBUILD_TESTING=OFF
@@ -175,35 +172,35 @@ make  %{?_smp_mflags}  -w
 popd
 mkdir -p clr-build-avx2
 pushd clr-build-avx2
-# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math -march=haswell "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math -march=haswell "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math -march=haswell "
+export FCFLAGS="$FFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math -march=haswell "
+export FFLAGS="$FFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math -march=haswell "
 export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-lto -fno-math-errno -fno-semantic-interposition -fno-trapping-math -march=haswell "
 export CFLAGS="$CFLAGS -march=haswell -m64"
 export CXXFLAGS="$CXXFLAGS -march=haswell -m64"
+export FFLAGS="$FFLAGS -march=haswell -m64"
+export FCFLAGS="$FCFLAGS -march=haswell -m64"
 %cmake .. -DENABLE_QWEBENGINE=TRUE \
 -DBUILD_TESTING=OFF
 make  %{?_smp_mflags}  -w
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1578706046
+export SOURCE_DATE_EPOCH=1595609352
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/digikam
-cp %{_builddir}/digikam-6.4.0/COPYING %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
-cp %{_builddir}/digikam-6.4.0/COPYING-CMAKE-SCRIPTS %{buildroot}/usr/share/package-licenses/digikam/ff3ed70db4739b3c6747c7f624fe2bad70802987
-cp %{_builddir}/digikam-6.4.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/digikam/1568befcb09e881d29dd760911ceeb4e2d810884
-cp %{_builddir}/digikam-6.4.0/core/dplugins/generic/tools/mediaserver/upnpsdk/Platinum/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/a5bbd41410f38b2dd525e6c601f29b1736db13f9
-cp %{_builddir}/digikam-6.4.0/core/libs/dimg/filters/greycstoration/cimg/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/2da2357c9706c1416e5d65e4a2e21a1c77fc9dff
-cp %{_builddir}/digikam-6.4.0/core/libs/dplugins/webservices/o2/LICENSE %{buildroot}/usr/share/package-licenses/digikam/5be7b6f190b991f6c1029fd38d785c3ba54e255f
-cp %{_builddir}/digikam-6.4.0/core/libs/rawengine/libraw/COPYRIGHT %{buildroot}/usr/share/package-licenses/digikam/aae7ee73fdea4b41593aa2eca7ce3122e6f9d392
-cp %{_builddir}/digikam-6.4.0/core/libs/rawengine/libraw/LICENSE.CDDL %{buildroot}/usr/share/package-licenses/digikam/c24b9c7ef03687bf0141f85a1b7ed81459944c3c
-cp %{_builddir}/digikam-6.4.0/core/libs/rawengine/libraw/LICENSE.LGPL %{buildroot}/usr/share/package-licenses/digikam/39a21f33cadea18adcc23bf808d7d5ea6419c8b1
-cp %{_builddir}/digikam-6.4.0/core/tests/modeltest/LICENSE.GPL %{buildroot}/usr/share/package-licenses/digikam/831885f4ef4eccb4965bcddee48f0de3b5aea2d1
-cp %{_builddir}/digikam-6.4.0/project/bundles/macports/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
-cp %{_builddir}/digikam-6.4.0/project/bundles/mxe/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/ef250cb30fe89ea6687a0fe04fd552dbdc93e0e0
+cp %{_builddir}/digikam-7.0.0/COPYING %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
+cp %{_builddir}/digikam-7.0.0/COPYING-CMAKE-SCRIPTS %{buildroot}/usr/share/package-licenses/digikam/ff3ed70db4739b3c6747c7f624fe2bad70802987
+cp %{_builddir}/digikam-7.0.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/digikam/1568befcb09e881d29dd760911ceeb4e2d810884
+cp %{_builddir}/digikam-7.0.0/core/dplugins/generic/tools/mediaserver/upnpsdk/Platinum/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/a5bbd41410f38b2dd525e6c601f29b1736db13f9
+cp %{_builddir}/digikam-7.0.0/core/libs/dimg/filters/greycstoration/cimg/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/2da2357c9706c1416e5d65e4a2e21a1c77fc9dff
+cp %{_builddir}/digikam-7.0.0/core/libs/dplugins/webservices/o2/LICENSE %{buildroot}/usr/share/package-licenses/digikam/5be7b6f190b991f6c1029fd38d785c3ba54e255f
+cp %{_builddir}/digikam-7.0.0/core/libs/rawengine/libraw/LICENSE.CDDL %{buildroot}/usr/share/package-licenses/digikam/c24b9c7ef03687bf0141f85a1b7ed81459944c3c
+cp %{_builddir}/digikam-7.0.0/core/libs/rawengine/libraw/LICENSE.LGPL %{buildroot}/usr/share/package-licenses/digikam/39a21f33cadea18adcc23bf808d7d5ea6419c8b1
+cp %{_builddir}/digikam-7.0.0/core/tests/modeltest/LICENSE.GPL %{buildroot}/usr/share/package-licenses/digikam/831885f4ef4eccb4965bcddee48f0de3b5aea2d1
+cp %{_builddir}/digikam-7.0.0/project/bundles/macports/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
+cp %{_builddir}/digikam-7.0.0/project/bundles/mxe/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/ef250cb30fe89ea6687a0fe04fd552dbdc93e0e0
 pushd clr-build-avx2
 %make_install_avx2  || :
 popd
@@ -330,16 +327,9 @@ popd
 /usr/share/digikam/data/wood-pattern.png
 /usr/share/digikam/database/dbconfig.xml
 /usr/share/digikam/database/mysql-global.conf
-/usr/share/digikam/facesengine/dlib_face_recognition_resnet_model_v1.dat
-/usr/share/digikam/facesengine/haarcascade_frontalface_alt.xml
-/usr/share/digikam/facesengine/haarcascade_frontalface_alt2.xml
-/usr/share/digikam/facesengine/haarcascade_frontalface_alt_tree.xml
-/usr/share/digikam/facesengine/haarcascade_frontalface_default.xml
-/usr/share/digikam/facesengine/haarcascade_mcs_lefteye.xml
-/usr/share/digikam/facesengine/haarcascade_mcs_mouth.xml
-/usr/share/digikam/facesengine/haarcascade_mcs_nose.xml
-/usr/share/digikam/facesengine/haarcascade_mcs_righteye.xml
-/usr/share/digikam/facesengine/haarcascade_profileface.xml
+/usr/share/digikam/facesengine/deploy.prototxt
+/usr/share/digikam/facesengine/openface_nn4.small2.v1.t7
+/usr/share/digikam/facesengine/res10_300x300_ssd_iter_140000_fp16.caffemodel
 /usr/share/digikam/facesengine/shapepredictor.dat
 /usr/share/digikam/geoiface/backend-googlemaps-js.js
 /usr/share/digikam/geoiface/backend-googlemaps.html
@@ -503,6 +493,37 @@ popd
 /usr/share/digikam/themes/frames/preview.png
 /usr/share/digikam/themes/frames/style.css
 /usr/share/digikam/themes/frames/template.xsl
+/usr/share/digikam/themes/html5responsive/README
+/usr/share/digikam/themes/html5responsive/html5responsive.desktop
+/usr/share/digikam/themes/html5responsive/preview.png
+/usr/share/digikam/themes/html5responsive/resources/css/basic.css
+/usr/share/digikam/themes/html5responsive/resources/css/brownCard.css
+/usr/share/digikam/themes/html5responsive/resources/css/default-skin/default-skin.css
+/usr/share/digikam/themes/html5responsive/resources/css/default-skin/default-skin.png
+/usr/share/digikam/themes/html5responsive/resources/css/default-skin/default-skin.svg
+/usr/share/digikam/themes/html5responsive/resources/css/default-skin/preloader.gif
+/usr/share/digikam/themes/html5responsive/resources/css/feed.css
+/usr/share/digikam/themes/html5responsive/resources/css/fundament.css
+/usr/share/digikam/themes/html5responsive/resources/css/lightbox.css
+/usr/share/digikam/themes/html5responsive/resources/css/photoswipe.css
+/usr/share/digikam/themes/html5responsive/resources/images/BrownCard/brownCard.png
+/usr/share/digikam/themes/html5responsive/resources/images/BrownCard/brownCardAlbum.jpg
+/usr/share/digikam/themes/html5responsive/resources/images/BrownCard/photoCorners.png
+/usr/share/digikam/themes/html5responsive/resources/images/BrownCard/roughPhotoCard.png
+/usr/share/digikam/themes/html5responsive/resources/images/Lightbox/Contact_corners.png
+/usr/share/digikam/themes/html5responsive/resources/images/Lightbox/Large_contact.png
+/usr/share/digikam/themes/html5responsive/resources/images/Lightbox/LightBox_topless.jpg
+/usr/share/digikam/themes/html5responsive/resources/images/Lightbox/Lightbox_top.jpg
+/usr/share/digikam/themes/html5responsive/resources/images/Lightbox/Monochrome-strip.jpg
+/usr/share/digikam/themes/html5responsive/resources/images/Lightbox/SafetyFilm-strip.jpg
+/usr/share/digikam/themes/html5responsive/resources/images/Lightbox/SlideFrame_landscape.png
+/usr/share/digikam/themes/html5responsive/resources/images/Lightbox/SlideFrame_portrait.png
+/usr/share/digikam/themes/html5responsive/resources/images/Lightbox/SlideFrame_square.png
+/usr/share/digikam/themes/html5responsive/resources/js/photoswipe-ui-default.min.js
+/usr/share/digikam/themes/html5responsive/resources/js/photoswipe.min.js
+/usr/share/digikam/themes/html5responsive/resources/xslt/convertNewlinesToHtmlBreaksTemplate.xsl
+/usr/share/digikam/themes/html5responsive/resources/xslt/xmlJsEscapeTemplate.xsl
+/usr/share/digikam/themes/html5responsive/template.xsl
 /usr/share/digikam/themes/matrix/bg.png
 /usr/share/digikam/themes/matrix/matrix.desktop
 /usr/share/digikam/themes/matrix/preview.png
@@ -739,12 +760,14 @@ popd
 /usr/include/digikam/dcolorblend.h
 /usr/include/digikam/dcolorcomposer.h
 /usr/include/digikam/dcolorpixelaccess.h
+/usr/include/digikam/dcolorselector.h
 /usr/include/digikam/dhistoryview.h
 /usr/include/digikam/digikam_config.h
 /usr/include/digikam/digikam_core_export.h
 /usr/include/digikam/digikam_database_export.h
 /usr/include/digikam/digikam_export.h
 /usr/include/digikam/digikam_globals.h
+/usr/include/digikam/digikam_gui_export.h
 /usr/include/digikam/dimg.h
 /usr/include/digikam/dimgbuiltinfilter.h
 /usr/include/digikam/dimgloaderobserver.h
@@ -756,6 +779,7 @@ popd
 /usr/include/digikam/dmessagebox.h
 /usr/include/digikam/dmetainfoiface.h
 /usr/include/digikam/dplugin.h
+/usr/include/digikam/dpluginaboutdlg.h
 /usr/include/digikam/dpluginaction.h
 /usr/include/digikam/dpluginauthor.h
 /usr/include/digikam/dpluginbqm.h
@@ -771,9 +795,9 @@ popd
 /usr/include/digikam/drawdecoding.h
 /usr/include/digikam/drawinfo.h
 /usr/include/digikam/dsavesettingswidget.h
-/usr/include/digikam/dshareddata.h
 /usr/include/digikam/dwizarddlg.h
 /usr/include/digikam/dwizardpage.h
+/usr/include/digikam/dynamicthread.h
 /usr/include/digikam/editortool.h
 /usr/include/digikam/filesaveconflictbox.h
 /usr/include/digikam/filteraction.h
@@ -786,6 +810,7 @@ popd
 /usr/include/digikam/historyimageid.h
 /usr/include/digikam/iccprofile.h
 /usr/include/digikam/icctransform.h
+/usr/include/digikam/imagedialog.h
 /usr/include/digikam/imageiface.h
 /usr/include/digikam/imageregionwidget.h
 /usr/include/digikam/imagezoomsettings.h
@@ -793,6 +818,8 @@ popd
 /usr/include/digikam/iteminfo.h
 /usr/include/digikam/iteminfolist.h
 /usr/include/digikam/loadingdescription.h
+/usr/include/digikam/loadsavethread.h
+/usr/include/digikam/managedloadsavethread.h
 /usr/include/digikam/metaengine.h
 /usr/include/digikam/metaengine_data.h
 /usr/include/digikam/photoinfocontainer.h
@@ -802,6 +829,7 @@ popd
 /usr/include/digikam/queuesettings.h
 /usr/include/digikam/rginfo.h
 /usr/include/digikam/thumbnailinfo.h
+/usr/include/digikam/thumbnailloadthread.h
 /usr/include/digikam/wbcontainer.h
 /usr/lib64/cmake/DigikamCore/DigikamCoreConfig-relwithdebinfo.cmake
 /usr/lib64/cmake/DigikamCore/DigikamCoreConfig.cmake
@@ -812,6 +840,7 @@ popd
 /usr/lib64/cmake/DigikamGui/DigikamGuiConfig-relwithdebinfo.cmake
 /usr/lib64/cmake/DigikamGui/DigikamGuiConfig.cmake
 /usr/lib64/cmake/DigikamGui/DigikamGuiConfigVersion.cmake
+/usr/lib64/cmake/DigikamPlugin/DigikamPluginConfig.cmake
 /usr/lib64/haswell/libdigikamcore.so
 /usr/lib64/haswell/libdigikamdatabase.so
 /usr/lib64/haswell/libdigikamgui.so
@@ -821,12 +850,12 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/haswell/libdigikamcore.so.6.4.0
-/usr/lib64/haswell/libdigikamdatabase.so.6.4.0
-/usr/lib64/haswell/libdigikamgui.so.6.4.0
-/usr/lib64/libdigikamcore.so.6.4.0
-/usr/lib64/libdigikamdatabase.so.6.4.0
-/usr/lib64/libdigikamgui.so.6.4.0
+/usr/lib64/haswell/libdigikamcore.so.7.0.0
+/usr/lib64/haswell/libdigikamdatabase.so.7.0.0
+/usr/lib64/haswell/libdigikamgui.so.7.0.0
+/usr/lib64/libdigikamcore.so.7.0.0
+/usr/lib64/libdigikamdatabase.so.7.0.0
+/usr/lib64/libdigikamgui.so.7.0.0
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_AntiVignetting_Plugin.so
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_AssignTemplate_Plugin.so
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_AutoCorrection_Plugin.so
@@ -942,7 +971,6 @@ popd
 /usr/lib64/qt5/plugins/digikam/generic/Generic_FileTransfer_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_FileTransfer_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Flickr_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_Flickr_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_GeolocationEdit_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_GeolocationEdit_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Google_Plugin.so
@@ -972,10 +1000,13 @@ popd
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Rajce_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Rajce_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_SendByMail_Plugin.so
+/usr/lib64/qt5/plugins/digikam/generic/Generic_SlideShow_Plugin.so
+/usr/lib64/qt5/plugins/digikam/generic/Generic_SlideShow_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_SmugMug_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_SmugMug_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_TimeAdjust_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Twitter_Plugin.so
+/usr/lib64/qt5/plugins/digikam/generic/Generic_VKontakte_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Wallpaper_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_YandexFotki_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_YandexFotki_Plugin.so.avx2
@@ -993,7 +1024,6 @@ popd
 /usr/share/package-licenses/digikam/5be7b6f190b991f6c1029fd38d785c3ba54e255f
 /usr/share/package-licenses/digikam/831885f4ef4eccb4965bcddee48f0de3b5aea2d1
 /usr/share/package-licenses/digikam/a5bbd41410f38b2dd525e6c601f29b1736db13f9
-/usr/share/package-licenses/digikam/aae7ee73fdea4b41593aa2eca7ce3122e6f9d392
 /usr/share/package-licenses/digikam/c24b9c7ef03687bf0141f85a1b7ed81459944c3c
 /usr/share/package-licenses/digikam/ef250cb30fe89ea6687a0fe04fd552dbdc93e0e0
 /usr/share/package-licenses/digikam/ff3ed70db4739b3c6747c7f624fe2bad70802987
