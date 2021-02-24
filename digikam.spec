@@ -6,7 +6,7 @@
 #
 Name     : digikam
 Version  : 7.1.0
-Release  : 21
+Release  : 22
 URL      : https://download.kde.org/stable/digikam/7.1.0/digikam-7.1.0.tar.xz
 Source0  : https://download.kde.org/stable/digikam/7.1.0/digikam-7.1.0.tar.xz
 Source1  : https://download.kde.org/stable/digikam/7.1.0/digikam-7.1.0.tar.xz.sig
@@ -51,7 +51,7 @@ BuildRequires : kwidgetsaddons-dev
 BuildRequires : kwindowsystem-dev
 BuildRequires : kxmlgui-dev
 BuildRequires : lensfun-dev
-BuildRequires : libX11-dev libICE-dev libSM-dev libXau-dev libXcomposite-dev libXcursor-dev libXdamage-dev libXdmcp-dev libXext-dev libXfixes-dev libXft-dev libXi-dev libXinerama-dev libXi-dev libXmu-dev libXpm-dev libXrandr-dev libXrender-dev libXres-dev libXScrnSaver-dev libXt-dev libXtst-dev libXv-dev libXxf86misc-dev libXxf86vm-dev
+BuildRequires : libX11-dev libICE-dev libSM-dev libXau-dev libXcomposite-dev libXcursor-dev libXdamage-dev libXdmcp-dev libXext-dev libXfixes-dev libXft-dev libXi-dev libXinerama-dev libXi-dev libXmu-dev libXpm-dev libXrandr-dev libXrender-dev libXres-dev libXScrnSaver-dev libXt-dev libXtst-dev libXv-dev libXxf86vm-dev
 BuildRequires : libjpeg-turbo-dev
 BuildRequires : libksane-dev
 BuildRequires : libpng-dev
