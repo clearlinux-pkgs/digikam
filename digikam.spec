@@ -6,13 +6,13 @@
 #
 Name     : digikam
 Version  : 7.2.0
-Release  : 23
+Release  : 24
 URL      : https://download.kde.org/stable/digikam/7.2.0/digikam-7.2.0.tar.xz
 Source0  : https://download.kde.org/stable/digikam/7.2.0/digikam-7.2.0.tar.xz
 Source1  : https://download.kde.org/stable/digikam/7.2.0/digikam-7.2.0.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
-License  : BSD-2-Clause BSD-3-Clause CDDL-1.1 CECILL-1.1 GPL-2.0 LGPL-2.1
+License  : BSD-2-Clause BSD-3-Clause CDDL-1.0 CDDL-1.1 CECILL-1.1 GPL-2.0 LGPL-2.1
 Requires: digikam-bin = %{version}-%{release}
 Requires: digikam-data = %{version}-%{release}
 Requires: digikam-lib = %{version}-%{release}
@@ -157,7 +157,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1618653940
+export SOURCE_DATE_EPOCH=1622742044
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -186,7 +186,7 @@ make  %{?_smp_mflags}  -w
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1618653940
+export SOURCE_DATE_EPOCH=1622742044
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/digikam
 cp %{_builddir}/digikam-7.2.0/COPYING %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
@@ -195,6 +195,7 @@ cp %{_builddir}/digikam-7.2.0/COPYING.LIB %{buildroot}/usr/share/package-license
 cp %{_builddir}/digikam-7.2.0/core/dplugins/generic/tools/mediaserver/upnpsdk/Platinum/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/a5bbd41410f38b2dd525e6c601f29b1736db13f9
 cp %{_builddir}/digikam-7.2.0/core/libs/dimg/filters/greycstoration/cimg/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/2da2357c9706c1416e5d65e4a2e21a1c77fc9dff
 cp %{_builddir}/digikam-7.2.0/core/libs/dplugins/webservices/o2/LICENSE %{buildroot}/usr/share/package-licenses/digikam/5be7b6f190b991f6c1029fd38d785c3ba54e255f
+cp %{_builddir}/digikam-7.2.0/core/libs/rawengine/libraw/COPYRIGHT %{buildroot}/usr/share/package-licenses/digikam/e86ca32ed57e181b74fd60bbb8301acf014a9a6c
 cp %{_builddir}/digikam-7.2.0/core/libs/rawengine/libraw/LICENSE.CDDL %{buildroot}/usr/share/package-licenses/digikam/c24b9c7ef03687bf0141f85a1b7ed81459944c3c
 cp %{_builddir}/digikam-7.2.0/core/libs/rawengine/libraw/LICENSE.LGPL %{buildroot}/usr/share/package-licenses/digikam/39a21f33cadea18adcc23bf808d7d5ea6419c8b1
 cp %{_builddir}/digikam-7.2.0/core/tests/modeltest/LICENSE.GPL %{buildroot}/usr/share/package-licenses/digikam/831885f4ef4eccb4965bcddee48f0de3b5aea2d1
@@ -920,11 +921,13 @@ popd
 /usr/lib64/qt5/plugins/digikam/editor/Editor_FilmGrainTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_FilmTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_FreeRotationTool_Plugin.so
+/usr/lib64/qt5/plugins/digikam/editor/Editor_FreeRotationTool_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/editor/Editor_HSLTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_HealingCloneTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_HealingCloneTool_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/editor/Editor_HotpixelsTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_InsertTextTool_Plugin.so
+/usr/lib64/qt5/plugins/digikam/editor/Editor_InsertTextTool_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/editor/Editor_InvertTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_LensAutoFixTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_LensDistortionTool_Plugin.so
@@ -952,13 +955,11 @@ popd
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Calendar_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Calendar_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_DigitalScanner_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_DigitalScanner_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_DropBox_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_ExpoBlending_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_ExpoBlending_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_FileCopy_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_FileTransfer_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_FileTransfer_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Flickr_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_GeolocationEdit_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_GeolocationEdit_Plugin.so.avx2
@@ -1013,6 +1014,7 @@ popd
 /usr/share/package-licenses/digikam/831885f4ef4eccb4965bcddee48f0de3b5aea2d1
 /usr/share/package-licenses/digikam/a5bbd41410f38b2dd525e6c601f29b1736db13f9
 /usr/share/package-licenses/digikam/c24b9c7ef03687bf0141f85a1b7ed81459944c3c
+/usr/share/package-licenses/digikam/e86ca32ed57e181b74fd60bbb8301acf014a9a6c
 /usr/share/package-licenses/digikam/ef250cb30fe89ea6687a0fe04fd552dbdc93e0e0
 /usr/share/package-licenses/digikam/ff3ed70db4739b3c6747c7f624fe2bad70802987
 
