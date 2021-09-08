@@ -1,407 +1,397 @@
-digiKam 7.2.0 - Release date: 2021-03-22
+digiKam 7.3.0 - Release date: 2021-07-11
 
 *****************************************************************************************************
 NEW FEATURES:
 
-General       : Add ccache support to speed-up compilations.
-General       : New Online version checker/downloader, with release notes viewer and option to install automatically new version under macOS and Windows.
-General       : MacOS PKG installer is now compatible with Apple BigSur.
-General       : MacOS bundle is now fully relocatable.
-General       : Check and fix source codes with Clazy static analyzer.
-General       : All bundles updated to last KF5 framework version 5.74.
-General       : All bundles updated to last OpenCV version 4.4.0.
-General       : Add a static QCollator class for fast item sorting.
-AdvancedSearch: Add search for empty title, caption, author or creator fields.
-AdvancedSearch: Add search for a month or the day of a month.
-AdvancedSearch: Add option to search tags in tree.
-Database      : Change database scheme under MySQL from TagsTree VIEW to TABLE with triggers.
-FaceManagement: Improve users experience in GUI for face workflow while tagging and manage faces.
-FaceManagement: Add face engine clustering support for detection and recognition processes.
-FaceManagement: Remove face engine data files from sources and bundles and add a file downloader.
-RawEngine     : Update internal Libraw to last 0.21.0:
-                Camera format support:
-                   Lossy compressed CR3 files
-                   Lossy compressed RAF files
-                   Uncompressed floating point DNG files (16-24-32 bit)
-                   Deflate compressed striped DNG files
-                   XMP and HEIF-preview extraction from CR3 files
-                Camera model support;
-                   Apple iPhone 12 Max, iPhone 12 Max Pro
-                   Canon EOS R5, EOS R6, EOS 850D, EOS-1D X Mark III (lossy compressed files)
-                   FujiFilm X-S10
-                   Hasselblad CFV II 50C",
-                   Leica M10-R, Q2 Monochrom, S3, SL2-S
-                   Nikon Z 5, Z 6 II, Z 7 II
-                   Olympus E-M10 Mark IV
-                   Panasonic DC-G100 / G110, DC-S5
-                   Sony ILCE-7C (A7C), ILCE-7SM3 (A7S III)
-                   Zeiss ZX1
-                   Plus multiple DNG-recording cameraphones/drones/etc.
+General : Add new metadata viewer based on ExifTool.
+General : Better support of astrophoto FITS image format (Flexible Image Transport System) including metadata extraction support to populate the database.
+General : Better support of MPO image format (Multiple Picture Object) inluding metadata extraction support to populate the database.
+General : Digital Scanner plugin is now available under Windows.
+General : Use last Exiv2 0.27.4 in all bundles with Base Media File metadata read and write support (HEIF, AVIF).
+General : Use last KF5 framework 5.80 in all bundles.
+General : Update internal Libpgf to 7.21.7 (18-02-2021).
+General : Update internal Libraw from snapshot 20210622.
+General : Update internal DNG SDK to last 1.5 and XMP SDK to last 5.7.0.
+General : DNGWriter now use ExifTool to post-process metadata.
+General : Internal Libraw use DNG SDK 1.5 to handle 8 bits DNG files.
+Searches: Find duplicates items is now process in parallel using multi-cores.
+Plugins : New tool to export items to iNaturalist web service (https://www.inaturalist.org/).
+Plugins : SlideShow and Presentation tools now allow to move items to the trash.
+Plugins : New tool to convert RAW to DNG in batch for Showfoto.
 
 *****************************************************************************************************
 BUGFIXES:
 
-001 ==> 415565 - Show face as icon for each person in the People panel.
-002 ==> 415604 - Allow changing a face tag from a person to another.
-003 ==> 392023 - Add "Ignored" group of faces.
-004 ==> 423114 - Deleted Faces don't re-appear in Face Scan with "Skip Images already Scanned".
-005 ==> 384485 - Face Regions are deleted when unconfirmed face suggestion is rejected by user.
-006 ==> 384396 - Display faces sorted by similarity (pre-grouped) instead of album/time/.
-007 ==> 415782 - Face recognition "favors" people with few images: missing faces clustering.
-008 ==> 416630 - Use N nearest neighbor search.
-009 ==> 415895 - DNN Face recognition not working well on a picture.
-010 ==> 344800 - SQLITE : when moving an album to another location tags are lost (NFS storage).
-011 ==> 426186 - Lots of error messages from ItemAlbumModel.
-012 ==> 426185 - digiKam starts more slowly than previous version.
-013 ==> 390226 - Never import current collection.
-014 ==> 426373 - Can't get Adjust Date & Time to work.
-015 ==> 415867 - Face recognition -> after manual tagging -> no detection.
-016 ==> 293697 - Crashes on Remove Red Eyes.
-017 ==> 323253 - When face tag scanning, digikam exhausts all memory on computer.
-018 ==> 409146 - Name not applied to RegionInfo when the region was added by iOS.
-019 ==> 268191 - Allow building without FacesEngine.
-020 ==> 392024 - Feature request: group similar faces in "Unknown" faces.
-021 ==> 409788 - Sort-by/group by detected person (in Unconfirmed-View).
-022 ==> 414653 - Ranking option in people recognition.
-023 ==> 415878 - Sort "Unconfirmed" images by face name / or group them.
-024 ==> 417390 - In "unconfirmed" and "unknown" can be grouped by similar faces.
-025 ==> 421985 - Difficult to use face recognition.
-026 ==> 415786 - Option to ignore group of images from face detection.
-027 ==> 415880 - Add a way to easily correct a face name.
-028 ==> 418757 - Ability to Ignore a face region.
-029 ==> 419047 - Closing Face Tag Delete Dialog Box still ends up deleting face tag.
-030 ==> 423387 - Add Button to instanlty set face tag as Unknown.
-031 ==> 261319 - digiKam crash at startup with "signal: Illegal instruction" (SIGILL)
-032 ==> 420257 - Empty secondary window sometimes appear when using digiKam.
-033 ==> 406591 - Error in SDL2.dll.
-034 ==> 135374 - Rename image files: add the possibility of "Find and replace".
-035 ==> 336307 - Photos from Samsung S2 disappear after rename.
-036 ==> 244559 - Crash when renaming files in batch process.
-037 ==> 249148 - digiKam crashed when rename files.
-038 ==> 252557 - Batch rename files caused crashed.
-039 ==> 255830 - Crash while renaming files using German Umlauts
-040 ==> 256314 - Crash when renaming jpegs.
-041 ==> 257099 - Crash when leaving Rename dialog if several files selected.
-042 ==> 257788 - Renaming multiple files crashes.
-043 ==> 258045 - digiKam crashes, related with the rename of several photographs.
-044 ==> 264019 - Crash by multi rename.
-045 ==> 267211 - digiKam crashes after batch renaming more than two files.
-046 ==> 211426 - Rename collision dialog notifies that files aren't on local computer.
-047 ==> 237805 - File rename using metadata fails when using file conversion tool in Batch queue manager.
-048 ==> 251768 - digiKam custom file renaming options are ignored when importing from camera.
-049 ==> 318363 - Bad performance of file renames (thumbnail recreation?).
-050 ==> 414081 - Renaming not working as expected in digiKam 6.4.
-051 ==> 420691 - digiKam stopped responding and required new setup.
-052 ==> 257677 - Crash when I renane files.
-053 ==> 109517 - Photo Tag's & Comment's are lost when ablum's are rearranged or renamed.
-054 ==> 091161 - Batch processing - rename problems.
-055 ==> 374783 - Window location is not restored correctly after restart.
-056 ==> 413884 - digiKam does not remember last window position and size on startup.
-057 ==> 132691 - Pressing the Supr button should display a warning message to prevent to delete photos.
-058 ==> 197449 - digiKam crashes after deleting a bunch of images.
-059 ==> 199096 - Deleting files in a folder being viewed by digiKam seemed to crash it.
-060 ==> 208635 - Next picture after delete.
-061 ==> 246488 - digiKam crashes if i click on a deleted file.
-062 ==> 293692 - digiKam Crash.
-063 ==> 282510 - digiKam crashed when changing selection while images are being deleted.
-064 ==> 286065 - digiKam crash when I delete a photograph.
-065 ==> 104009 - Photo stays in album when moved to another album.
-066 ==> 114189 - Add an option where i can set the "picture create permissions".
-067 ==> 246174 - digiKam dies when "doing file -> new".
-068 ==> 247090 - "New" problem.
-069 ==> 377422 - Main window got stuck in Full Screen mode - Cinnamon DE.
-070 ==> 426346 - People display is garbled.
-071 ==> 426356 - Poor video performance in Flatpak images.
-072 ==> 426332 - Confirmed Face Tags Turned To Unconfirmed.
-073 ==> 132631 - digiKam does not restore main window size.
-074 ==> 425238 - Abnormally large icons.
-075 ==> 292902 - After choosing a dark theme the album view still with a white background and unreadable yellow or white font.
-076 ==> 229043 - digiKam dark designs are not redable.
-077 ==> 426575 - The album shows the contents of sub folders before the main folders.
-078 ==> 426635 - Healing Clone Tool missing from (Image Editor) Enhance Menu.
-079 ==> 087106 - Advancedslideshow : option to pause, go back or forward, and quit/resume.
-080 ==> 095592 - Slideshow fills both screens in dual head setup.
-081 ==> 114510 - In Dates view and Searches view, advancedslideshow does not work when the option "Show all images in current album" is checked.
-082 ==> 116611 - Add xscreensaver-style panning-zooming crossfade effect.
-083 ==> 125693 - User comments should appear in the slideshow.
-084 ==> 129375 - I don't want to use timer functionality for slideshow, change to next picture when key/mouse is pressed.
-085 ==> 426699 - "Ignored" faces category should not be positioned alphabetically, but on top of the list.
-086 ==> 372380 - Support for MediaWiki tool?
-087 ==> 417788 - Can't import a video file in an album.
-088 ==> 426218 - Pictures from old collection still in database after removing it.
-089 ==> 426597 - Stack underflow crash in Digikam::DImg::load().
-090 ==> 159788 - Picture zoomed in "full screen modus".
-091 ==> 176699 - Picture not shown, digiKam, error displaying pictures, just thumbails.
-092 ==> 193265 - The application suddenly crashes when I try to open a preview of a photo.
-093 ==> 170340 - Embed view does not work; I can not see an image.
-094 ==> 175326 - View photo displays blank image.
-095 ==> 172730 - Preview only, but no photo details shown at all.
-096 ==> 256161 - Another crash while navigating/deleting photos quickly.
-097 ==> 296653 - Selecting a range of photos when in preview mode is buggy.
-098 ==> 231570 - digiKam crashes when opening the full size preview with a very large panorama picture.
-099 ==> 240250 - Crash in previewer.
-100 ==> 320333 - digiKam crashed while changing to the next photo in photo preview view.
-101 ==> 330645 - digiKam crashed whilst advancing from one photo to the next in preview.
-102 ==> 251932 - digiKam crash.
-103 ==> 300843 - Just a random crash, just browsing photos.
-104 ==> 256898 - digiKam crashed while browsing Photos.
-105 ==> 338164 - Crash when switching from camera preview to folder on system.
-106 ==> 426862 - Keyboard shortcut "delete" not working.
-107 ==> 426481 - Face recognition feels like a regression from 6.4.
-108 ==> 426479 - Slideshow: Show lens name in properties overlay.
-109 ==> 426884 - Geolocation Editor discards changes without warning.
-110 ==> 426659 - Thumbnails for tagged faces not useful.
-111 ==> 426422 - digiKam won't work.
-112 ==> 426912 - digikam-7.1.0-x86-64.appimage fails to start on CentOS 8.
-113 ==> 426996 - Write geolocation to EXIF.
-114 ==> 416470 - Suggestion: Make Album TreeView more explorer like.
-115 ==> 426888 - digiKam crashes shortly after I attempt to start it.
-116 ==> 427041 - Geolocation information not being saved to the metadata.
-117 ==> 427056 - digiKam seg faults building thumbnail from gigabyte PNG.
-118 ==> 427112 - Modify the geolocation : Legends of the screen menus incorrect.
-119 ==> 427173 - When clicking on the parent folder that has multiple subfolder with the images, nothing is shown.
-120 ==> 427079 - Error "internal server is not used and is not active".
-121 ==> 426175 - Segmentation fault while Faces detection.
-122 ==> 423632 - Segfault when scanning faces.
-123 ==> 425723 - digiKam crashes after a while when detecting faces using multiple CPU cores.
-124 ==> 425063 - Detect Faces crashes the App.
-125 ==> 425230 - Crash when scanning for faces.
-126 ==> 425698 - digiKam face detection crash under Linux.
-127 ==> 420411 - digiKam Crash on detect faces 7.0.0 beta3 debug build.
-128 ==> 425972 - Scan for face: crash under Windows during Album scan with multicore.
-129 ==> 425904 - digiKam crash while scanning faces.
-130 ==> 418939 - Crash in metadata engine when search faces.
-131 ==> 426236 - Crashed when running face detection.
-132 ==> 422735 - Segment fault after first 'scan collection for faces'.
-133 ==> 425096 - Crash Unsupported JPEG process: SOF type 0xc8.
-134 ==> 425702 - digiKam crashes under Linux when detecting faces.
-135 ==> 425703 - digiKam crashes (again) under Linux while detecting faces.
-136 ==> 184469 - Red eyes doesn't work here.
-137 ==> 174683 - Crashes when try to correct red eye.
-138 ==> 425439 - App crashes during the maintenance process with face recognition. stacktrace and log included.
-139 ==> 426331 - The file digikam.exe contains no icons.
-140 ==> 426333 - Icons Not Set for digiKam and Showfoto.
-141 ==> 426717 - digikam.exe & showfoto.exe: no application-specific icons shown on Windows 10 after upgrade to 7.1.0.
-142 ==> 427468 - Duplicate subalbums on Windows 10 (format YYYY\MM).
-143 ==> 427385 - digiKam git build fail.
-144 ==> 427555 - Allow selecting single picture, which fills complete screen which can be panned and zoomed.
-145 ==> 427662 - HiDPI Settings Not Working in Digikam 7.1.0.
-146 ==> 396086 - Changing elements order takes near 5 minutes in a folder with 50 images.
-147 ==> 424691 - Thumbnails not showing for face tags [patch].
-148 ==> 427863 - Dragging a folder onto albums tree view sidebar will import with name of parent folder.
-149 ==> 427899 - Search (and Timeline, and ...) should offer a way to go to the album of the currently selected image.
-150 ==> 427907 - Person name appears in tool tip and also search and also people listing but is shown as unknown in the photo.
-151 ==> 428435 - Duration Column not showing any value.
-152 ==> 388899 - Assigning color labels from right side menu is different than over context menu.
-153 ==> 428427 - Some metadata (tags, captions) not applying to grouped images.
-154 ==> 424437 - Batch deleting duplicates.
-155 ==> 428558 - With batch workflow lens correction doesn't use metadata.
-156 ==> 428472 - digiKam doesn't come up as it can't update db schema from 9 to 10.
-157 ==> 428578 - The filename extension is used for sorting the filename.
-158 ==> 428733 - Import window always keeps last image.
-159 ==> 428723 - Wish - 'copy to' function with right click on thumbnail.
-160 ==> 427067 - Albums doesn't show thumbnails; timeline only shows 1 folder.
-161 ==> 427031 - Reverse image search.
-162 ==> 426480 - Remove unused lenses from database.
-163 ==> 373839 - Continuously face thumbnails flicker/update.
-164 ==> 426208 - Thumbnails constantly refreshing on Mac version.
-165 ==> 422138 - Select other Languages is out.
-166 ==> 428924 - Group of *.MP4 files that have disappeared from digiKam. Database problem?
-167 ==> 428638 - 7.2.0 beta1: sorting of images in thumbnail view - german environment and UI.
-168 ==> 429021 - Wrong image rotation when extracting face thumbs.
-169 ==> 426309 - Support face detection back ends that require larger data sets.
-170 ==> 420128 - Poor result of face detection (7.0.0. beta2).
-171 ==> 415559 - Standard Face Detection does not work on LowRes pictures.
-172 ==> 429221 - digiKam Editor White Balance Effect Shadows Slider Not Working.
-173 ==> 429118 - Changing the keywords of DNG files do not really change the file - the changes are not saved in the DNG.
-174 ==> 429055 - Storing tags to files does not work.
-175 ==> 429310 - Tagging regression with last digiKam git versions.
-176 ==> 375062 - digiKam does not remember sort direction in Date-View.
-177 ==> 429335 - digikam 7.2.0-beta2 (18.11.2020) crashes after assigning name to unknown face.
-178 ==> 429362 - Please make qtwebengine dependency optional.
-179 ==> 429232 - digiKam Does not open - Happens also on a fresh Manjaro Linux install with BTRFS as file system.
-180 ==> 429261 - Malformed characters in EXIF Artist field.
-181 ==> 429346 - Rotating and cropping: Concentration of the cropping frame on the real image area.
-182 ==> 406723 - Tags are not synced.
-183 ==> 429471 - User is prompted to remove face tags from images when image count is zero 0.
-184 ==> 429551 - Many Tags Stored in Photos are not Inserted into digiKam's tag list When Photos are Read.
-185 ==> 429664 - Windows file rename change case only fails badly.
-186 ==> 429625 - Under Import, Add images and Add Folders options are not available.
-187 ==> 429715 - When importing with the rename function, 'import selected' does not import files.
-188 ==> 427107 - Geolocation data not written in jpeg files in v7.1.0.
-189 ==> 429783 - Geolocation information lost on export and no EXIF tags generated in .JPG.
-190 ==> 429787 - Delete Unassigned Tags: show list of the unassigned tags before deleting them,
-191 ==> 429820 - Radio buttons vs. checkboxes for Tags Matching Condition "OR/AND" chooser.
-192 ==> 429820 - Checkboxes should be radio buttons in Tags Matching Condition "OR/AND" chooser.
-193 ==> 429827 - Clarify parent when creating new album (UI shows a mismatch).
-194 ==> 429931 - Small Typo on web page.
-195 ==> 429995 - Unexpected Media Server listening on *:8200 - Should have been informed / given the option during 1st run setup.
-196 ==> 430056 - Rotating a photo confirms its unconfirmed face tags.
-197 ==> 430094 - Crash when opening configure dialog.
-198 ==> 430103 - Move gallery trash.
-199 ==> 430132 - Some vertical videos are rotated sideways in preview player.
-200 ==> 430147 - Search and escaping of database wildcard characters in filenames.
-201 ==> 430134 - Face tags lost and captions mis-transferred after digiKam automatically renames a conflicting filename.
-202 ==> 430189 - Can't login because I have no rights to access the Database.
-203 ==> 430179 - Thumbnails sort order.
-204 ==> 425746 - No thumbnails when importing photos from camera.
-205 ==> 429116 - System crash under macOS 11 install. Does not load.
-206 ==> 430451 - Building Fingerprint abruptly stops.
-207 ==> 430427 - PSD files cannot be viewed. Thumbnails are OK.
-208 ==> 430566 - Make DK_PLUGIN_PATH allow multiple paths.
-209 ==> 429103 - digiKam 7.1.0 does not start up, when using macos big sur.
-210 ==> 372487 - BQM says there are unprocessed items even though it completed successfully and all images were processed.
-211 ==> 430664 - How to access a database and files from another computer in LAN.
-212 ==> 430684 - Renaming mp4 files - metadata fields have no values.
-213 ==> 430589 - Want to disable face detection extra download on Mac version.
-214 ==> 383096 - digiKam crash, maintenance related?
-215 ==> 430762 - Change icon size for people keywords.
-216 ==> 430337 - Failed to create a new people tag.
-217 ==> 430250 - Provide filetype-based filter for running face detection.
-218 ==> 423386 - Unconfirmed face detections treated as confirmed.
-219 ==> 397229 - Facetags are not well displayed in the facetag list for one person.
-220 ==> 430810 - Cannot found Slideshow settings dialog page.
-221 ==> 376891 - digiKam becomes unusable with many Metatags.
-222 ==> 417399 - Wishlist: button to hide confirmed faces for a person.
-223 ==> 279667 - Face thumbnails from people tags does not support drag and drop.
-224 ==> 430818 - In Batch Queue Manager, the "Run" command, execute always the first queue.
-225 ==> 426860 - digiKam not entirely behaving as app on MacOS.
-226 ==> 430903 - Do not enlarge smaller photos.
-227 ==> 417088 - AppImage with QWebEngine does not start.
-228 ==> 427533 - Appimage fails to launch.
-229 ==> 424664 - digiKam 7.0 crash when opening geolocation tool.
-230 ==> 424617 - The digiKam appimage crashes on starting.
-231 ==> 430923 - EXIF viewer settings not updating EXIF Metadata view.
-232 ==> 430876 - Rename images without changing any properties.
-233 ==> 430995 - No video preview or thumbnails for any video content.
-234 ==> 431013 - Not all databases will be saved when using the --database-directory option.
-235 ==> 415617 - Color management profile path uses previous appimage mount point.
-236 ==> 430986 - Setting up Eudora email app.
-237 ==> 430949 - digiKam-7.2.0-beta2 (macOS (DMG)) breaks existing local MySQL/MariaDB instances on upgrade.
-238 ==> 430985 - New beta release doesn´t start.
-239 ==> 430996 - Yolo v3 causes application to crash with 32 bits version.
-240 ==> 431108 - Online Handbook... Launches Irrelevant Documentation.
-241 ==> 431095 - Make "scan for new items" collection sensitive.
-242 ==> 431117 - Selected GPX File Colour Is Grayed Out When Selected.
-243 ==> 431070 - Filetype .wmf can't be displayed.
-244 ==> 431081 - Exif data is completely lost for some pictures after detect faces / recognize faces.
-245 ==> 431119 - Move Map To First Point In Selected GPX Track.
-246 ==> 431047 - Missing icons in the map view.
-247 ==> 431162 - Change Name of Auto Correction to "Lens Auto-Correction".
-248 ==> 431003 - Running status of digikam not reflected in MacOS task bar.
-249 ==> 431102 - Windows install does not have an icon for digiKam.
-250 ==> 424727 - "Failed to connect to camera" error with iPhone 6s.
-251 ==> 380323 - Apply ratings with keyboard shortcuts.
-252 ==> 426997 - Automatic upgrading.
-253 ==> 429792 - Face tag name completion with arrow keys fails.
-254 ==> 430671 - Add a Face Tag: default action for Enter key should be the highlighted tag.
-255 ==> 431188 - Add a Face Tag: Keyboard navigation to select from autocomplete dropdown doesn't work.
-256 ==> 431357 - Face attribution doesn't get the name selected in the contextual menu.
-257 ==> 431355 - There is no button to add Tag to picture.
-258 ==> 297291 - Allow to quick edit metadata using keyboard shortcuts.
-259 ==> 431369 - Lens search uses only exact match (as I see).
-260 ==> 431400 - "Find duplicates" Without Selecting An Album Locks Up Duplicates Feature.
-261 ==> 431403 - Cannot Drag and Drop When Using Similarity.
-262 ==> 431470 - Wrong keystroke behavior while editing face tag.
-263 ==> 237010 - Remove __DATE__ and __TIME__ from code.
-264 ==> 431614 - Tags are not written to secondary pictures if grouped by name.
-265 ==> 431598 - digiKam-7.2.0-rc (14.01.2021) crashes while getting "Help > List of Detected Hardware".
-266 ==> 431660 - BQM stores output files one directory level above actual target.
-267 ==> 216412 - Show warning message before album deletion when directories containing files which are not shown by digiKam.
-268 ==> 431150 - Thumbs for faces created from .DNG images are not shown.
-269 ==> 431658 - digiKam git trash issue.
-270 ==> 269424 - Rebuild all thumbnails misses people (faces) thumbnails.
-271 ==> 431808 - Program icon not visible.
-272 ==> 144177 - In Caption/Tags sidebar, new Tags inherit the image of their parents.
-273 ==> 421043 - Faces Detection crashes digiKam.
-274 ==> 427333 - Face detection crashes due to pure virtual method call in LoadingCache.
-275 ==> 429307 - Crash with face detection under Windows.
-276 ==> 427380 - Crashes when running face detection.
-277 ==> 431907 - Authentication to Google fails with "This browser or app may not be secure".
-278 ==> 431964 - Face tags are not read correctly on certain images with more than one Microsoft People Tags XMP metadata.
-279 ==> 431831 - How much data gets sent to digikam.org for face recognition.
-280 ==> 432066 - Preview does not update when changing the photo using the keyboard in geolocation editor.
-281 ==> 432048 - XMP People/Face tags with no associated regions are ignored by digiKam (Person Shown, MWG Face name, MS People Tag).
-282 ==> 432069 - Please add the map settings also to the menu.
-283 ==> 424805 - digiKam crashes when opening preview of items from a specific album.
-284 ==> 431775 - Compiling with ccache issue.
-285 ==> 432074 - digiKam's appimage failed to launch on ArchLinux.
-286 ==> 432312 - Detect Faces crashes when .xcf file encountered.
-287 ==> 432428 - Quick search by image name in current album.
-288 ==> 432522 - digiKam 7.2.0-b2 on macOS 11 with remote mysql - failed to update DB schema.
-289 ==> 432494 - Advanced search album does not search subfolders nothing.
-290 ==> 432568 - Provisional tags are not displayed until another change is made.
-291 ==> 431354 - Inconsistent behavior when adding Tags/Keywords.
-292 ==> 430922 - Crashes without notification.
-293 ==> 431366 - Translation incomplete, conversion to DE not possible. Language selection is missing.
-294 ==> 425404 - digikam crash when making a maintenance.
-295 ==> 426733 - Renaming with tags in subtree fails.
-296 ==> 428938 - Entire program closes unexpectedly.
-297 ==> 430702 - Lost the UI while process is still working.
-298 ==> 430921 - Cannot add Edit Metadata filter to toolbar DigiKam 7.1.0.
-299 ==> 432480 - Crash when trying to Import from Google Photos.
-300 ==> 339355 - for each access to a google service we must have a distinct authorization.
-301 ==> 432619 - Batch Queue Manager does not use original album as target.
-302 ==> 124788 - Allow to turn off Presentation tool delay [patch].
-303 ==> 432646 - digiKam 7.2.0-rc crashes on startup (beta2 didn't).
-304 ==> 432613 - Face detection scan all album, not only the selected ones.
-305 ==> 432764 - Face detection (!) with few results.
-306 ==> 431721 - The string "Filters" needs to be disambiguated between image/search context.
-307 ==> 432823 - Metadata Panel does not display XMP structs instead displays type="Bag".
-308 ==> 293335 - GPX file without time stamps reports no datapoints.
-309 ==> 432531 - After running DB maintenance digiKam won't start can't connect to DB then crashes.
-310 ==> 432878 - Rendering Intents options cannot be translated in Color Management Configuration page.
-311 ==> 432732 - Wish: Support wildcards in text filter.
-312 ==> 398376 - UI problems making face management very hard.
-313 ==> 384614 - Digikam redeye does not work on some images.
-314 ==> 390487 - Open in File Manager function enhancement.
-315 ==> 401941 - Beta3 / beta2 launches but hangs... Now fear for DB!
-316 ==> 400941 - Crash with segmentation fault when writing a large amount of metadata to images.
-317 ==> 341510 - Imported GPX Files generate an error when GPX-File contains 'unusual' tags.
-318 ==> 432789 - Imported Pictures (RAW, CR3, Canon M6 Mark II) doesn´t have the rigth Rotation.
-319 ==> 432957 - Some tags appear beneath "People" parent tag in People view/panel.
-320 ==> 430761 - Windows digikam.exe application icon missing.
-321 ==> 433060 - Inconsistency between metadata displayed and metadata taken in account to rename.
-322 ==> 433183 - Migrate from "MySQL Server" database corrupts face/people metadata.
-323 ==> 433172 - Files do not disappear if cut.
-324 ==> 433264 - Patch for missing QPainterPath in qtavcodecs.cpp.
-325 ==> 431951 - UI lockup for upwards of 15 seconds while just scrolling album views and selecting images.
-326 ==> 432257 - Spinning Pinwheel Scrolling through Thumbnails.
-327 ==> 433350 - 'reread metadata from file' don't clean up ImageProperties table if the related fields don't exist anymore in the file.
-328 ==> 433311 - New or modified root album folders are always placed into local collections (= Type No 1 in table album roots).
-329 ==> 183103 - Allow to change Presentation tool delay on the fly [patch].
-330 ==> 433331 - Display Thumbnails greater than 9080 missing with removable disk Off line (Ok On Line).
-331 ==> 424051 - Please add search for images without captions.
-332 ==> 433653 - Please Add xattr support for metadata.
-333 ==> 431748 - Feature Request: Search by month/day independent of year.
-334 ==> 433573 - View - Separate Item - By Month : View by month only (not month year).
-335 ==> 433727 - Does not show exif info from Panasonic FZ30 RAW file, inspite on Editor mode it's ok.
-336 ==> 433423 - 'byline' into xmp panel editor is called 'creator' into Advanced Search.
-337 ==> 433753 - Hang / crash when program is loading.
-338 ==> 433852 - digiKam.metaengine: Cannot load metadata from file Error # 11: The file contains data of an unknown image type.
-339 ==> 433850 - Not able to delete any tags.
-340 ==> 433822 - digiKam doesn't read extended (xattr) attributes.
-341 ==> 418274 - Improve Thumbnail transparency.
-342 ==> 433984 - digiKam does not save tags as hierarchical tags in Extended Attributes.
-343 ==> 434017 - Gone are the metadata embedded in the jpg file of some photos.
-344 ==> 434049 - Faulty logic in "updateZoomAndSize", zoom level changed after preview image changed [patch].
-345 ==> 434060 - digiKam doesn't drop deleted tags from Extended Attributes.
-346 ==> 434092 - Disappeared for some time file menu, changes etc.
-347 ==> 434103 - Window position on startup.
-348 ==> 430865 - digiKam Full screen restart with top left corner in the middle screen.
-349 ==> 195555 - Add a new option to use a constant scrolling speed with Kenburns effect [patch].
-350 ==> 338034 - SETUP : Individual databases for each "collection".
-351 ==> 434275 - Row height determined by number of tags even if they are not visible.
-352 ==> 434302 - Sub-folders not selected when parent folder is selected.
-353 ==> 376690 - Irritating behavior of list when moving images.
-354 ==> 434112 - digiKam-7.2* crashes at first start after install while starting main view.
-355 ==> 432760 - New items for people entries without seeing the mentioned photos.
-356 ==> 434423 - digiKam displaying incorrect lens info in 'Properties - Photograph Properties'.
-357 ==> 434446 - "Set point" shortcut removed in ImageEditor in digikam version 6.4.0.
-358 ==> 433997 - digiKam does not open.
-359 ==> 434299 - No entries in Imagemagick Loader when in Appimage.
-360 ==> 434574 - F4 to play video on external VLC player crashes VLC.
-361 ==> 434594 - Copy of jpeg file with empty caption (but caption in sidecar) shows caption.
-362 ==> 434566 - Application crashes C:\Program Files\digiKam\plugins\digikam\dimg\DImg_QImage_Plugin.dll.
-363 ==> 434714 - digiKam-7.2.0-20210320T221224 breaks digiKam launch on macOS 10.14.6 Mojave.
-364 ==> 434716 - Serious Problems while rotating multiple Images with Synch Services (QMAP, Synology, etc.).
+001 ==> 434750 - Yolov3 doesn't work on png Images.
+002 ==> 434795 - Advanced search seems to notice internal tags.
+003 ==> 356065 - Baloo metadata not written out by Album.
+004 ==> 433226 - Crash - searching new entries.
+005 ==> 435021 - Rename does not support both comma and semicolon.
+006 ==> 435020 - Check for new version doesn't find updated released version.
+007 ==> 435065 - After upgrade from digiKam 7.1 to 7.2, digiKam won't start.
+008 ==> 434960 - Libksane impossible to cross-compile for Windows.
+009 ==> 417064 - Import menu has no option to acquire images from scanner.
+010 ==> 194341 - digiKam crashed with seg fault.
+011 ==> 140750 - Image malformed in digiKam.
+012 ==> 205140 - digiKam crash using digital scanner.
+013 ==> 205198 - digiKam crash when trying to save a scanned image.
+014 ==> 435089 - Tags Manager toolbar icon buttons do nothing.
+015 ==> 435091 - Right-clicking Tags Manager toolbar shows unlabeled checkbox; unclear how to restore toolbar.
+016 ==> 435139 - Error while opening the database. digikam will try to automatically reconnect to the database.
+017 ==> 372435 - Use multiple cpu cores for duplicate search [patch].
+018 ==> 383563 - Many tags disappeared from mariadb database.
+019 ==> 424618 - When clicking on maps digiKam crash.
+020 ==> 435231 - Loading .FITS images for astrophotography.
+021 ==> 435250 - No Photograph Properties for DNG files.
+022 ==> 435239 - Malfunctioning group.
+023 ==> 435267 - Hierarchical Keywords.
+024 ==> 435272 - No entries in recogition databases.
+025 ==> 435275 - Themes Management.
+026 ==> 435277 - Translation bug: german translation.
+027 ==> 435314 - digiKam 7.3.0 doesn't respect the MySQL (MariaDB) database folder stipulated on settings, after migration from SQLITE.
+028 ==> 435179 - Face write to database with wrong user (''@'%') MariaDB backend.
+029 ==> 427757 - No Icon.
+030 ==> 431808 - Program icon not visible.
+031 ==> 432982 - Program icons are missing.
+032 ==> 425962 - Error still present.
+033 ==> 418162 - Additional empty popup in geolocation dialog.
+034 ==> 424683 - Map view crashes immediately.
+035 ==> 425125 - User Comment shown as "binary comment".
+036 ==> 425878 - No thumbnails forthcoming.
+037 ==> 425726 - Album Folder only allows *PICTURES* folder digikam does not see any folder in /home directory.
+038 ==> 427477 - /mnt directory not visible in Linux file system / Collection cannot be added from removable media.
+039 ==> 428270 - digiKam sees only root folder.
+040 ==> 429604 - Adding a keyword to a group of pictures by right sidebar only adds it to the group head
+041 ==> 431928 - "Save to original album" does not work in Batch Queue Manager.
+042 ==> 430053 - Clarify dialogs when removing unused face tags.
+043 ==> 369334 - When deleting folder, it should warn about non-image files.
+044 ==> 342760 - digiKam crashes when saving star rating to database.
+045 ==> 347915 - digiKam crash when cancelling erasing photo after a request download and erase.
+046 ==> 335370 - Unecpected crash when deleting a tag.
+047 ==> 339916 - SCAN : on startup, scanning collection stops advancing (i.e. at 88%) and digikam shows 100% cpu for one core.
+048 ==> 330104 - digiKam crash while browsing.
+049 ==> 333671 - digiKam crashed when trying to store a new version of an image after editing
+050 ==> 334852 - digiKam crashed while downloading photos from camera.
+051 ==> 335529 - digiKam crashes, when deleting an empty sub-directory.
+052 ==> 435188 - Face tag icons not automatically generated, lots of QPixmap::scaled: Pixmap is a null pixmap errors on console.
+053 ==> 335630 - digiKam crashes when clicking image editor.
+054 ==> 335667 - digiKam crash on tag delete.
+055 ==> 336259 - digiKam crashed during opening the edit action (F4) to open picture for edit.
+056 ==> 395037 - Altitude is not setted on CR2 files.
+057 ==> 307408 - Not possible to deselect ZoomR and 23 HQ export module but keep flickr.
+058 ==> 421903 - Add IPTC/XMP location metadata to advanced search.
+059 ==> 343066 - Downloading pictures from iPhone.
+060 ==> 343053 - File's timestamp of imported pictures not preserved.
+061 ==> 346012 - Long freezes of interface when performing BQM color autocorrection.
+062 ==> 340965 - Watermark placement and offset in saved workflow not saved.
+063 ==> 128472 - Aspect ratio tool enchancements - auto orientation, new selection.
+064 ==> 345427 - digiKam crashed when generating panorama pic.
+065 ==> 343298 - digiKam crash when selecting multiple photos in order to tag them.
+066 ==> 344216 - digiKam crashed while creating tag.
+067 ==> 347450 - digiKam crash.
+068 ==> 347786 - digiKam crashes when image is saved by external editor.
+069 ==> 340855 - CANVAS: Wrong preview in sharpen tool after crop.
+070 ==> 340649 - digiKam doesn't show thumbnails in preview on my Canon 450D (PTP).
+071 ==> 340793 - Can't see thumbnails while importing from camera. Failed to load image message.
+072 ==> 339650 - Crash when selecting different thumbnail.
+073 ==> 339348 - Crashes when hugin creates (or deletes) temporary images in one of its album folders.
+074 ==> 339151 - Always crashes when "save as" is requires no matter what I've made before.
+075 ==> 338144 - Crash when browsing / arranging albums.
+076 ==> 338949 - Importer window files selection takes ages.
+077 ==> 338858 - Crash before downloading all pictures.
+078 ==> 339068 - Crash when tagging images and creating a new tag with another tag selected.
+079 ==> 339070 - Crash when moving one tag onto an other, to make it a sub-tag.
+080 ==> 435340 - Writing empty region lists.
+081 ==> 435202 - Newly imported images do not show in database.
+082 ==> 337258 - Crash during album browsing.
+083 ==> 337607 - Crash while browsing albums.
+084 ==> 338358 - Segmentation fault in libthread_db.so.1 saving jpeg in new version after editing.
+085 ==> 338600 - digiKam crashes in sqlite with segfault when importing.
+086 ==> 342750 - Crash while try to export.
+087 ==> 338025 - Geolocation doens't show map.
+088 ==> 338007 - Lookup missing altitude values is broken.
+089 ==> 337689 - Color profile settings is lost at next BQM session.
+090 ==> 435345 - Olympus *.ori images.
+091 ==> 336164 - Option to disable tags import from new images metadata.
+092 ==> 331975 - ShowPhoto crashes if SD Card is removed.
+093 ==> 213628 - Editor, resize: try shows picture very blurred.
+094 ==> 337987 - No auto-rotation when importing pictures.
+095 ==> 338482 - digiKam crash when importing pictures if no album was selected in the main window.
+096 ==> 435303 - digiKam crashes when selecting 2 times Item opening Web Window in Help menu.
+097 ==> 435351 - What is the database table KDTree.
+098 ==> 435387 - Crashes after not able to connect to database.
+099 ==> 417431 - No metadata are displayed from non supported Exiv2 file formats.
+100 ==> 435453 - Documentation of digiKam not available.
+101 ==> 137060 - Image and Photograph Properties Incomplete.
+102 ==> 326409 - Some EXIF tags are not read.
+103 ==> 146864 - Lesser XMP support in digiKam.
+104 ==> 228021 - digiKam not writing metadata in XMP.
+105 ==> 221460 - Xmp subject tags imported in wrong order.
+106 ==> 204042 - Crash when importing XMP file.
+107 ==> 264007 - XMP sidecar file does not distinguish between images of the same name but with different extension.
+108 ==> 434445 - Inconsistent use of term "comment" rather than "caption".
+109 ==> 435476 - Wrong term "Comments" in Edit Metadata dialog.
+110 ==> 370443 - jp2 metadata: Unrecognized UUID EXIF box.
+111 ==> 265726 - digiKam doesn't detect lens type.
+112 ==> 301087 - Browsing through my pic collection shows dozends of wrongs orientated jpg's.
+113 ==> 364880 - digiKam crashes when rotating a picture.
+114 ==> 367913 - digiKam crash on rotate image (right or left) action.
+115 ==> 134862 - Display altitude value as a decimal number (no fraction).
+116 ==> 136674 - Manually enter GPS Data for Pictures/Tags.
+117 ==> 157552 - Negative altitudes are not shown in metadata GPS sidebar.
+118 ==> 167139 - Crash if Exif.GPSInfo.GPSAltitude is empty.
+119 ==> 435505 - Albums and keywords are always sorted alphabetically in descending order.
+120 ==> 435541 - Cannot delete "Current search" from 8 "Current Search" labels.
+121 ==> 136260 - EXIF, IPTC, and XMP editor embedded to Captions/Tags sidebar.
+122 ==> 202709 - Sharing images among computers and update of local databases.
+123 ==> 435578 - Merge tags dialog missing "Merge all" option.
+124 ==> 435317 - GPS image direction incorrectly formatted.
+125 ==> 435527 - Lightroom Face tags don't display properly.
+126 ==> 435455 - Migration cannot drop or create FaceMatrices table [patch].
+127 ==> 435612 - Face Engine file download time out.
+128 ==> 435639 - Connection timed out error when downloading shapepredictor.dat (Downloading required files) after upgrade from 7.1.0 to 7.2.0.
+129 ==> 435564 - The similarity finder uses about half the CPU clock speed.
+130 ==> 435701 - Exif date change.
+131 ==> 394544 - New tool to export to inaturalist.
+132 ==> 435808 - Themes not available and default theme corrupt.
+133 ==> 435843 - Metadata changes not saved when removing face region.
+134 ==> 435877 - How to select language of showFoto.
+135 ==> 435879 - Strange behaviour of right mouse-click on toolbar.
+136 ==> 435898 - Preview image display arbitrarily resized after crop.
+137 ==> 386299 - Add ExifTool based metadata viewer as XnView.
+138 ==> 435966 - digiKam 20.04.2021 rev unexpectedly shuts down in Table view.
+139 ==> 435973 - Feathre Request: Make Tag (and perhaps other) filters operate to either Boolean AND or OR.
+140 ==> 382631 - View HDR metadata.
+141 ==> 436043 - Icon view tool tip are unreadable.
+142 ==> 435920 - Unique Parameter not working correctly by large collections.
+143 ==> 425902 - Update digiKam information on the fly to XMP metadata from HEIF files.
+144 ==> 426923 - EOS R5 CR3 Missing exif data with current master branch code.
+145 ==> 393408 - Support for extra image formats as HEIC, FITS, WEBP [patch].
+146 ==> 422240 - Description caption appears as "binary comment".
+147 ==> 429108 - FPX image crashes on selection.
+148 ==> 429124 - Exif 2.32 value names (labels) do not appear for timezone offset tags in EXIF Property panel.
+149 ==> 426859 - Idea: Move to trash from slideshow.
+150 ==> 346081 - Exiv2 cannot open file on NTFS within non-english directory.
+151 ==> 309542 - Support metadata on 3D photos in MPO format (as to be able to mark faces).
+152 ==> 271757 - Can't write metadata to TIFF files.
+153 ==> 430588 - Export from Image Editor not working on Mac.
+154 ==> 147501 - Display of EXIF Information.
+155 ==> 128462 - EXIF Info is empty, in picture properties dialog only the exif-tag names are show, no values shown.
+156 ==> 350931 - digiKam suddenly stops searching for new entries.
+157 ==> 140070 - Comment display field is only populated with JFIF comment, not EXIF comment.
+158 ==> 376930 - Cannot write metadata to TIFF files.
+159 ==> 214636 - Updating tag to XMP/IPTC bug.
+160 ==> 435803 - digiKam Not Responding when moving from Albums between Similarity and Search options.
+161 ==> 434072 - Crash at start of digiKam.
+162 ==> 436187 - Option to automatically delete images from card after import.
+163 ==> 436343 - Send selected images to external application as a list of positional arguments.
+164 ==> 436487 - IPTC:ObjectAttributeReference and XMP:IntellectualGenre.
+165 ==> 436444 - Question to translation of album categories.
+166 ==> 407022 - digiKam crash at start.
+167 ==> 377434 - Crash on deleting items from Trash.
+168 ==> 377418 - Crash on saving metadata. Latest AppImage 5.5
+169 ==> 376951 - Unexpected crash on rescan - Latest 5.5. AppImage.
+170 ==> 376256 - Crach when trying to go to "Metadata" tab in the image editor.
+171 ==> 375815 - digiKam crash.
+172 ==> 371906 - crash when opening download window, download of previews.
+173 ==> 368246 - digiKam crashes by modifying picture.
+174 ==> 366034 - Crash at edit metadata for jpgs made by a Casio EX-Z500.
+175 ==> 365691 - digiKam freezes when using «tool» «slideshow»«presentation» and trying to add an image.
+176 ==> 359412 - digiKam Crash when trying to set an Label (write to file).
+177 =+> 355126 - Crashed when tumbnails or pictures turned right.
+178 ==> 353865 - Sluggish write of metadata.
+179 ==> 350423 - digiKam crashes while uploading from a corrupt EyeFi SD card.
+180 ==> 350367 - digiKam crash when saving edited picture.
+181 ==> 275539 - digiKam crashes when opening an imported image.
+182 ==> 334155 - digiKam crash on folder scan.
+183 ==> 288380 - digiKam crashes, when removing and adding tags.
+184 ==> 275157 - digiKam crashes while removing tags from images.
+185 ==> 340696 - digiKam crash.
+186 ==> 311904 - ShowFoto crash when creating thumbs.
+187 ==> 335164 - Crash while updating image metadata to database in tools->maint. all cores.
+188 ==> 151997 - Crash in exiv2 library.
+189 ==> 142819 - Crash when opening any image.
+190 ==> 135934 - Crash during camera access.
+191 ==> 137697 - digiKam crash at startup while scanning files.
+192 ==> 160528 - Crash after try to add gps coordinates.
+193 ==> 112845 - digiKam crash on startup.
+194 ==> 259057 - Crash when reading one particular image (possibly libexiv2 related).
+195 ==> 150803 - digiKam crash signal 11.
+196 ==> 141980 - digiKam crash when rescan certain files exiv2.
+197 ==> 167913 - Segmentation fault upon start.
+198 ==> 144439 - digiKam fails to load.
+199 ==> 344704 - My application crashs when I include this library.
+200 ==> 128104 - digiKam crash when browsing photos in Image Editor.
+201 ==> 144098 - Aborted execution on startup.
+202 ==> 146728 - Crash in loading and start digiKam.
+203 ==> 220315 - Crash when starting with a usb album.
+204 ==> 146948 - Crash when loading certain image.
+205 ==> 376429 - Crash on rotate.
+206 ==> 156418 - Crash when rotating or geolocalizing image.
+207 ==> 366528 - Rating=4 automatically added to XMP sidecar when saving metadata.
+208 ==> 174620 - After updating to current digiKam crashes.
+209 ==> 110214 - digiKam hangs scanning items right after start.
+210 ==> 177457 - digiKam crash when tagging files.
+211 ==> 186837 - Libexiv2 crashes on certain JPGs.
+212 ==> 144574 - digiKam crashes every time it scans collection.
+213 ==> 178839 - digiKam crashes on exiv2 error.
+214 ==> 166424 - Crash when editing Caption with digiKam.
+215 ==> 436571 - Tooltips for images don't show tags containing "<" correctly.
+216 ==> 436587 - Not translatable strings in Settings --> Edit Geolocation.
+217 ==> 214456 - Just after update, open digikam and just close.
+218 ==> 327087 - digiKam freezes, when adding tags.
+219 ==> 300407 - Tags not written to files properly, old tags left over.
+220 ==> 310193 - digiKam crashes when a tag that is selected is deleted.
+221 ==> 215462 - digiKam crashed while tagging large collection of images.
+222 ==> 417027 - digiKam does not start.
+223 ==> 424619 - kbuildsycoca5 hangs / digikam also hangs - profile specific problem.
+224 ==> 436624 - Error during internal server start.
+225 ==> 320039 - EXIF will be lost if user tries to convert DNG to JPEG.
+226 ==> 255554 - No Color Profile Assigned When Generating ProPhoto TIF File From DNG.
+227 ==> 220875 - digiKam crashes on startup while scanning image metadata.
+228 ==> 282287 - Nepomuk is crashing when i try to sync digikam metadata.
+229 ==> 349928 - Crash when re-writing metadata into picture files.
+230 ==> 359512 - BQM generate temp files like "xx.jpg2614" (Exiv2 relevant).
+231 ==> 273595 - Crash at showfoto startup.
+232 ==> 282921 - Opening an .jpeg file from within a Dolpin browser causes a crash.
+233 ==> 271455 - Showfoto crashes on startup.
+234 ==> 271414 - ShowFoto crashes, when loading a pic for the first time.
+235 ==> 269674 - Showfoto crashes when opening a folder with many jpegs.
+236 ==> 268889 - ShowFoto crashes when loading a pic.
+237 ==> 284889 - ShowPhoto crash at start.
+238 ==> 426327 - Overriding Default Media Player Does Not Work.
+239 ==> 193238 - Advanced search in origin fields (Location, City, Country etc.).
+240 ==> 435987 - digiKam Not Reponding in Table view.
+241 ==> 329834 - Crash during miniature update.
+242 ==> 212740 - Group images by aspect ratio.
+243 ==> 152715 - Album independent search needed.
+244 ==> 149100 - Search box to filter the album list.
+245 ==> 330905 - Search in grouped pictures only show visible items.
+246 ==> 279953 - Couple jpg and raw files.
+247 ==> 249303 - Function for permitting to "stack" some photos.
+248 ==> 246920 - Display RAW+JPEG combined.
+249 ==> 224789 - Handle RAW and jpegs as one virtual image.
+250 ==> 188968 - JPEG+RAW joint renaming feature.
+251 ==> 164756 - Working with JPEGs instead of RAWs.
+252 ==> 151228 - Whish: Skip / ingore RAW when corresponding JPG exists.
+253 ==> 147933 - WISH: link the keywords of images with same name but different extension img1245.jpg liked to img1245.dng.
+254 ==> 147886 - Managment of raw files (as duplicate of jpg files).
+255 ==> 147427 - Make digiKam know JPG file is from RAW.
+256 ==> 212108 - Double click and highlighting.
+257 ==> 273642 - Dates of selected images not used in new album when importing.
+258 ==> 236747 - Rotating according to orientation tag doesn't work for canon files.
+259 ==> 217709 - Actually hide hidden Albums and specific Images.
+260 ==> 196583 - Ability to collapse album headers in the middle "view" panel.
+261 ==> 436758 - Question to date-format of import images.
+262 ==> 407034 - Editing an image in the Image editor adds a XMP video date field.
+263 ==> 407033 - Image Editor adds a XMP video tags.
+264 ==> 099809 - Crash when changing date from exif information.
+265 ==> 158989 - digiKam won't start: MakerTagInfo registry full (MetaEngine relevant).
+266 ==> 273765 - Replacing pgf files with an open digikam lead to reproducible crash.
+267 ==> 339152 - Crash when adding XCF file to digiKam collection.
+268 ==> 131935 - digiKam crashed when selecting tags for photos (typo).
+269 ==> 145717 - digiKam SIGABRT while rotate image tool.
+270 ==> 149063 - Open tool menu crash.
+271 ==> 219512 - Segfault (SIGSEGV) when using any non-color changing tool.
+272 ==> 383855 - digiKam crash when stacking 5 images.
+273 ==> 266660 - Crashed after successfully converting png image to jpg.
+274 ==> 435411 - Wrong language setup.
+275 ==> 435893 - There is only the default theme available.
+276 ==> 411780 - Rename with date while Importing CR2 from Camera produces wrong time.
+277 ==> 330302 - digiKam import crashed while importing from mass storage camera.
+278 ==> 336514 - Crashed while clicking on a folder.
+279 ==> 336869 - digiKam segfaults in inverse perspective adjustment.
+280 ==> 341424 - digiKam crashes when cancelling export.
+281 ==> 341529 - Crash Everytime on "advance slideshow" after a few seconds.
+282 ==> 342802 - Crashes in editor.
+283 ==> 343243 - Crashed while selecting 'Print Assistant'.
+284 ==> 344587 - digiKam crash while downloading photos from SDcard.
+285 ==> 345044 - digiKam crashes when closing editor.
+286 ==> 347054 - digiKam crash with database uses.
+287 ==> 347340 - digiKam crashes on advanced slideshow with selected pictures.
+288 ==> 356282 - digiKam stop to export photo.
+289 ==> 436299 - German Translation of Buttons.
+290 ==> 415605 - Full Screen toolbar item is shown in French while my config is in English.
+291 ==> 384427 - core/libs/dngwriter/extra/dng_sdk/dng_xmp.cpp: int / long mixup ?
+292 ==> 384426 - core/libs/dngwriter/extra/dng_sdk/dng_date_time.cpp: int / long mixup.
+293 ==> 384423 - core/libs/dngwriter/extra/dng_sdk/dng_string.cpp:2027: confused logic ?
+294 ==> 384422 - core/libs/dngwriter/extra/dng_sdk/dng_mosaic_info.cpp:637: bad if ?
+295 ==> 231038 - digiKam crashed while attempting to import photo collection (100GB) CR2 DNG JPG.
+296 ==> 192545 - FTBFS on mips.
+297 ==> 418645 - DNG files created with Adobe DNG Converter from Fuji S3 RAW files appear purple - Update to DNG SDK 1.5.
+298 ==> 370631 - Converting Sony STL-A58 ARW to DNG fails - Update to DNG SDK 1.5.
+299 ==> 330920 - Previews and thumbnails of DNG converted from Canon EOS350D CR2 have incorrect red colors - Update to DNG SDK 1.5.
+300 ==> 429119 - Convert RAW Nikon NEF to DNG tool adds text to caption field.
+301 ==> 427350 - digiKam DNG Converter fails to correctly encode white balance or camera metadata for Canon R5 CR3.
+302 ==> 284934 - Allow to embed multiple JPEG in DNG Converter.
+303 ==> 436913 - File name timestamp not valid year 1892.
+304 ==> 381967 - Some lens metadata lost in converting CR2 into DNG.
+305 ==> 436946 - Settings not permanent.
+306 ==> 436977 - Field "Options" too small.
+307 ==> 436979 - Empty regions.
+308 ==> 435085 - Some DNG files created with Adobe DNG Converter cause program to abort - Update to DNG SDK 1.5.
+309 ==> 437038 - Unmark this face as Ignored - pressing will cause the ignored picture frame to disappear.
+310 ==> 436795 - Database from uninstalled version of digiKam is unhelpfully persistant.
+311 ==> 424679 - Windows installer erroneously requires accepting the GPL.
+312 ==> 436532 - digiKam translation of "Behavior" not possible.
+313 ==> 403267 - digiKam is not reading tags from DNG images when sidecars are present.
+314 ==> 437072 - digiKam does not start.
+315 ==> 426791 - Unable to change database location via GUI.
+316 ==> 437175 - Use media file timestamp when creating sidecar.
+317 ==> 437103 - BadRequest when exporting to Onedrive.
+318 ==> 437209 - Menu bar and toolbar backgrounds don't respect selected digiKam colorscheme (and instead inherit from global colorscheme).
+319 ==> 431689 - Nokia 9 PureView DNG image demosaicing preview corruption.
+320 ==> 437461 - Tag panel from left side-bar has people items unsorted.
+321 ==> 252763 - Align album titles next to album thumbnails.
+322 ==> 436671 - Similarity-Duplicates the active menu tab always moves to the first tab, no location memory.
+323 ==> 437534 - Grouped items are not visible in the Table view when the View / Show All Grouped Items As Open menu is selected.
+324 ==> 377632 - Problem with open grouped files.
+325 ==> 437548 - In Table view Del removes Group Selected and second item to the trash.
+326 ==> 431497 - Unconfiremd Faces Counter has an Offset.
+327 ==> 437554 - Export to local Storage : Add an export with direct extension of the files in jpg (Not jpeg).
+328 ==> 436695 - [opensuse 15.2] unable to resize images (all types).
+329 ==> 427403 - Export multiple albums - Exported folder structure shall represent album structure.
+330 ==> 436120 - [Suggestion] Keep the tree structure in "Export to a local device".
+331 ==> 437655 - Store fuzzy search without a name.
+332 ==> 437680 - Crash if Geolocation editor is closed while coordinates are still being updated.
+333 ==> 437682 - Strange activity - If a year (2007) with date subdirectories is selected from the Album.
+334 ==> 437708 - Face tag spanning entire image added for photos taken with Windows Phone.
+335 ==> 437750 - digiKam causes 20 exiftool (32) .exe to run in the Task Manager panel at the end of the day W10.
+336 ==> 437714 - A search group of this or another search is added to existing searches when editing them.
+337 ==> 437769 - Search-Table view / After suspending - ERROR:directory_reader_win.cc(43).
+338 ==> 437813 - Exiftool.exe is preventing the installation.
+339 ==> 437657 - Size of dialog for database migration.
+340 ==> 437897 - Windows timestamp to metadata extraction for TIFFs changes when modifying files.
+341 ==> 397999 - Sort thumbs by date. causes issues.
+342 ==> 437736 - digiKam 7.3 doesn't have a Translators tab in its About dialogue anymore.
+343 ==> 438093 - digiKam po file no longer has any information about translators.
+344 ==> 438120 - Geolocation data not being saved.
+345 ==> 438134 - Unexpected behaviour of face overlay in preview window.
+346 ==> 438248 - W10 Sysinternals Process Monitor digikam Cannot create files digikam4.db-journal; digikam4.db-wal.
+347 ==> 428964 - Crash updating fingerprints before checking similarities.
+348 ==> 427337 - Crash when rebuilding thumbnails or fingerprints.
+349 ==> 438465 - Question to Color Spaces.
+350 ==> 438344 - Questions to Add Border Tool.
+351 ==> 438466 - Image editor - Color Negative closes application.
+352 ==> 432650 - MacOS: digikam system menu not localizable.
+353 ==> 437606 - Freenode IRC has been taken over; advise to move the channel to libera.chat or oftc.
+354 ==> 354600 - Changing background colour after Free Rotation.
+355 ==> 438855 - ShowFoto - DNG-Converter I.
+356 ==> 438856 - ShowFoto - DNG-Converter II.
+357 ==> 438878 - Ambiguous Shortcut window on startup.
+358 ==> 438888 - Exiftool - non ASCII characters.
+359 ==> 438961 - Searching images created on a given day of every month is not possible.
+360 ==> 439000 - Keyboard shortcut assigned.
+361 ==> 326247 - Add a new button to expand or collapse all album tree-view items.
+362 ==> 438720 - BSOD when browsing photos.
+363 ==> 439059 - "exiftoollistviewgroup".
+364 ==> 439057 - Output helpers for ExifTool data (print, save, copy).
+365 ==> 439161 - .insv (360-video) files not shown.
+366 ==> 439231 - ExifTool and e.g. *.psd images.
+367 ==> 439409 - Video slideshow does not respect EXIF orientation flag.
+368 ==> 439404 - Writing of face tags should not depend on the tags settings.
+369 ==> 439436 - Problems with video-slideshow.
+370 ==> 439443 - Import - DeviceSettings.
+371 ==> 439486 - I need your help for German translation.
+372 ==> 439523 - People tags don´t allow slash "/". Only the text after the slash is displayed.
+373 ==> 439638 - The rating and color label marked outside digiKam are not visible in the views.

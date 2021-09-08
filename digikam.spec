@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x4A77747BC2386E50 (digikamdeveloper@gmail.com)
 #
 Name     : digikam
-Version  : 7.2.0
-Release  : 26
-URL      : https://download.kde.org/stable/digikam/7.2.0/digikam-7.2.0.tar.xz
-Source0  : https://download.kde.org/stable/digikam/7.2.0/digikam-7.2.0.tar.xz
-Source1  : https://download.kde.org/stable/digikam/7.2.0/digikam-7.2.0.tar.xz.sig
+Version  : 7.3.0
+Release  : 27
+URL      : https://download.kde.org/stable/digikam/7.3.0/digikam-7.3.0.tar.xz
+Source0  : https://download.kde.org/stable/digikam/7.3.0/digikam-7.3.0.tar.xz
+Source1  : https://download.kde.org/stable/digikam/7.3.0/digikam-7.3.0.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause CDDL-1.0 CECILL-1.1 GPL-2.0 LGPL-2.1
@@ -80,8 +80,9 @@ BuildRequires : threadweaver-dev
 BuildRequires : tiff-dev
 
 %description
-Platinum SDK taken originally from Kodi implementation on September 2017
-https://github.com/xbmc/xbmc/tree/master/lib/libUPnP
+RESUME
+------
+These scripts build a binary digiKam AppImage bundle for Linux using Mageia 64 bits.
 
 %package bin
 Summary: bin components for the digikam package.
@@ -149,15 +150,15 @@ man components for the digikam package.
 
 
 %prep
-%setup -q -n digikam-7.2.0
-cd %{_builddir}/digikam-7.2.0
+%setup -q -n digikam-7.3.0
+cd %{_builddir}/digikam-7.3.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1626710396
+export SOURCE_DATE_EPOCH=1631081119
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -186,21 +187,21 @@ make  %{?_smp_mflags}  -w
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1626710396
+export SOURCE_DATE_EPOCH=1631081119
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/digikam
-cp %{_builddir}/digikam-7.2.0/COPYING %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
-cp %{_builddir}/digikam-7.2.0/COPYING-CMAKE-SCRIPTS %{buildroot}/usr/share/package-licenses/digikam/ff3ed70db4739b3c6747c7f624fe2bad70802987
-cp %{_builddir}/digikam-7.2.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/digikam/1568befcb09e881d29dd760911ceeb4e2d810884
-cp %{_builddir}/digikam-7.2.0/core/dplugins/generic/tools/mediaserver/upnpsdk/Platinum/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/a5bbd41410f38b2dd525e6c601f29b1736db13f9
-cp %{_builddir}/digikam-7.2.0/core/libs/dimg/filters/greycstoration/cimg/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/2da2357c9706c1416e5d65e4a2e21a1c77fc9dff
-cp %{_builddir}/digikam-7.2.0/core/libs/dplugins/webservices/o2/LICENSE %{buildroot}/usr/share/package-licenses/digikam/5be7b6f190b991f6c1029fd38d785c3ba54e255f
-cp %{_builddir}/digikam-7.2.0/core/libs/rawengine/libraw/COPYRIGHT %{buildroot}/usr/share/package-licenses/digikam/e86ca32ed57e181b74fd60bbb8301acf014a9a6c
-cp %{_builddir}/digikam-7.2.0/core/libs/rawengine/libraw/LICENSE.CDDL %{buildroot}/usr/share/package-licenses/digikam/c24b9c7ef03687bf0141f85a1b7ed81459944c3c
-cp %{_builddir}/digikam-7.2.0/core/libs/rawengine/libraw/LICENSE.LGPL %{buildroot}/usr/share/package-licenses/digikam/39a21f33cadea18adcc23bf808d7d5ea6419c8b1
-cp %{_builddir}/digikam-7.2.0/core/tests/modeltest/LICENSE.GPL %{buildroot}/usr/share/package-licenses/digikam/831885f4ef4eccb4965bcddee48f0de3b5aea2d1
-cp %{_builddir}/digikam-7.2.0/project/bundles/macports/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
-cp %{_builddir}/digikam-7.2.0/project/bundles/mxe/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/ef250cb30fe89ea6687a0fe04fd552dbdc93e0e0
+cp %{_builddir}/digikam-7.3.0/COPYING %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
+cp %{_builddir}/digikam-7.3.0/COPYING-CMAKE-SCRIPTS %{buildroot}/usr/share/package-licenses/digikam/ff3ed70db4739b3c6747c7f624fe2bad70802987
+cp %{_builddir}/digikam-7.3.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/digikam/1568befcb09e881d29dd760911ceeb4e2d810884
+cp %{_builddir}/digikam-7.3.0/core/dplugins/generic/tools/mediaserver/upnpsdk/Platinum/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/a5bbd41410f38b2dd525e6c601f29b1736db13f9
+cp %{_builddir}/digikam-7.3.0/core/libs/dimg/filters/greycstoration/cimg/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/2da2357c9706c1416e5d65e4a2e21a1c77fc9dff
+cp %{_builddir}/digikam-7.3.0/core/libs/dngwriter/extra/COPYING-ADOBE-XMPSDK %{buildroot}/usr/share/package-licenses/digikam/b2245a16f088ed2b57e39c6f3a92b0883c0b062f
+cp %{_builddir}/digikam-7.3.0/core/libs/dplugins/webservices/o2/LICENSE %{buildroot}/usr/share/package-licenses/digikam/5be7b6f190b991f6c1029fd38d785c3ba54e255f
+cp %{_builddir}/digikam-7.3.0/core/libs/rawengine/libraw/COPYRIGHT %{buildroot}/usr/share/package-licenses/digikam/e86ca32ed57e181b74fd60bbb8301acf014a9a6c
+cp %{_builddir}/digikam-7.3.0/core/libs/rawengine/libraw/LICENSE.CDDL %{buildroot}/usr/share/package-licenses/digikam/c24b9c7ef03687bf0141f85a1b7ed81459944c3c
+cp %{_builddir}/digikam-7.3.0/core/libs/rawengine/libraw/LICENSE.LGPL %{buildroot}/usr/share/package-licenses/digikam/39a21f33cadea18adcc23bf808d7d5ea6419c8b1
+cp %{_builddir}/digikam-7.3.0/project/bundles/macports/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
+cp %{_builddir}/digikam-7.3.0/project/bundles/mxe/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/ef250cb30fe89ea6687a0fe04fd552dbdc93e0e0
 pushd clr-build-avx2
 %make_install_avx2  || :
 popd
@@ -620,6 +621,7 @@ popd
 /usr/share/icons/hicolor/16x16/apps/dk-googlephoto.png
 /usr/share/icons/hicolor/16x16/apps/dk-imageshack.png
 /usr/share/icons/hicolor/16x16/apps/dk-imgur.png
+/usr/share/icons/hicolor/16x16/apps/dk-inat.png
 /usr/share/icons/hicolor/16x16/apps/dk-mediawiki.png
 /usr/share/icons/hicolor/16x16/apps/dk-onedrive.png
 /usr/share/icons/hicolor/16x16/apps/dk-pinterest.png
@@ -637,6 +639,7 @@ popd
 /usr/share/icons/hicolor/22x22/apps/dk-googlephoto.png
 /usr/share/icons/hicolor/22x22/apps/dk-imageshack.png
 /usr/share/icons/hicolor/22x22/apps/dk-imgur.png
+/usr/share/icons/hicolor/22x22/apps/dk-inat.png
 /usr/share/icons/hicolor/22x22/apps/dk-mediawiki.png
 /usr/share/icons/hicolor/22x22/apps/dk-onedrive.png
 /usr/share/icons/hicolor/22x22/apps/dk-pinterest.png
@@ -674,6 +677,7 @@ popd
 /usr/share/icons/hicolor/32x32/apps/dk-googlephoto.png
 /usr/share/icons/hicolor/32x32/apps/dk-imageshack.png
 /usr/share/icons/hicolor/32x32/apps/dk-imgur.png
+/usr/share/icons/hicolor/32x32/apps/dk-inat.png
 /usr/share/icons/hicolor/32x32/apps/dk-mediawiki.png
 /usr/share/icons/hicolor/32x32/apps/dk-onedrive.png
 /usr/share/icons/hicolor/32x32/apps/dk-pinterest.png
@@ -691,6 +695,7 @@ popd
 /usr/share/icons/hicolor/48x48/apps/dk-googlephoto.png
 /usr/share/icons/hicolor/48x48/apps/dk-imageshack.png
 /usr/share/icons/hicolor/48x48/apps/dk-imgur.png
+/usr/share/icons/hicolor/48x48/apps/dk-inat.png
 /usr/share/icons/hicolor/48x48/apps/dk-mediawiki.png
 /usr/share/icons/hicolor/48x48/apps/dk-onedrive.png
 /usr/share/icons/hicolor/48x48/apps/dk-pinterest.png
@@ -840,12 +845,12 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/haswell/libdigikamcore.so.7.2.0
-/usr/lib64/haswell/libdigikamdatabase.so.7.2.0
-/usr/lib64/haswell/libdigikamgui.so.7.2.0
-/usr/lib64/libdigikamcore.so.7.2.0
-/usr/lib64/libdigikamdatabase.so.7.2.0
-/usr/lib64/libdigikamgui.so.7.2.0
+/usr/lib64/haswell/libdigikamcore.so.7.3.0
+/usr/lib64/haswell/libdigikamdatabase.so.7.3.0
+/usr/lib64/haswell/libdigikamgui.so.7.3.0
+/usr/lib64/libdigikamcore.so.7.3.0
+/usr/lib64/libdigikamdatabase.so.7.3.0
+/usr/lib64/libdigikamgui.so.7.3.0
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_AntiVignetting_Plugin.so
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_AssignTemplate_Plugin.so
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_AutoCorrection_Plugin.so
@@ -954,6 +959,7 @@ popd
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Box_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Calendar_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Calendar_Plugin.so.avx2
+/usr/lib64/qt5/plugins/digikam/generic/Generic_DNGConverter_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_DigitalScanner_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_DropBox_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_ExpoBlending_Plugin.so
@@ -999,6 +1005,8 @@ popd
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Wallpaper_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_YandexFotki_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_YandexFotki_Plugin.so.avx2
+/usr/lib64/qt5/plugins/digikam/generic/Generic_iNaturalist_Plugin.so
+/usr/lib64/qt5/plugins/digikam/generic/Generic_iNaturalist_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/rawimport/RawImport_DarkTable_Plugin.so
 /usr/lib64/qt5/plugins/digikam/rawimport/RawImport_DarkTable_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/rawimport/RawImport_Native_Plugin.so
@@ -1015,8 +1023,8 @@ popd
 /usr/share/package-licenses/digikam/2da2357c9706c1416e5d65e4a2e21a1c77fc9dff
 /usr/share/package-licenses/digikam/39a21f33cadea18adcc23bf808d7d5ea6419c8b1
 /usr/share/package-licenses/digikam/5be7b6f190b991f6c1029fd38d785c3ba54e255f
-/usr/share/package-licenses/digikam/831885f4ef4eccb4965bcddee48f0de3b5aea2d1
 /usr/share/package-licenses/digikam/a5bbd41410f38b2dd525e6c601f29b1736db13f9
+/usr/share/package-licenses/digikam/b2245a16f088ed2b57e39c6f3a92b0883c0b062f
 /usr/share/package-licenses/digikam/c24b9c7ef03687bf0141f85a1b7ed81459944c3c
 /usr/share/package-licenses/digikam/e86ca32ed57e181b74fd60bbb8301acf014a9a6c
 /usr/share/package-licenses/digikam/ef250cb30fe89ea6687a0fe04fd552dbdc93e0e0
