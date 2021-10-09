@@ -6,7 +6,7 @@
 #
 Name     : digikam
 Version  : 7.3.0
-Release  : 27
+Release  : 28
 URL      : https://download.kde.org/stable/digikam/7.3.0/digikam-7.3.0.tar.xz
 Source0  : https://download.kde.org/stable/digikam/7.3.0/digikam-7.3.0.tar.xz
 Source1  : https://download.kde.org/stable/digikam/7.3.0/digikam-7.3.0.tar.xz.sig
@@ -15,6 +15,7 @@ Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause CDDL-1.0 CECILL-1.1 GPL-2.0 LGPL-2.1
 Requires: digikam-bin = %{version}-%{release}
 Requires: digikam-data = %{version}-%{release}
+Requires: digikam-filemap = %{version}-%{release}
 Requires: digikam-lib = %{version}-%{release}
 Requires: digikam-license = %{version}-%{release}
 Requires: digikam-locales = %{version}-%{release}
@@ -89,6 +90,7 @@ Summary: bin components for the digikam package.
 Group: Binaries
 Requires: digikam-data = %{version}-%{release}
 Requires: digikam-license = %{version}-%{release}
+Requires: digikam-filemap = %{version}-%{release}
 
 %description bin
 bin components for the digikam package.
@@ -115,11 +117,20 @@ Requires: digikam = %{version}-%{release}
 dev components for the digikam package.
 
 
+%package filemap
+Summary: filemap components for the digikam package.
+Group: Default
+
+%description filemap
+filemap components for the digikam package.
+
+
 %package lib
 Summary: lib components for the digikam package.
 Group: Libraries
 Requires: digikam-data = %{version}-%{release}
 Requires: digikam-license = %{version}-%{release}
+Requires: digikam-filemap = %{version}-%{release}
 
 %description lib
 lib components for the digikam package.
@@ -158,7 +169,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1631081119
+export SOURCE_DATE_EPOCH=1633742124
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -173,21 +184,21 @@ popd
 mkdir -p clr-build-avx2
 pushd clr-build-avx2
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -march=haswell -mprefer-vector-width=256 "
-export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -march=haswell -mprefer-vector-width=256 "
-export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -march=haswell -mprefer-vector-width=256 "
-export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -march=haswell -mprefer-vector-width=256 "
-export CFLAGS="$CFLAGS -march=haswell -m64"
-export CXXFLAGS="$CXXFLAGS -march=haswell -m64"
-export FFLAGS="$FFLAGS -march=haswell -m64"
-export FCFLAGS="$FCFLAGS -march=haswell -m64"
+export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -march=x86-64-v3 -mprefer-vector-width=256 -mtune=skylake "
+export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -march=x86-64-v3 -mprefer-vector-width=256 -mtune=skylake "
+export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -march=x86-64-v3 -mprefer-vector-width=256 -mtune=skylake "
+export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -march=x86-64-v3 -mprefer-vector-width=256 -mtune=skylake "
+export CFLAGS="$CFLAGS -march=x86-64-v3 -m64"
+export CXXFLAGS="$CXXFLAGS -march=x86-64-v3 -m64"
+export FFLAGS="$FFLAGS -march=x86-64-v3 -m64"
+export FCFLAGS="$FCFLAGS -march=x86-64-v3 -m64"
 %cmake .. -DENABLE_QWEBENGINE=TRUE \
 -DBUILD_TESTING=OFF
 make  %{?_smp_mflags}  -w
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1631081119
+export SOURCE_DATE_EPOCH=1633742124
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/digikam
 cp %{_builddir}/digikam-7.3.0/COPYING %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
@@ -203,7 +214,8 @@ cp %{_builddir}/digikam-7.3.0/core/libs/rawengine/libraw/LICENSE.LGPL %{buildroo
 cp %{_builddir}/digikam-7.3.0/project/bundles/macports/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
 cp %{_builddir}/digikam-7.3.0/project/bundles/mxe/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/ef250cb30fe89ea6687a0fe04fd552dbdc93e0e0
 pushd clr-build-avx2
-%make_install_avx2  || :
+%make_install_v3  || :
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 popd
 pushd clr-build
 %make_install
@@ -218,9 +230,8 @@ popd
 /usr/bin/cleanup_digikamdb
 /usr/bin/digikam
 /usr/bin/digitaglinktree
-/usr/bin/haswell/digikam
-/usr/bin/haswell/showfoto
 /usr/bin/showfoto
+/usr/share/clear/optimized-elf/bin*
 
 %files data
 %defattr(-,root,root,-)
@@ -836,18 +847,16 @@ popd
 /usr/lib64/cmake/DigikamGui/DigikamGuiConfig.cmake
 /usr/lib64/cmake/DigikamGui/DigikamGuiConfigVersion.cmake
 /usr/lib64/cmake/DigikamPlugin/DigikamPluginConfig.cmake
-/usr/lib64/haswell/libdigikamcore.so
-/usr/lib64/haswell/libdigikamdatabase.so
-/usr/lib64/haswell/libdigikamgui.so
 /usr/lib64/libdigikamcore.so
 /usr/lib64/libdigikamdatabase.so
 /usr/lib64/libdigikamgui.so
 
+%files filemap
+%defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-digikam
+
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/haswell/libdigikamcore.so.7.3.0
-/usr/lib64/haswell/libdigikamdatabase.so.7.3.0
-/usr/lib64/haswell/libdigikamgui.so.7.3.0
 /usr/lib64/libdigikamcore.so.7.3.0
 /usr/lib64/libdigikamdatabase.so.7.3.0
 /usr/lib64/libdigikamgui.so.7.3.0
@@ -859,7 +868,6 @@ popd
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_Blur_Plugin.so
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_Border_Plugin.so
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_ChannelMixer_Plugin.so
-/usr/lib64/qt5/plugins/digikam/bqm/Bqm_ChannelMixer_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_ColorBalance_Plugin.so
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_ColorFX_Plugin.so
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_Convert16To8_Plugin.so
@@ -890,21 +898,14 @@ popd
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_TimeAdjust_Plugin.so
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_UserScript_Plugin.so
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_WaterMark_Plugin.so
-/usr/lib64/qt5/plugins/digikam/bqm/Bqm_WaterMark_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_WhiteBalance_Plugin.so
 /usr/lib64/qt5/plugins/digikam/dimg/DImg_HEIF_Plugin.so
-/usr/lib64/qt5/plugins/digikam/dimg/DImg_HEIF_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/dimg/DImg_JPEG_Plugin.so
-/usr/lib64/qt5/plugins/digikam/dimg/DImg_JPEG_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/dimg/DImg_PGF_Plugin.so
 /usr/lib64/qt5/plugins/digikam/dimg/DImg_PNG_Plugin.so
-/usr/lib64/qt5/plugins/digikam/dimg/DImg_PNG_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/dimg/DImg_QImage_Plugin.so
-/usr/lib64/qt5/plugins/digikam/dimg/DImg_QImage_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/dimg/DImg_RAW_Plugin.so
-/usr/lib64/qt5/plugins/digikam/dimg/DImg_RAW_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/dimg/DImg_TIFF_Plugin.so
-/usr/lib64/qt5/plugins/digikam/dimg/DImg_TIFF_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/editor/Editor_AdjustCurvesTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_AdjustLevelsTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_AntivignettingTool_Plugin.so
@@ -926,13 +927,10 @@ popd
 /usr/lib64/qt5/plugins/digikam/editor/Editor_FilmGrainTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_FilmTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_FreeRotationTool_Plugin.so
-/usr/lib64/qt5/plugins/digikam/editor/Editor_FreeRotationTool_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/editor/Editor_HSLTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_HealingCloneTool_Plugin.so
-/usr/lib64/qt5/plugins/digikam/editor/Editor_HealingCloneTool_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/editor/Editor_HotpixelsTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_InsertTextTool_Plugin.so
-/usr/lib64/qt5/plugins/digikam/editor/Editor_InsertTextTool_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/editor/Editor_InvertTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_LensAutoFixTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_LensDistortionTool_Plugin.so
@@ -940,81 +938,56 @@ popd
 /usr/lib64/qt5/plugins/digikam/editor/Editor_NoiseReductionTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_OilPaintTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_PerspectiveTool_Plugin.so
-/usr/lib64/qt5/plugins/digikam/editor/Editor_PerspectiveTool_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/editor/Editor_PrintTool_Plugin.so
-/usr/lib64/qt5/plugins/digikam/editor/Editor_PrintTool_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/editor/Editor_ProfileConversionTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_RainDropTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_RatioCropTool_Plugin.so
-/usr/lib64/qt5/plugins/digikam/editor/Editor_RatioCropTool_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/editor/Editor_RedEyeTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_ResizeTool_Plugin.so
-/usr/lib64/qt5/plugins/digikam/editor/Editor_ResizeTool_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/editor/Editor_RestorationTool_Plugin.so
-/usr/lib64/qt5/plugins/digikam/editor/Editor_RestorationTool_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/editor/Editor_SharpenTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_ShearTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_TextureTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/editor/Editor_WhiteBalanceTool_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Box_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Calendar_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_Calendar_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_DNGConverter_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_DigitalScanner_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_DropBox_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_ExpoBlending_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_ExpoBlending_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_FileCopy_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_FileTransfer_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_FileTransfer_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Flickr_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_Flickr_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_GeolocationEdit_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_GeolocationEdit_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Google_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_Google_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_HtmlGallery_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_ImageShack_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_ImgUr_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_ImgUr_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_JAlbum_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_MediaServer_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_MediaServer_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_MediaWiki_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_MediaWiki_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_MetadataEdit_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_MetadataEdit_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_OneDrive_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Panorama_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_Panorama_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Pinterest_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Piwigo_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Presentation_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_Presentation_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_PrintCreator_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_PrintCreator_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Rajce_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_SendByMail_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_SlideShow_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_SlideShow_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_SmugMug_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_SmugMug_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_TimeAdjust_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Twitter_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_VKontakte_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Wallpaper_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_YandexFotki_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_YandexFotki_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/generic/Generic_iNaturalist_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_iNaturalist_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/rawimport/RawImport_DarkTable_Plugin.so
-/usr/lib64/qt5/plugins/digikam/rawimport/RawImport_DarkTable_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/rawimport/RawImport_Native_Plugin.so
-/usr/lib64/qt5/plugins/digikam/rawimport/RawImport_Native_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/rawimport/RawImport_RawTherapee_Plugin.so
-/usr/lib64/qt5/plugins/digikam/rawimport/RawImport_RawTherapee_Plugin.so.avx2
 /usr/lib64/qt5/plugins/digikam/rawimport/RawImport_UFRaw_Plugin.so
-/usr/lib64/qt5/plugins/digikam/rawimport/RawImport_UFRaw_Plugin.so.avx2
+/usr/share/clear/optimized-elf/lib*
 
 %files license
 %defattr(0644,root,root,0755)
