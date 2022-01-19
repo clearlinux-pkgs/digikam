@@ -7,3 +7,4 @@ libavdevice
 libavformat
 libpostproc
 x265
+libheif
