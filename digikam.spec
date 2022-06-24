@@ -6,7 +6,7 @@
 #
 Name     : digikam
 Version  : 7.7.0
-Release  : 38
+Release  : 39
 URL      : https://download.kde.org/stable/digikam/7.7.0/digiKam-7.7.0.tar.xz
 Source0  : https://download.kde.org/stable/digikam/7.7.0/digiKam-7.7.0.tar.xz
 Source1  : https://download.kde.org/stable/digikam/7.7.0/digiKam-7.7.0.tar.xz.sig
@@ -170,7 +170,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656095546
+export SOURCE_DATE_EPOCH=1656102980
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -199,7 +199,7 @@ make  %{?_smp_mflags}  -w
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1656095546
+export SOURCE_DATE_EPOCH=1656102980
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/digikam
 cp %{_builddir}/digikam-7.7.0/COPYING %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
