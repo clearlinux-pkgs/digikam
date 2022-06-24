@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x4A77747BC2386E50 (digikamdeveloper@gmail.com)
 #
 Name     : digikam
-Version  : 7.6.0
-Release  : 37
-URL      : https://download.kde.org/stable/digikam/7.6.0/digiKam-7.6.0.tar.xz
-Source0  : https://download.kde.org/stable/digikam/7.6.0/digiKam-7.6.0.tar.xz
-Source1  : https://download.kde.org/stable/digikam/7.6.0/digiKam-7.6.0.tar.xz.sig
+Version  : 7.7.0
+Release  : 38
+URL      : https://download.kde.org/stable/digikam/7.7.0/digiKam-7.7.0.tar.xz
+Source0  : https://download.kde.org/stable/digikam/7.7.0/digiKam-7.7.0.tar.xz
+Source1  : https://download.kde.org/stable/digikam/7.7.0/digiKam-7.7.0.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause CDDL-1.0 CECILL-1.1 GPL-2.0 LGPL-2.1
@@ -81,8 +81,10 @@ BuildRequires : threadweaver-dev
 BuildRequires : tiff-dev
 
 %description
-Platinum SDK taken originally from Kodi implementation on September 2017
-https://github.com/xbmc/xbmc/tree/master/lib/libUPnP
+RESUME
+------
+These scripts build a binary digiKam installer for Windows under Linux using cross-compiler
+environment MXE and NSIS application.
 
 %package bin
 Summary: bin components for the digikam package.
@@ -160,15 +162,15 @@ man components for the digikam package.
 
 
 %prep
-%setup -q -n digikam-7.6.0
-cd %{_builddir}/digikam-7.6.0
+%setup -q -n digikam-7.7.0
+cd %{_builddir}/digikam-7.7.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656020761
+export SOURCE_DATE_EPOCH=1656095546
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -197,21 +199,21 @@ make  %{?_smp_mflags}  -w
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1656020761
+export SOURCE_DATE_EPOCH=1656095546
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/digikam
-cp %{_builddir}/digikam-7.6.0/COPYING %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
-cp %{_builddir}/digikam-7.6.0/COPYING-CMAKE-SCRIPTS %{buildroot}/usr/share/package-licenses/digikam/ff3ed70db4739b3c6747c7f624fe2bad70802987
-cp %{_builddir}/digikam-7.6.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/digikam/1568befcb09e881d29dd760911ceeb4e2d810884
-cp %{_builddir}/digikam-7.6.0/core/dplugins/generic/tools/mediaserver/upnpsdk/Platinum/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/a5bbd41410f38b2dd525e6c601f29b1736db13f9
-cp %{_builddir}/digikam-7.6.0/core/libs/dimg/filters/greycstoration/cimg/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/2da2357c9706c1416e5d65e4a2e21a1c77fc9dff
-cp %{_builddir}/digikam-7.6.0/core/libs/dngwriter/extra/COPYING-ADOBE-XMPSDK %{buildroot}/usr/share/package-licenses/digikam/b2245a16f088ed2b57e39c6f3a92b0883c0b062f
-cp %{_builddir}/digikam-7.6.0/core/libs/dplugins/webservices/o2/LICENSE %{buildroot}/usr/share/package-licenses/digikam/5be7b6f190b991f6c1029fd38d785c3ba54e255f
-cp %{_builddir}/digikam-7.6.0/core/libs/rawengine/libraw/COPYRIGHT %{buildroot}/usr/share/package-licenses/digikam/e86ca32ed57e181b74fd60bbb8301acf014a9a6c
-cp %{_builddir}/digikam-7.6.0/core/libs/rawengine/libraw/LICENSE.CDDL %{buildroot}/usr/share/package-licenses/digikam/c24b9c7ef03687bf0141f85a1b7ed81459944c3c
-cp %{_builddir}/digikam-7.6.0/core/libs/rawengine/libraw/LICENSE.LGPL %{buildroot}/usr/share/package-licenses/digikam/39a21f33cadea18adcc23bf808d7d5ea6419c8b1
-cp %{_builddir}/digikam-7.6.0/project/bundles/macports/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
-cp %{_builddir}/digikam-7.6.0/project/bundles/mxe/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/ef250cb30fe89ea6687a0fe04fd552dbdc93e0e0
+cp %{_builddir}/digikam-7.7.0/COPYING %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
+cp %{_builddir}/digikam-7.7.0/COPYING-CMAKE-SCRIPTS %{buildroot}/usr/share/package-licenses/digikam/ff3ed70db4739b3c6747c7f624fe2bad70802987
+cp %{_builddir}/digikam-7.7.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/digikam/1568befcb09e881d29dd760911ceeb4e2d810884
+cp %{_builddir}/digikam-7.7.0/core/dplugins/generic/tools/mediaserver/upnpsdk/Platinum/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/a5bbd41410f38b2dd525e6c601f29b1736db13f9
+cp %{_builddir}/digikam-7.7.0/core/libs/dimg/filters/greycstoration/cimg/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/2da2357c9706c1416e5d65e4a2e21a1c77fc9dff
+cp %{_builddir}/digikam-7.7.0/core/libs/dngwriter/extra/COPYING-ADOBE-XMPSDK %{buildroot}/usr/share/package-licenses/digikam/b2245a16f088ed2b57e39c6f3a92b0883c0b062f
+cp %{_builddir}/digikam-7.7.0/core/libs/dplugins/webservices/o2/LICENSE %{buildroot}/usr/share/package-licenses/digikam/5be7b6f190b991f6c1029fd38d785c3ba54e255f
+cp %{_builddir}/digikam-7.7.0/core/libs/rawengine/libraw/COPYRIGHT %{buildroot}/usr/share/package-licenses/digikam/e86ca32ed57e181b74fd60bbb8301acf014a9a6c
+cp %{_builddir}/digikam-7.7.0/core/libs/rawengine/libraw/LICENSE.CDDL %{buildroot}/usr/share/package-licenses/digikam/c24b9c7ef03687bf0141f85a1b7ed81459944c3c
+cp %{_builddir}/digikam-7.7.0/core/libs/rawengine/libraw/LICENSE.LGPL %{buildroot}/usr/share/package-licenses/digikam/39a21f33cadea18adcc23bf808d7d5ea6419c8b1
+cp %{_builddir}/digikam-7.7.0/project/bundles/macports/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
+cp %{_builddir}/digikam-7.7.0/project/bundles/mxe/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/ef250cb30fe89ea6687a0fe04fd552dbdc93e0e0
 pushd clr-build-avx2
 %make_install_v3  || :
 popd
@@ -767,9 +769,11 @@ popd
 /usr/include/digikam/digikam_config.h
 /usr/include/digikam/digikam_core_export.h
 /usr/include/digikam/digikam_database_export.h
+/usr/include/digikam/digikam_debug.h
 /usr/include/digikam/digikam_export.h
 /usr/include/digikam/digikam_globals.h
 /usr/include/digikam/digikam_gui_export.h
+/usr/include/digikam/digikam_version.h
 /usr/include/digikam/dimg.h
 /usr/include/digikam/dimgbuiltinfilter.h
 /usr/include/digikam/dimgloaderobserver.h
@@ -835,6 +839,10 @@ popd
 /usr/include/digikam/thumbnailinfo.h
 /usr/include/digikam/thumbnailloadthread.h
 /usr/include/digikam/wbcontainer.h
+/usr/include/digikam/wsitem.h
+/usr/include/digikam/wslogindialog.h
+/usr/include/digikam/wsnewalbumdialog.h
+/usr/include/digikam/wssettingswidget.h
 /usr/include/digikam/wstooldialog.h
 /usr/include/digikam/wstoolutils.h
 /usr/lib64/cmake/DigikamCore/DigikamCoreConfig-relwithdebinfo.cmake
@@ -857,143 +865,15 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_AntiVignetting_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_AssignTemplate_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_AutoCorrection_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_BWconvert_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_BcgCorrection_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_Blur_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_Border_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_ChannelMixer_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_ColorBalance_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_ColorFX_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_Convert16To8_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_Convert8To16_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_ConvertToDNG_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_ConvertToJPEG_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_ConvertToPGF_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_ConvertToPNG_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_ConvertToTIFF_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_Crop_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_CurvesAdjust_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_FilmGrain_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_Flip_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_HotPixels_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_HslCorrection_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_IccConvert_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_Invert_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_LensAutoFix_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_LocalContrast_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_NoiseReduction_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_RedEyeCorrection_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_RemoveMetadata_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_Resize_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_Restoration_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_Rotate_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_Sharpen_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_Texture_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_TimeAdjust_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_UserScript_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_WaterMark_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Bqm_WhiteBalance_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/DImg_HEIF_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/DImg_JPEG_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/DImg_PGF_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/DImg_PNG_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/DImg_QImage_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/DImg_RAW_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/DImg_TIFF_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_AdjustCurvesTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_AdjustLevelsTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_AntivignettingTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_AutoCorrectionTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_AutoCropTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_BWSepiaTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_BcgTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_BlurFxTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_BlurTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_BorderTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_CBTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_ChannelMixerTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_CharcoalTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_ColorFxTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_Convert16To8Tool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_Convert8To16Tool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_DistortionFxTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_EmbossTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_FilmGrainTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_FilmTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_FreeRotationTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_HSLTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_HealingCloneTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_HotpixelsTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_InsertTextTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_InvertTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_LensAutoFixTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_LensDistortionTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_LocalContrastTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_NoiseReductionTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_OilPaintTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_PerspectiveTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_PrintTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_ProfileConversionTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_RainDropTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_RatioCropTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_RedEyeTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_ResizeTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_RestorationTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_SharpenTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_ShearTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_TextureTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Editor_WhiteBalanceTool_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_Box_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_Calendar_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_DNGConverter_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_DigitalScanner_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_DropBox_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_ExpoBlending_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_FileCopy_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_FileTransfer_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_Flickr_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_GeolocationEdit_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_Google_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_HtmlGallery_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_ImageShack_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_ImgUr_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_JAlbum_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_MediaServer_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_MediaWiki_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_MetadataEdit_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_MjpegStream_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_OneDrive_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_Panorama_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_Pinterest_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_Piwigo_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_Presentation_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_PrintCreator_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_Rajce_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_SendByMail_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_SlideShow_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_SmugMug_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_TimeAdjust_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_Twitter_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_VKontakte_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_Wallpaper_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_YandexFotki_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/Generic_iNaturalist_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/RawImport_DarkTable_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/RawImport_Native_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/RawImport_RawTherapee_Plugin.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/RawImport_UFRaw_Plugin.so
 /usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamcore.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamcore.so.7.6.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamcore.so.7.7.0
 /usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamdatabase.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamdatabase.so.7.6.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamdatabase.so.7.7.0
 /usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamgui.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamgui.so.7.6.0
-/usr/lib64/libdigikamcore.so.7.6.0
-/usr/lib64/libdigikamdatabase.so.7.6.0
-/usr/lib64/libdigikamgui.so.7.6.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamgui.so.7.7.0
+/usr/lib64/libdigikamcore.so.7.7.0
+/usr/lib64/libdigikamdatabase.so.7.7.0
+/usr/lib64/libdigikamgui.so.7.7.0
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_AntiVignetting_Plugin.so
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_AssignTemplate_Plugin.so
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_AutoCorrection_Plugin.so
@@ -1033,7 +913,6 @@ popd
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_UserScript_Plugin.so
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_WaterMark_Plugin.so
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_WhiteBalance_Plugin.so
-/usr/lib64/qt5/plugins/digikam/dimg/DImg_HEIF_Plugin.so
 /usr/lib64/qt5/plugins/digikam/dimg/DImg_JPEG_Plugin.so
 /usr/lib64/qt5/plugins/digikam/dimg/DImg_PGF_Plugin.so
 /usr/lib64/qt5/plugins/digikam/dimg/DImg_PNG_Plugin.so
@@ -1114,9 +993,7 @@ popd
 /usr/lib64/qt5/plugins/digikam/generic/Generic_SmugMug_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_TimeAdjust_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Twitter_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_VKontakte_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Wallpaper_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_YandexFotki_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_iNaturalist_Plugin.so
 /usr/lib64/qt5/plugins/digikam/rawimport/RawImport_DarkTable_Plugin.so
 /usr/lib64/qt5/plugins/digikam/rawimport/RawImport_Native_Plugin.so
