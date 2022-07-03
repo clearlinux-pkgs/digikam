@@ -6,7 +6,7 @@
 #
 Name     : digikam
 Version  : 7.7.0
-Release  : 39
+Release  : 40
 URL      : https://download.kde.org/stable/digikam/7.7.0/digiKam-7.7.0.tar.xz
 Source0  : https://download.kde.org/stable/digikam/7.7.0/digiKam-7.7.0.tar.xz
 Source1  : https://download.kde.org/stable/digikam/7.7.0/digiKam-7.7.0.tar.xz.sig
@@ -855,6 +855,9 @@ popd
 /usr/lib64/cmake/DigikamGui/DigikamGuiConfig.cmake
 /usr/lib64/cmake/DigikamGui/DigikamGuiConfigVersion.cmake
 /usr/lib64/cmake/DigikamPlugin/DigikamPluginConfig.cmake
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamcore.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamdatabase.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamgui.so
 /usr/lib64/libdigikamcore.so
 /usr/lib64/libdigikamdatabase.so
 /usr/lib64/libdigikamgui.so
@@ -865,11 +868,8 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamcore.so
 /usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamcore.so.7.7.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamdatabase.so
 /usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamdatabase.so.7.7.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamgui.so
 /usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamgui.so.7.7.0
 /usr/lib64/libdigikamcore.so.7.7.0
 /usr/lib64/libdigikamdatabase.so.7.7.0
@@ -999,6 +999,7 @@ popd
 /usr/lib64/qt5/plugins/digikam/rawimport/RawImport_Native_Plugin.so
 /usr/lib64/qt5/plugins/digikam/rawimport/RawImport_RawTherapee_Plugin.so
 /usr/lib64/qt5/plugins/digikam/rawimport/RawImport_UFRaw_Plugin.so
+/usr/share/clear/optimized-elf/other*
 
 %files license
 %defattr(0644,root,root,0755)
