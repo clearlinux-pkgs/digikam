@@ -6,7 +6,7 @@
 #
 Name     : digikam
 Version  : 7.7.0
-Release  : 41
+Release  : 42
 URL      : https://download.kde.org/stable/digikam/7.7.0/digiKam-7.7.0.tar.xz
 Source0  : https://download.kde.org/stable/digikam/7.7.0/digiKam-7.7.0.tar.xz
 Source1  : https://download.kde.org/stable/digikam/7.7.0/digiKam-7.7.0.tar.xz.sig
