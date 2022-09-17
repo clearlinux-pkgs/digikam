@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x4A77747BC2386E50 (digikamdeveloper@gmail.com)
 #
 Name     : digikam
-Version  : 7.7.0
-Release  : 43
-URL      : https://download.kde.org/stable/digikam/7.7.0/digiKam-7.7.0.tar.xz
-Source0  : https://download.kde.org/stable/digikam/7.7.0/digiKam-7.7.0.tar.xz
-Source1  : https://download.kde.org/stable/digikam/7.7.0/digiKam-7.7.0.tar.xz.sig
+Version  : 7.8.0
+Release  : 44
+URL      : https://download.kde.org/stable/digikam/7.8.0/digiKam-7.8.0.tar.xz
+Source0  : https://download.kde.org/stable/digikam/7.8.0/digiKam-7.8.0.tar.xz
+Source1  : https://download.kde.org/stable/digikam/7.8.0/digiKam-7.8.0.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause CDDL-1.0 CECILL-1.1 GPL-2.0 LGPL-2.1
@@ -42,7 +42,6 @@ BuildRequires : glibc-dev
 BuildRequires : kcalendarcore-dev
 BuildRequires : kcodecs-dev
 BuildRequires : kcompletion-dev
-BuildRequires : kcontacts-dev
 BuildRequires : kfilemetadata-dev
 BuildRequires : kiconthemes-dev
 BuildRequires : kio-dev
@@ -81,10 +80,8 @@ BuildRequires : threadweaver-dev
 BuildRequires : tiff-dev
 
 %description
-RESUME
-------
-These scripts build a binary digiKam installer for Windows under Linux using cross-compiler
-environment MXE and NSIS application.
+Backported from: https://gitlab.com/Bobulous/digikam-html5-gallery-theme
+Date:            20/11/2019
 
 %package bin
 Summary: bin components for the digikam package.
@@ -162,15 +159,15 @@ man components for the digikam package.
 
 
 %prep
-%setup -q -n digikam-7.7.0
-cd %{_builddir}/digikam-7.7.0
+%setup -q -n digikam-7.8.0
+cd %{_builddir}/digikam-7.8.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656102980
+export SOURCE_DATE_EPOCH=1663377498
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -185,10 +182,10 @@ popd
 mkdir -p clr-build-avx2
 pushd clr-build-avx2
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fno-lto -fno-semantic-interposition -march=x86-64-v3 -mprefer-vector-width=256 -msse2avx -mtune=skylake "
-export FCFLAGS="$FFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fno-lto -fno-semantic-interposition -march=x86-64-v3 -mprefer-vector-width=256 -msse2avx -mtune=skylake "
-export FFLAGS="$FFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fno-lto -fno-semantic-interposition -march=x86-64-v3 -mprefer-vector-width=256 -msse2avx -mtune=skylake "
-export CXXFLAGS="$CXXFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fno-lto -fno-semantic-interposition -march=x86-64-v3 -mprefer-vector-width=256 -msse2avx -mtune=skylake "
+export CFLAGS="$CFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fno-lto -fno-semantic-interposition -march=x86-64-v3 -mprefer-vector-width=256 -mtune=skylake "
+export FCFLAGS="$FFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fno-lto -fno-semantic-interposition -march=x86-64-v3 -mprefer-vector-width=256 -mtune=skylake "
+export FFLAGS="$FFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fno-lto -fno-semantic-interposition -march=x86-64-v3 -mprefer-vector-width=256 -mtune=skylake "
+export CXXFLAGS="$CXXFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fno-lto -fno-semantic-interposition -march=x86-64-v3 -mprefer-vector-width=256 -mtune=skylake "
 export CFLAGS="$CFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
 export CXXFLAGS="$CXXFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
 export FFLAGS="$FFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
@@ -199,21 +196,21 @@ make  %{?_smp_mflags}  -w
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1656102980
+export SOURCE_DATE_EPOCH=1663377498
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/digikam
-cp %{_builddir}/digikam-7.7.0/COPYING %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
-cp %{_builddir}/digikam-7.7.0/COPYING-CMAKE-SCRIPTS %{buildroot}/usr/share/package-licenses/digikam/ff3ed70db4739b3c6747c7f624fe2bad70802987
-cp %{_builddir}/digikam-7.7.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/digikam/1568befcb09e881d29dd760911ceeb4e2d810884
-cp %{_builddir}/digikam-7.7.0/core/dplugins/generic/tools/mediaserver/upnpsdk/Platinum/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/a5bbd41410f38b2dd525e6c601f29b1736db13f9
-cp %{_builddir}/digikam-7.7.0/core/libs/dimg/filters/greycstoration/cimg/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/2da2357c9706c1416e5d65e4a2e21a1c77fc9dff
-cp %{_builddir}/digikam-7.7.0/core/libs/dngwriter/extra/COPYING-ADOBE-XMPSDK %{buildroot}/usr/share/package-licenses/digikam/b2245a16f088ed2b57e39c6f3a92b0883c0b062f
-cp %{_builddir}/digikam-7.7.0/core/libs/dplugins/webservices/o2/LICENSE %{buildroot}/usr/share/package-licenses/digikam/5be7b6f190b991f6c1029fd38d785c3ba54e255f
-cp %{_builddir}/digikam-7.7.0/core/libs/rawengine/libraw/COPYRIGHT %{buildroot}/usr/share/package-licenses/digikam/e86ca32ed57e181b74fd60bbb8301acf014a9a6c
-cp %{_builddir}/digikam-7.7.0/core/libs/rawengine/libraw/LICENSE.CDDL %{buildroot}/usr/share/package-licenses/digikam/c24b9c7ef03687bf0141f85a1b7ed81459944c3c
-cp %{_builddir}/digikam-7.7.0/core/libs/rawengine/libraw/LICENSE.LGPL %{buildroot}/usr/share/package-licenses/digikam/39a21f33cadea18adcc23bf808d7d5ea6419c8b1
-cp %{_builddir}/digikam-7.7.0/project/bundles/macports/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
-cp %{_builddir}/digikam-7.7.0/project/bundles/mxe/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/ef250cb30fe89ea6687a0fe04fd552dbdc93e0e0
+cp %{_builddir}/digikam-%{version}/COPYING %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
+cp %{_builddir}/digikam-%{version}/COPYING-CMAKE-SCRIPTS %{buildroot}/usr/share/package-licenses/digikam/ff3ed70db4739b3c6747c7f624fe2bad70802987
+cp %{_builddir}/digikam-%{version}/COPYING.LIB %{buildroot}/usr/share/package-licenses/digikam/1568befcb09e881d29dd760911ceeb4e2d810884
+cp %{_builddir}/digikam-%{version}/core/dplugins/generic/tools/mediaserver/upnpsdk/Platinum/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/a5bbd41410f38b2dd525e6c601f29b1736db13f9
+cp %{_builddir}/digikam-%{version}/core/libs/dimg/filters/greycstoration/cimg/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/2da2357c9706c1416e5d65e4a2e21a1c77fc9dff
+cp %{_builddir}/digikam-%{version}/core/libs/dngwriter/extra/COPYING-ADOBE-XMPSDK %{buildroot}/usr/share/package-licenses/digikam/b2245a16f088ed2b57e39c6f3a92b0883c0b062f
+cp %{_builddir}/digikam-%{version}/core/libs/dplugins/webservices/o2/LICENSE %{buildroot}/usr/share/package-licenses/digikam/5be7b6f190b991f6c1029fd38d785c3ba54e255f
+cp %{_builddir}/digikam-%{version}/core/libs/rawengine/libraw/COPYRIGHT %{buildroot}/usr/share/package-licenses/digikam/e86ca32ed57e181b74fd60bbb8301acf014a9a6c
+cp %{_builddir}/digikam-%{version}/core/libs/rawengine/libraw/LICENSE.CDDL %{buildroot}/usr/share/package-licenses/digikam/c24b9c7ef03687bf0141f85a1b7ed81459944c3c
+cp %{_builddir}/digikam-%{version}/core/libs/rawengine/libraw/LICENSE.LGPL %{buildroot}/usr/share/package-licenses/digikam/39a21f33cadea18adcc23bf808d7d5ea6419c8b1
+cp %{_builddir}/digikam-%{version}/project/bundles/macports/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
+cp %{_builddir}/digikam-%{version}/project/bundles/mxe/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/ef250cb30fe89ea6687a0fe04fd552dbdc93e0e0
 pushd clr-build-avx2
 %make_install_v3  || :
 popd
@@ -868,12 +865,12 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamcore.so.7.7.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamdatabase.so.7.7.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamgui.so.7.7.0
-/usr/lib64/libdigikamcore.so.7.7.0
-/usr/lib64/libdigikamdatabase.so.7.7.0
-/usr/lib64/libdigikamgui.so.7.7.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamcore.so.7.8.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamdatabase.so.7.8.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libdigikamgui.so.7.8.0
+/usr/lib64/libdigikamcore.so.7.8.0
+/usr/lib64/libdigikamdatabase.so.7.8.0
+/usr/lib64/libdigikamgui.so.7.8.0
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_AntiVignetting_Plugin.so
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_AssignTemplate_Plugin.so
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_AutoCorrection_Plugin.so
@@ -965,7 +962,6 @@ popd
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Box_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_Calendar_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_DNGConverter_Plugin.so
-/usr/lib64/qt5/plugins/digikam/generic/Generic_DigitalScanner_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_DropBox_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_ExpoBlending_Plugin.so
 /usr/lib64/qt5/plugins/digikam/generic/Generic_FileCopy_Plugin.so

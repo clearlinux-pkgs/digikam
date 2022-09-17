@@ -1,97 +1,10 @@
-digiKam 7.7.0 - Release date: 2022-06-26
+digiKam 7.9.0 - Release date: 2022-xx-xx
 
 *****************************************************************************************************
 NEW FEATURES:
 
-General: Remove internal libheif and libde265 from core in favor to system libraries.
-General: Update internal Libraw snashot to 2022-06-17 with Olympus OM-1 support.
-Bundles: Add JpegXL support (read/write) in all bundles (AppImage, MacOS, and Windows).
-         More info about this file format: https://en.wikipedia.org/wiki/JPEG_XL
-Bundles: Add AVIF/AOM support (read/write) in all bundles (AppImage, MacOS, and Windows).
-         More info about this file format: https://en.wikipedia.org/wiki/AVIF
-Bundles: All bundles uses KF5 frameworks version 5.95.
-Bundles: MacOS package uses Qt framework version 5.15.3.
 
 *****************************************************************************************************
 BUGFIXES:
 
-001 ==> 450567 - When editing a group caption, the digiKam does not warn of possible information loss.
-002 ==> 450587 - Inconsistent disabled state of Save action after Undo/Redo.
-003 ==> 451256 - An empty album displays a notification message that the database query returned no result.
-004 ==> 451265 - Incorrect information in dialog.
-005 ==> 451221 - Cannot start digiKam.
-006 ==> 451289 - Database identifiers should be protected with tick marks.
-007 ==> 436533 - Add JPEG XL support in all bundles (AppImage, MacOS, Windows).
-009 ==> 109060 - Add AVIF file format support to all bundles (AppImage, MacOS, Windows).
-010 ==> 451374 - When changing image orientation to portrait in DNG file, the change does not seem to get written to file metadata.
-011 ==> 451460 - Failed to update the database schema from version 10 to version 11.
-012 ==> 449406 - Photograph Properties incorrect after saving in image editor.
-013 ==> 451660 - digiKam Import Main View - <Ctrl-W>, <Ctr-Esc> and Menu entry "Close" do not close the Window.
-014 ==> 451697 - Why does digiKam do anything to Thumbnails if tags are changed?
-015 ==> 451628 - digiKam hangs on startup.
-016 ==> 451545 - Strange tagging after building a new database.
-017 ==> 451347 - Missing Rating info in XMP sidecar, for RAW files.
-018 ==> 450785 - Image version hiding not working.
-019 ==> 451723 - Reread metadata from image stalls when started from Tag Manager.
-020 ==> 451291 - Insuffiecient privileges "ALTER TABLE" crashes digiKam.
-021 ==> 451786 - Zero sized images on failed move.
-022 ==> 451785 - Map view freezing.
-023 ==> 451637 - Crash while extra->maintenance.
-024 ==> 386522 - Video decoder backend in digiKam (windows 10).
-025 ==> 418266 - Animated .gif files flicker while looping.
-026 ==> 451933 - No access to folders with Flatpak.
-027 ==> 451934 - Cannot move picture to trash.
-028 ==> 451943 - digiKam crashes on *.svg file that contains a font that's not installed on the system.
-029 ==> 451924 - digiKam-7.7.0-20220325T121458-Win64.tar.xz crash on start.
-030 ==> 452008 - Timestamp not updated when using File name timestamp.
-031 ==> 452103 - Custom keyboard shortcut definitions not persistent.
-032 ==> 452323 - digiKam crash after importing photos.
-033 ==> 452321 - digiKam Album date after migration from Picasa3.
-034 ==> 122738 - Exiv2 needed to compile.
-035 ==> 451868 - Crash while creating quality.
-036 ==> 452578 - Cannot set correct image folder when configure.
-037 ==> 452712 - Appimage for 7.6.0 will not run in Ubuntu 18.04.
-038 ==> 452677 - The date is passed to iNaturalist in the wrong format.
-039 ==> 452947 - From Batch Queue Manager metadata for lens auto-correction are not recognized.
-040 ==> 452577 - Export to Pinterest function does not work and shows a message status:failure,code:11.
-041 ==> 453181 - QMYSQL driver not loaded.
-042 ==> 453231 - digiKam does not work anymore after upgrading to ubuntu 22.04.
-043 ==> 453244 - 7.6.0 Appimage crashes on Ubuntu 22.04.
-044 ==> 453249 - Face regions get lost when the file is renamed.
-045 ==> 453418 - Color Profile Default Locations not Correct.
-046 ==> 453516 - Crash on Inkscape svg file in Exiv2.
-047 ==> 453611 - Showfoto main window freeze and crash at startup.
-048 ==> 453617 - Add "Ignore face" button for unrecongised faces in thumbnail view.
-049 ==> 453707 - Resizing and then ignoring recognised face ignores the original rectangle and resizes the rectangle for the suggested face.
-050 ==> 453817 - digiKam does not detect hugin software as it is now provided as a flatpack, and no more as a classic ppa.
-051 ==> 453905 - Network Mounts are not functional.
-052 ==> 453888 - Exiftool display of a malformed tag.
-053 ==> 453899 - Ccache not detected at digiKam git compilation.
-054 ==> 453417 - Color Management not working properly.
-055 ==> 453965 - Showfoto crashed while parsing image metadata with Image Magick.
-056 ==> 454090 - Prevent computer from sleeping after playing some videos.
-057 ==> 362023 - Extremely slow metadata writing via maintenance.
-058 ==> 454279 - Appimage not starting.
-059 ==> 444265 - The plugin MediaWiki crashes by uploading an image.
-060 ==> 454537 - RAW DNG image file (from Adobe Lightroom) with color space conversion to sSRG IEC61966-2.1 and converted to TIFF cannot be read.
-061 ==> 454770 - Progress bar shows checkmark.
-062 ==> 454766 - Importing an album uses only a single thread.
-063 ==> 454768 - Progress bar is useless.
-064 ==> 454796 - 7.6.0 AppImage fails to start on Ubuntu 22.04 "symbol lookup error: /lib/x86_64-linux-gnu/libgio-2.0.so.0".
-065 ==> 454844 - Cannot read a JPEG produced by Photoshop and acceptable to LightRoom.
-066 ==> 454831 - Sort photos by shooting date.
-067 ==> 454882 - Requirements for MySQL Server omit USER.
-068 ==> 454873 - Problems with lensfun and batch.
-069 ==> 454978 - Search for camera maker does not yield results for certain photos.
-070 ==> 455001 - Add case for Casio/Minolta cameras in shortenedMakeInfo (itempropertiestab.cpp).
-071 ==> 455047 - Renaming folder with different case is detected as a different album.
-072 ==> 455057 - Exposure blending fails to preview.
-073 ==> 455091 - Renaming files on import loses image order in some cases.
-074 ==> 455417 - Regression : when batch renaming file (F2), only the first modifier is taken into account.
-075 ==> 453165 - digiKam crashes before starting faces detection.
-076 ==> 453971 - Maintenance / Face recognition - digiKam (Not responding).
-077 ==> 454940 - Exporting PSD files to Google Photos fails under Windows works under Linux.
-078 ==> 455699 - Importing folders with subdirectories creates albums, but they're missing in album view.
-079 ==> 452508 - Components information crashes digiKam.
-080 ==> 444296 - digiKam starts but does not open a window. Showfoto does the same.
-081 ==> 455050 - digiKam hangs on startup.
+001 ==> 
