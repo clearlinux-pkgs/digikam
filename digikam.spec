@@ -6,7 +6,7 @@
 #
 Name     : digikam
 Version  : 7.8.0
-Release  : 46
+Release  : 47
 URL      : https://download.kde.org/stable/digikam/7.8.0/digiKam-7.8.0.tar.xz
 Source0  : https://download.kde.org/stable/digikam/7.8.0/digiKam-7.8.0.tar.xz
 Source1  : https://download.kde.org/stable/digikam/7.8.0/digiKam-7.8.0.tar.xz.sig
@@ -17,9 +17,6 @@ Requires: digikam-bin = %{version}-%{release}
 Requires: digikam-data = %{version}-%{release}
 Requires: digikam-filemap = %{version}-%{release}
 Requires: digikam-lib = %{version}-%{release}
-Requires: digikam-license = %{version}-%{release}
-Requires: digikam-locales = %{version}-%{release}
-Requires: digikam-man = %{version}-%{release}
 BuildRequires : ImageMagick
 BuildRequires : akonadi-contacts-dev
 BuildRequires : bison-dev
@@ -78,6 +75,9 @@ BuildRequires : solid-dev
 BuildRequires : subversion
 BuildRequires : threadweaver-dev
 BuildRequires : tiff-dev
+# Suppress stripping binaries
+%define __strip /bin/true
+%define debug_package %{nil}
 
 %description
 Backported from: https://gitlab.com/Bobulous/digikam-html5-gallery-theme
@@ -87,7 +87,6 @@ Date:            20/11/2019
 Summary: bin components for the digikam package.
 Group: Binaries
 Requires: digikam-data = %{version}-%{release}
-Requires: digikam-license = %{version}-%{release}
 Requires: digikam-filemap = %{version}-%{release}
 
 %description bin
@@ -127,35 +126,10 @@ filemap components for the digikam package.
 Summary: lib components for the digikam package.
 Group: Libraries
 Requires: digikam-data = %{version}-%{release}
-Requires: digikam-license = %{version}-%{release}
 Requires: digikam-filemap = %{version}-%{release}
 
 %description lib
 lib components for the digikam package.
-
-
-%package license
-Summary: license components for the digikam package.
-Group: Default
-
-%description license
-license components for the digikam package.
-
-
-%package locales
-Summary: locales components for the digikam package.
-Group: Default
-
-%description locales
-locales components for the digikam package.
-
-
-%package man
-Summary: man components for the digikam package.
-Group: Default
-
-%description man
-man components for the digikam package.
 
 
 %prep
@@ -167,14 +141,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1663377498
+export SOURCE_DATE_EPOCH=1672865777
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -mprefer-vector-width=256 "
-export FCFLAGS="$FFLAGS -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -mprefer-vector-width=256 "
-export FFLAGS="$FFLAGS -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -mprefer-vector-width=256 "
-export CXXFLAGS="$CXXFLAGS -Ofast -falign-functions=32 -fno-lto -fno-semantic-interposition -mprefer-vector-width=256 "
+export CFLAGS="$CFLAGS -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
+export FCFLAGS="$FFLAGS -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
+export FFLAGS="$FFLAGS -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
+export CXXFLAGS="$CXXFLAGS -Ofast -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz "
 %cmake .. -DENABLE_QWEBENGINE=TRUE \
 -DBUILD_TESTING=OFF
 make  %{?_smp_mflags}  -w
@@ -182,10 +156,10 @@ popd
 mkdir -p clr-build-avx2
 pushd clr-build-avx2
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fno-lto -fno-semantic-interposition -march=x86-64-v3 -mprefer-vector-width=256 -mtune=skylake "
-export FCFLAGS="$FFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fno-lto -fno-semantic-interposition -march=x86-64-v3 -mprefer-vector-width=256 -mtune=skylake "
-export FFLAGS="$FFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fno-lto -fno-semantic-interposition -march=x86-64-v3 -mprefer-vector-width=256 -mtune=skylake "
-export CXXFLAGS="$CXXFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fno-lto -fno-semantic-interposition -march=x86-64-v3 -mprefer-vector-width=256 -mtune=skylake "
+export CFLAGS="$CFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz -march=x86-64-v3 "
+export FCFLAGS="$FFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz -march=x86-64-v3 "
+export FFLAGS="$FFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz -march=x86-64-v3 "
+export CXXFLAGS="$CXXFLAGS -O3 -Ofast -Wl,-z,x86-64-v3 -falign-functions=32 -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -fno-semantic-interposition -g1 -gno-column-info -gno-variable-location-views -gz -march=x86-64-v3 "
 export CFLAGS="$CFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
 export CXXFLAGS="$CXXFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
 export FFLAGS="$FFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
@@ -196,28 +170,27 @@ make  %{?_smp_mflags}  -w
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1663377498
+export SOURCE_DATE_EPOCH=1672865777
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/digikam
-cp %{_builddir}/digikam-%{version}/COPYING %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
-cp %{_builddir}/digikam-%{version}/COPYING-CMAKE-SCRIPTS %{buildroot}/usr/share/package-licenses/digikam/ff3ed70db4739b3c6747c7f624fe2bad70802987
-cp %{_builddir}/digikam-%{version}/COPYING.LIB %{buildroot}/usr/share/package-licenses/digikam/1568befcb09e881d29dd760911ceeb4e2d810884
-cp %{_builddir}/digikam-%{version}/core/dplugins/generic/tools/mediaserver/upnpsdk/Platinum/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/a5bbd41410f38b2dd525e6c601f29b1736db13f9
-cp %{_builddir}/digikam-%{version}/core/libs/dimg/filters/greycstoration/cimg/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/2da2357c9706c1416e5d65e4a2e21a1c77fc9dff
-cp %{_builddir}/digikam-%{version}/core/libs/dngwriter/extra/COPYING-ADOBE-XMPSDK %{buildroot}/usr/share/package-licenses/digikam/b2245a16f088ed2b57e39c6f3a92b0883c0b062f
-cp %{_builddir}/digikam-%{version}/core/libs/dplugins/webservices/o2/LICENSE %{buildroot}/usr/share/package-licenses/digikam/5be7b6f190b991f6c1029fd38d785c3ba54e255f
-cp %{_builddir}/digikam-%{version}/core/libs/rawengine/libraw/COPYRIGHT %{buildroot}/usr/share/package-licenses/digikam/e86ca32ed57e181b74fd60bbb8301acf014a9a6c
-cp %{_builddir}/digikam-%{version}/core/libs/rawengine/libraw/LICENSE.CDDL %{buildroot}/usr/share/package-licenses/digikam/c24b9c7ef03687bf0141f85a1b7ed81459944c3c
-cp %{_builddir}/digikam-%{version}/core/libs/rawengine/libraw/LICENSE.LGPL %{buildroot}/usr/share/package-licenses/digikam/39a21f33cadea18adcc23bf808d7d5ea6419c8b1
-cp %{_builddir}/digikam-%{version}/project/bundles/macports/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
-cp %{_builddir}/digikam-%{version}/project/bundles/mxe/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/ef250cb30fe89ea6687a0fe04fd552dbdc93e0e0
+cp %{_builddir}/digikam-%{version}/COPYING %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2 || :
+cp %{_builddir}/digikam-%{version}/COPYING-CMAKE-SCRIPTS %{buildroot}/usr/share/package-licenses/digikam/ff3ed70db4739b3c6747c7f624fe2bad70802987 || :
+cp %{_builddir}/digikam-%{version}/COPYING.LIB %{buildroot}/usr/share/package-licenses/digikam/1568befcb09e881d29dd760911ceeb4e2d810884 || :
+cp %{_builddir}/digikam-%{version}/core/dplugins/generic/tools/mediaserver/upnpsdk/Platinum/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/a5bbd41410f38b2dd525e6c601f29b1736db13f9 || :
+cp %{_builddir}/digikam-%{version}/core/libs/dimg/filters/greycstoration/cimg/LICENSE.txt %{buildroot}/usr/share/package-licenses/digikam/2da2357c9706c1416e5d65e4a2e21a1c77fc9dff || :
+cp %{_builddir}/digikam-%{version}/core/libs/dngwriter/extra/COPYING-ADOBE-XMPSDK %{buildroot}/usr/share/package-licenses/digikam/b2245a16f088ed2b57e39c6f3a92b0883c0b062f || :
+cp %{_builddir}/digikam-%{version}/core/libs/dplugins/webservices/o2/LICENSE %{buildroot}/usr/share/package-licenses/digikam/5be7b6f190b991f6c1029fd38d785c3ba54e255f || :
+cp %{_builddir}/digikam-%{version}/core/libs/rawengine/libraw/COPYRIGHT %{buildroot}/usr/share/package-licenses/digikam/e86ca32ed57e181b74fd60bbb8301acf014a9a6c || :
+cp %{_builddir}/digikam-%{version}/core/libs/rawengine/libraw/LICENSE.CDDL %{buildroot}/usr/share/package-licenses/digikam/c24b9c7ef03687bf0141f85a1b7ed81459944c3c || :
+cp %{_builddir}/digikam-%{version}/core/libs/rawengine/libraw/LICENSE.LGPL %{buildroot}/usr/share/package-licenses/digikam/39a21f33cadea18adcc23bf808d7d5ea6419c8b1 || :
+cp %{_builddir}/digikam-%{version}/project/bundles/macports/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2 || :
+cp %{_builddir}/digikam-%{version}/project/bundles/mxe/installer/GPL.txt %{buildroot}/usr/share/package-licenses/digikam/ef250cb30fe89ea6687a0fe04fd552dbdc93e0e0 || :
 pushd clr-build-avx2
 %make_install_v3  || :
 popd
 pushd clr-build
 %make_install
 popd
-%find_lang digikam
 /usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
@@ -656,90 +629,6 @@ popd
 /usr/share/icons/hicolor/22x22/apps/dk-rajce.png
 /usr/share/icons/hicolor/22x22/apps/dk-smugmug.png
 /usr/share/icons/hicolor/22x22/apps/expoblending.png
-/usr/share/icons/hicolor/22x22/apps/panorama.png
-/usr/share/icons/hicolor/22x22/apps/showfoto.png
-/usr/share/icons/hicolor/256x256/apps/digikam.png
-/usr/share/icons/hicolor/256x256/apps/showfoto.png
-/usr/share/icons/hicolor/32x32/actions/albumfolder-importdir.png
-/usr/share/icons/hicolor/32x32/actions/albumfolder-importimages.png
-/usr/share/icons/hicolor/32x32/actions/albumfolder-new.png
-/usr/share/icons/hicolor/32x32/actions/albumfolder-properties.png
-/usr/share/icons/hicolor/32x32/actions/overexposure.png
-/usr/share/icons/hicolor/32x32/actions/tag-addresbook.png
-/usr/share/icons/hicolor/32x32/actions/tag-assigned.png
-/usr/share/icons/hicolor/32x32/actions/tag-delete.png
-/usr/share/icons/hicolor/32x32/actions/tag-events.png
-/usr/share/icons/hicolor/32x32/actions/tag-folder.png
-/usr/share/icons/hicolor/32x32/actions/tag-new.png
-/usr/share/icons/hicolor/32x32/actions/tag-people.png
-/usr/share/icons/hicolor/32x32/actions/tag-places.png
-/usr/share/icons/hicolor/32x32/actions/tag-properties.png
-/usr/share/icons/hicolor/32x32/actions/tag-recents.png
-/usr/share/icons/hicolor/32x32/actions/tag-reset.png
-/usr/share/icons/hicolor/32x32/actions/tag.png
-/usr/share/icons/hicolor/32x32/actions/underexposure.png
-/usr/share/icons/hicolor/32x32/apps/digikam.png
-/usr/share/icons/hicolor/32x32/apps/dk-box.png
-/usr/share/icons/hicolor/32x32/apps/dk-dropbox.png
-/usr/share/icons/hicolor/32x32/apps/dk-flickr.png
-/usr/share/icons/hicolor/32x32/apps/dk-googledrive.png
-/usr/share/icons/hicolor/32x32/apps/dk-googlephoto.png
-/usr/share/icons/hicolor/32x32/apps/dk-imageshack.png
-/usr/share/icons/hicolor/32x32/apps/dk-imgur.png
-/usr/share/icons/hicolor/32x32/apps/dk-inat.png
-/usr/share/icons/hicolor/32x32/apps/dk-mediawiki.png
-/usr/share/icons/hicolor/32x32/apps/dk-onedrive.png
-/usr/share/icons/hicolor/32x32/apps/dk-pinterest.png
-/usr/share/icons/hicolor/32x32/apps/dk-piwigo.png
-/usr/share/icons/hicolor/32x32/apps/dk-rajce.png
-/usr/share/icons/hicolor/32x32/apps/dk-smugmug.png
-/usr/share/icons/hicolor/32x32/apps/expoblending.png
-/usr/share/icons/hicolor/32x32/apps/panorama.png
-/usr/share/icons/hicolor/32x32/apps/showfoto.png
-/usr/share/icons/hicolor/48x48/apps/digikam.png
-/usr/share/icons/hicolor/48x48/apps/dk-box.png
-/usr/share/icons/hicolor/48x48/apps/dk-dropbox.png
-/usr/share/icons/hicolor/48x48/apps/dk-flickr.png
-/usr/share/icons/hicolor/48x48/apps/dk-googledrive.png
-/usr/share/icons/hicolor/48x48/apps/dk-googlephoto.png
-/usr/share/icons/hicolor/48x48/apps/dk-imageshack.png
-/usr/share/icons/hicolor/48x48/apps/dk-imgur.png
-/usr/share/icons/hicolor/48x48/apps/dk-inat.png
-/usr/share/icons/hicolor/48x48/apps/dk-mediawiki.png
-/usr/share/icons/hicolor/48x48/apps/dk-onedrive.png
-/usr/share/icons/hicolor/48x48/apps/dk-pinterest.png
-/usr/share/icons/hicolor/48x48/apps/dk-piwigo.png
-/usr/share/icons/hicolor/48x48/apps/dk-rajce.png
-/usr/share/icons/hicolor/48x48/apps/dk-smugmug.png
-/usr/share/icons/hicolor/48x48/apps/expoblending.png
-/usr/share/icons/hicolor/48x48/apps/panorama.png
-/usr/share/icons/hicolor/48x48/apps/showfoto.png
-/usr/share/icons/hicolor/64x64/apps/digikam.png
-/usr/share/icons/hicolor/64x64/apps/showfoto.png
-/usr/share/icons/hicolor/96x96/apps/expoblending.png
-/usr/share/icons/hicolor/96x96/apps/panorama.png
-/usr/share/icons/hicolor/scalable/apps/digikam.svgz
-/usr/share/icons/hicolor/scalable/apps/dk-flickr.svgz
-/usr/share/icons/hicolor/scalable/apps/dk-googlephoto.svgz
-/usr/share/icons/hicolor/scalable/apps/dk-imgur.svgz
-/usr/share/icons/hicolor/scalable/apps/dk-mediawiki.svgz
-/usr/share/icons/hicolor/scalable/apps/dk-piwigo.svgz
-/usr/share/icons/hicolor/scalable/apps/dk-smugmug.svgz
-/usr/share/icons/hicolor/scalable/apps/panorama.svgz
-/usr/share/icons/hicolor/scalable/apps/showfoto.svgz
-/usr/share/knotifications5/digikam.notifyrc
-/usr/share/kxmlgui5/digikam/digikamui5.rc
-/usr/share/kxmlgui5/digikam/imageeditorui5.rc
-/usr/share/kxmlgui5/digikam/importui5.rc
-/usr/share/kxmlgui5/digikam/lighttablewindowui5.rc
-/usr/share/kxmlgui5/digikam/queuemgrwindowui5.rc
-/usr/share/kxmlgui5/showfoto/showfotoui5.rc
-/usr/share/metainfo/org.kde.digikam.appdata.xml
-/usr/share/metainfo/org.kde.showfoto.appdata.xml
-/usr/share/showfoto/data/banner-showfoto.png
-/usr/share/showfoto/data/logo-showfoto.png
-/usr/share/showfoto/data/splash-showfoto.png
-/usr/share/solid/actions/digikam-opencamera.desktop
 
 %files dev
 %defattr(-,root,root,-)
@@ -996,26 +885,3 @@ popd
 /usr/lib64/qt5/plugins/digikam/rawimport/RawImport_RawTherapee_Plugin.so
 /usr/lib64/qt5/plugins/digikam/rawimport/RawImport_UFRaw_Plugin.so
 /usr/share/clear/optimized-elf/other*
-
-%files license
-%defattr(0644,root,root,0755)
-/usr/share/package-licenses/digikam/075bb44a94e785a073154a32aa32554587f330f2
-/usr/share/package-licenses/digikam/1568befcb09e881d29dd760911ceeb4e2d810884
-/usr/share/package-licenses/digikam/2da2357c9706c1416e5d65e4a2e21a1c77fc9dff
-/usr/share/package-licenses/digikam/39a21f33cadea18adcc23bf808d7d5ea6419c8b1
-/usr/share/package-licenses/digikam/5be7b6f190b991f6c1029fd38d785c3ba54e255f
-/usr/share/package-licenses/digikam/a5bbd41410f38b2dd525e6c601f29b1736db13f9
-/usr/share/package-licenses/digikam/b2245a16f088ed2b57e39c6f3a92b0883c0b062f
-/usr/share/package-licenses/digikam/c24b9c7ef03687bf0141f85a1b7ed81459944c3c
-/usr/share/package-licenses/digikam/e86ca32ed57e181b74fd60bbb8301acf014a9a6c
-/usr/share/package-licenses/digikam/ef250cb30fe89ea6687a0fe04fd552dbdc93e0e0
-/usr/share/package-licenses/digikam/ff3ed70db4739b3c6747c7f624fe2bad70802987
-
-%files man
-%defattr(0644,root,root,0755)
-/usr/share/man/man1/cleanup_digikamdb.1
-/usr/share/man/man1/digitaglinktree.1
-
-%files locales -f digikam.lang
-%defattr(-,root,root,-)
-
