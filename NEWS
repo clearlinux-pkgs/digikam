@@ -1,10 +1,472 @@
-digiKam 7.9.0 - Release date: 2022-xx-xx
+digiKam 8.0.0 - Release date: 2023-xx-xx
 
 *****************************************************************************************************
 NEW FEATURES:
 
+General        : Port code to Qt6 framework (code still compatible with Qt5 API).
+General        : Add JPEG-XL, WEBP, and AVIF export settings everywhere.
+                 Add convert to lossless JPEG-XL, WEBP, and AVIF while importing from camera.
+                 Add JPEG-XL; WEBP, and AVIF converters in Batch Queue Manager.
+Versioning     : Support JPEG-XL, HEIF, WEBP, and AVIF as lossless image format to store versionned images in editor.
+Usability      : Add hamburger menu to tool-bar if main menu is hidden.
+Metadata       : Add new option to write metadata to files with ExifTool backend.
+Metadata       : Optional write metadata operations to DNG and RAW files are now always delegated to ExifTool Backend.
+Metadata       : Optimize layout of Metadata Edit plugin for a better usability.
+Metadata       : Add new options to save and load configuration profiles in Avanced Metadata Settings Pannel.
+Advanced Rename: Add increment file counter to sequence numbering with option [c] or [c,step].
+Advanced Rename: Add random text sequence numbering with option [r].
+Advanced Rename: Add configurable first character for the unique modifier with {unique:n,c}.
+Advanced Search: Add search for items by number of face regions.
+Advanced Search: Add search for items without face regions.
+Collections    : Add support for cross-platform network paths.
+Database       : Add support for SQLite WAL (Write-Ahead-Logging) mode.
+General        : Add spell-checking support in caption text widget using KF5::Sonnet component.
+                 Add Spellcheck config panel in Setup/Misc for digiKam and Showfoto.
+General        : Add online translations support to Alternative Language text editor widget.
+                 Add Localize config panel in Setup/Misc for digiKam and Showfoto.
+General        : Add settings to list prefered alternative/translated languages in text edit widget.
+General        : Allows to use Global or Customized Image Quality Sorting settings everywhere.
+General        : Add new tool to perform OCR over scanned text.
+                 https://community.kde.org/GSoC/2022/StatusReports/QuocHungTran
+General        : Add Icon-View settings to customize Labels visibility over thumbnails.
+General        : Add support for float16 (half float) images in the TIFF Loader.
+Maintenance    : Add Aesthetic Detection to classify images using deep learning model.
+                 https://community.kde.org/GSoc/2022/StatusReports/PhuocKhanhLe
+QueueManager   : Add new tool to assign pick label automatically by parsing image quality.
+QueueManager   : Add new tool to assign rating, pick, and color labels in batch.
+QueueManager   : Add new tool to assign titles and captions in batch.
+Documentation  : Rewrite online documentation from DocBook to Sphinx/ReStructuredText framework.
+                 https://docs.digikam.org/en/index.html
+ImageEditor    : Update G'MIC-Qt tool to last version 3.2.2.
+                 Finalize G'MIC-Qt MacOS port and improve stability of plugin.
+General        : Add libjasper >= 4.0 support in the bundles for JPEG-2000 support.
+General        : Update ExifTool to 12.59 in bundles.
+General        : Update internal Libraw from snapshot 20230403.
 
 *****************************************************************************************************
 BUGFIXES:
 
-001 ==> 
+001 ==> 416704 - Port digiKam to Qt6 and KF6 API.
+002 ==> 450153 - All groups deleted by "Extended clean up and shrink all databases".
+003 ==> 450518 - Crash when opening Advanced Search.
+004 ==> 450467 - digiKam git source build fails.
+005 ==> 450642 - Provide an option to open the light table after click on thumbnail.
+006 ==> 450643 - Expose menus optionally in the toolbar : burger main menu feature.
+007 ==> 451017 - Search by time of day.
+008 ==> 349268 - Be able to copy and paste the uploaded url to ImgUr web service.
+009 ==> 451525 - Maintenance tool dialog should not keep potentially destructive operations checked by default.
+010 ==> 251424 - Include gpx overlays found in albums.
+011 ==> 451802 - GPX files fails to load.
+012 ==> 219856 - Exiv2 destroys RAW/DNG files when editing IPTC - Use ExifTool instead.
+013 ==> 219856 - Exiv2 destroys RAW/DNG files when editing IPTC - Use ExifTool instead.
+014 ==> 366348 - Saving metadata to video files using ExifTool.
+015 ==> 377622 - IPTC metadata are not embedded in ORF files with Exiv2 - Use ExifTool instead.
+016 ==> 338075 - Tagging RAW images for Canon EOS-1Ds with Exiv2 corrupts them - Use ExifTool instead.
+017 ==> 419801 - XMP-digiKam:TagsList not read from video files with ExiV2 - Use ExifTool instead.
+018 ==> 134486 - Keywords are not written by Exiv2 to raw files even though they do embed iptc/exif - Use ExifTool instead.
+019 ==> 264210 - RAW (NEF) file unreadable after editing IPTC with Exiv2 - Use ExifTool instead.
+020 ==> 309341 - Exiv2 doesn't write XMP-tiff Orientation tag for raw files - Use ExifTool instead.
+021 ==> 384092 - Writing gps metadata with Exiv2 to sony alpha6300 raw files deletes data (white balance data probably) - Use ExifTool instead.
+022 ==> 416516 - Add ExifTool based wrapper to read and write metadata with video files.
+023 ==> 326408 - Writing metadata corrupt or is not supported for RAW files using Exiv2 - Use ExifTool instead.
+024 ==> 237504 - Impossible change exif, ipct and xmp value in Raw or Orf files from Panasonic or Olympus cameras with Exiv2 (.orf and . raw) - Use ExifTool instead.
+025 ==> 406540 - Add Metatags to Canon Raw do not work with Exiv2 - Use ExifTool instead.
+026 ==> 426938 - MP4 scans inconsistently chooses wrong "creation date" with ffmpeg - Use ExifTool instead.
+027 ==> 436876 - Cannot write exif data to mp4 video files with Exiv2 - Use ExifTool instead.
+028 ==> 193228 - Experimental Exiv2 option "write metadata to RAW files" corrupts Nikon NEFs - Use ExifTool instead.
+029 ==> 235171 - digiKam crashes when saving ratings to a raw (nef) file - Use ExifTool instead.
+030 ==> 236127 - digiKam crashes sometimes, when changing the rating of a rawfile - Use ExifTool instead.
+031 ==> 291627 - NEF data loss after geotaging with Exiv2 - Use ExifTool instead.
+032 ==> 305823 - digiKam writes to Samsung RAW files with ExifTool.
+033 ==> 317745 - Store metadata incl. geolocation data into CR2 files with ExifTool.
+034 ==> 234181 - digiKam crashes when editing metadata of CR2 files with Exiv2 - Use ExifTool instead.
+035 ==> 366406 - Does not write metadata to ORF with Exiv2 - Use ExifTool instead.
+036 ==> 168064 - Save tag on raw files with ExifTool.
+037 ==> 134487 - Keywords are not written to raw files with Exiv2 even though they do embed iptc/exif - Use ExifTool instead.
+038 ==> 325458 - Editing Exif information corrupts MPO 3D image with Exiv2 - Use ExifTool instead.
+039 ==> 448729 - Metadata is not written back to file when size of XMP JPEG segment is larger than 65535 bytes - Use ExifTool instead Exiv2.
+040 ==> 451466 - XMP with Google depth-map gets corrupted when metadata is modified in digiKam (likely exiv2 issue) - Use ExifTool instead.
+041 ==> 431113 - Apply templates to video files, not only to JPEGs, with ExifTool.
+042 ==> 441758 - Editing metadata on HEIC image and HEVC video files doesn't work (greyed out).
+043 ==> 440547 - The writing of metadata in HEIC files is not possible - Use ExifTool instead.
+044 ==> 434246 - XMP metadata fails to write to file with Exiv2 - Use ExifTool instead.
+045 ==> 225272 - digiKam destroy some Exif data with Exiv2 - Use ExifTool instead.
+046 ==> 174108 - digiKam and exiv2 crash with AVI file - Use ExifTool instead.
+047 ==> 342030 - digiKam crashes when checking an AVI video file using exiv2 - Use ExifTool instead.
+048 ==> 171989 - Can't set gps photo location on .nef images with Exiv2 - Use ExifTool instead.
+049 ==> 173828 - Geolocation do not except Canon EOS 1D Mark III CR2-files with Exiv2 - Use ExifTool instead.
+050 ==> 447371 - Date of videos seems incorrect.
+051 ==> 453180 - "not valid" dates for video in "Adjust Time & Date".
+052 ==> 453992 - Build error in digiKam Setup.
+053 ==> 453630 - Metadata doesn 't always keep it's hierarchy when written with exiftool.
+054 ==> 426951 - digiKam multimedia issue.
+055 ==> 454318 - Save as Version in Imageeditor not accessible when using external raw editor (rawtherapee).
+056 ==> 324967 - Add support of specific increase numbering offset with advance rename tool.
+057 ==> 453275 - Renaming files is not folder aware, even with folder aware option.
+058 ==> 454656 - When locales not set, crash occurs when opening "Settings -> Configure digiKam".
+059 ==> 435377 - Speed up image preview.
+060 ==> 382362 - Locale database mismatch between Windows and Linux.
+061 ==> 452088 - Mixed up creation time and time of import.
+062 ==> 444928 - Include rename functionality (F2) also to image import tool.
+063 ==> 386072 - Can't access EXIF data on some (very few!) pictures from import camera window - works fine after that.
+064 ==> 381214 - Import may mix up picture content and metadata of different pictures.
+065 ==> 454739 - Find New Items is stuck at 0%.
+066 ==> 440156 - Cant get Google Import/export to authenticate with Google on Mint 20.2 Cinnamon.
+067 ==> 435384 - Export crash to google photos.
+068 ==> 455893 - Build error with Qt5.
+069 ==> 455876 - Handling of image orientation in modern image formats using ExifTool.
+070 ==> 456237 - Crash after changing the collection
+071 ==> 456263 - Missing feature for searching pictures containing actual detected faces.
+072 ==> 439643 - Add count()-like condition to search.
+073 ==> 425047 - Trash icon should reflect if trash is full or empty.
+074 ==> 384820 - Allow matching library paths across different operating systems?
+075 ==> 456749 - Cross-platform filename support.
+076 ==> 424965 - Provide UI for Database Network Share for multiple mountpaths.
+077 ==> 310106 - MYSQL : try to access to database from two computers and collections get lost.
+078 ==> 456591 - No warning when delete folder not empty.
+079 ==> 457229 - Importing, wrong date.
+080 ==> 415536 - Rename on Import.
+081 ==> 457347 - Fix crash in qtav libavfilter with FFMPEG 5.
+082 ==> 402922 - Spell check.
+083 ==> 092310 - Wish: spell check support in picture comments.
+084 ==> 360954 - No spell checking when entering Tags.
+085 ==> 256471 - Add spell checking to text areas.
+086 ==> 407468 - Metadata Edit window is too small.
+087 ==> 457602 - Configurable first character for the unique modifier.
+088 ==> 457594 - The facesengine binary should be installed to AppData\Local and not AppData\Roaming.
+089 ==> 435070 - Use WAL mode for SQLite databases.
+090 ==> 456024 - Use Write-Ahead-Logging as default journalling mode.
+091 ==> 376345 - Can't disable "auto spell check" while editing metadata.
+092 ==> 200223 - Default language of spellchecker is ignored.
+093 ==> 365263 - Dragging a image to an Album cannot see which album easily.
+094 ==> 426115 - Make drag-n-drop more evident.
+095 ==> 411550 - Difficulty to drag and drop a face tag to people group.
+096 ==> 458003 - Highlight albums when "dragging" items on it.
+097 ==> 458082 - MP4 video failed to update metadata timestamp.
+098 ==> 283492 - Display only favorite languages in language selection comboboxes.
+099 ==> 370192 - Better handling of language selection menu entries with Captions tab.
+100 ==> 458163 - Cannot modify an existing BQM process.
+101 ==> 458167 - Add more position for watermark.
+102 ==> 458200 - Size or position change made to face rectangle is only written to database and not to image file/sidecar.
+103 ==> 458344 - Inconsistencies between Collections and albums.
+104 ==> 444757 - Albums empty.
+105 ==> 371535 - Albums from ext hdd are removed when digikam starts up if the external HDD is not plugged in.
+106 ==> 458782 - Not all new images downloaded.
+107 ==> 458846 - Popup Menus in wrong position with Sway window manager.
+108 ==> 117629 - New tool to perform OCR of an image and store result in metadata.
+109 ==> 458850 - Not valid createdate.
+110 ==> 458921 - Maintenance > Sync Metadata and Database (Sync Direction: From image metadata to database) does not work for disabled or deleted tags.
+111 ==> 459129 - Duplicate tags are displayed below thumbnail when tags are repeated in tag hierarchy.
+112 ==> 459537 - "Ignored" face regions should not be saved into XMP metadata.
+113 ==> 459497 - digiKam fails to load images.
+114 ==> 459702 - digiKam git Mariadb issue.
+115 ==> 432265 - No error message when digiKam fails to read XMP metadata from image file.
+116 ==> 459898 - Import video files into digiKam uses current date but not metadata date.
+117 ==> 436345 - Renamed FaceTags not written to file metadata.
+118 ==> 452539 - People tags are not shown correctly.
+119 ==> 316856 - Add text-recognition system.
+120 ==> 459928 - Tags/keywords are not written back to MP4 video files, even with exiftool being configured.
+121 ==> 432369 - Wrong time for mp4 in _almost_ all places, metadata differs from filesystem/other apps. DB issues?
+122 ==> 438960 - Add support for searching images created in a time interval.
+123 ==> 458082 - MP4 video failed to update metadata timestamp.
+124 ==> 426612 - Highlighting Album in TreeView on mouse over.
+125 ==> 331167 - Import images from folder create date based folders from images Exif.
+126 ==> 361467 - Indicate (shade?) drop target when copying or moving images.
+127 ==> 388011 - Suggested improvement of Drag&Drop images from one album to another.
+128 ==> 460251 - digiKam git build error.
+129 ==> 459027 - Creating large thumbnails issue with digiKam-8.0.0.
+130 ==> 460321 - Overlapping faces region.
+131 ==> 453840 - digiKam git build error with ffmpeg 5.
+132 ==> 402322 - During face detection, the "People" / "Unconfirmed" (or "Unknown") tab content keeps jumping around.
+133 ==> 457461 - Ability to ignore all faces except tag marked.
+134 ==> 460520 - [FEATURE REQUEST] Ignore rest of not tagged faces in picture.
+135 ==> 460568 - Star rating not saved.
+136 ==> 460761 - Recent regression Cannot any more reassign faces by dragging them on the left sidebar items.
+137 ==> 460786 - Freeze for 3-4 seconds after assigning tag to an image.
+138 ==> 446616 - digiKam lags for about 2 - 3 seconds when I assign a Tag.
+139 ==> 461069 - Set album date for new albums to earliest picture date.
+140 ==> 461065 - When user mouse over tag list which have been cut off (...) on image thumbnail display all tags in mouse over text.
+141 ==> 405690 - Album date changing automatically without any reason.
+142 ==> 416934 - Tags & data disappear after moving images to new folder.
+143 ==> 389655 - Sort multiple albums by exif date (not last modified).
+144 ==> 196672 - Add new option to setup global preference about default album dating.
+145 ==> 435925 - Cursor in annotations or comments field jumps around while face detection is running.
+146 ==> 461228 - Face region is removed when people tag is removed via tag panel.
+147 ==> 459157 - Open in a File Manager.
+148 ==> 461336 - Exiftool panel metadata values get duplicated when applying changes to file metadata.
+149 ==> 461366 - Missing face thumbnails/icons on people are not assigned automatically.
+150 ==> 461469 - Import file filter not working.
+151 ==> 426786 - Filter with a specific path does not work.
+152 ==> 461504 - Make it possible to create new database without having to delete digikam.rc.
+153 ==> 461710 - Extra click required to confirm faces when face tagging a picture.
+154 ==> 461799 - No progress is shown for second face recognition process.
+155 ==> 461888 - Writing metadata to file fails while database sync process is running.
+156 ==> 461853 - MS People Tags with no face region are not read when image contains face rectangles with no names associated.
+157 ==> 446458 - Tags end up appearing withing another hierarchy where they don't belong.
+158 ==> 460463 - Scroll position in Faces view keeps jumping back & forth during face recognition/detection.
+159 ==> 440909 - Import's "Auto-creation of Albums" using file modified date rather than date taken.
+160 ==> 402322 - During face detection, the "People" / "Unconfirmed" (or "Unknown") tab content keeps jumping around.
+161 ==> 438988 - Index shift while Scanning for faces.
+162 ==> 436930 - Visualization of tracks in the Map tab.
+163 ==> 425369 - Imported photo in album other than date taken.
+164 ==> 429888 - Show GPS track on map view when GPX in the same folder.
+165 ==> 433952 - Face confirmation UX.
+166 ==> 436711 - Thumbnail re-ordering / -inserting makes focus change while entering person tag.
+167 ==> 389814 - Date-based Sub-albums uses modification date instead of metadata date.
+168 ==> 381845 - Import tool creates wrong folder names.
+169 ==> 291189 - GPS Track viewer.
+170 ==> 462258 - Cannot preview and play .avi video.
+171 ==> 462071 - Last tag cannot be removed if only using xmp.lr and xmp.dc.
+172 ==> 462368 - QTAV-library has been removed from unstable.
+173 ==> 462464 - Cannot play video files: "An error has occurred with the media player...".
+174 ==> 462542 - HTML Gallery behaves oddly.
+175 ==> 366286 - Feature request: improved reverse geolocation.
+176 ==> 410425 - Wishlist: Reverse geocoding to IPTC/XMP location fields.
+177 ==> 231114 - TEMPLATE : Empty (unset) fields of template overwrite existing used fields when applying template.
+178 ==> 449754 - Empty metadata XMP values are created when applying template.
+179 ==> 395094 - Add new option to dissociate rights, locations, contacts and subjects.
+180 ==> 462807 - How to show GPS-Tracks in addition to geotagged photos in Maps view.
+181 ==> 462916 - Different renaming behaviors for video files depending of the device.
+182 ==> 463180 - Reread Metadata From File doesn't cleanup Tags.
+183 ==> 379251 - Add a section to recommend hardware to use digiKam.
+184 ==> 461236 - Inpainting documentation doesn't correspond at any enhancement tool.
+185 ==> 412650 - Can't uninstall and reinstall digikam properly on macOS - preferences remain, no first run dialog.
+186 ==> 272779 - Color editing tools: example images are not marked as before/after.
+187 ==> 459483 - Update documentation to explain how Digikam links metadata to images.
+188 ==> 433432 - Updated documentation about Face-Tagging.
+189 ==> 124862 - Add documentation section for manual digital camera install.
+190 ==> 112147 - digiKam tarballs missing documentation.
+191 ==> 441521 - Where to find package called digikam-doc?
+192 ==> 404613 - Docs are missing.
+193 ==> 254434 - Application fail to build without handbook ("wrong doc dir specified" error).
+194 ==> 463422 - Multiple selection of tags in left tags bar cant be converted into face tags, only first.
+195 ==> 203022 - digiKam is not listed as IPTC-compatible software.
+196 ==> 282869 - Provide a list of CMake configuration options.
+197 ==> 126164 - Link application Help entry to new online handbook based on Sphinx/ReStructuredText.
+198 ==> 463378 - Applied Tags Don't Get Written To File?
+199 ==> 422242 - Cannot read write tags to files.
+200 ==> 421464 - XPkeywords not being updated with Exiv2 - Use ExifTool instead.
+201 ==> 450522 - No option to read/write XPTitle and XPComment metadata fields.
+202 ==> 374783 - Window location is not restored correctly after restart.
+203 ==> 435863 - digiKam "looses" manually tagged faces.
+204 ==> 463502 - Tags in captions sidebar are not sorted on image change when "Tags already asigned" option is enabled.
+205 ==> 430405 - Print and Print Assistant Missing From Item Menu.
+206 ==> 238802 - Port documentation from DocBook to modern Sphinx/RestructuredText framework and improve contents.
+207 ==> 426513 - Add "By Manual and Name" and "By Manual and Date" sort options for items in "Main Window Menu Descriptions" section.
+208 ==> 463605 - In case of heic images the scan for faces function adds new empty face tags for the persons already tagged.
+209 ==> 207882 - Manual: RAW decoder settings: 16 bit not clearly explained.
+210 ==> 463789 - All images are getting correlated although w/o considering selection.
+211 ==> 463528 - XMP sidecars are excluded from local storage export.
+212 ==> 333348 - Audio track is zero length in Advanced Slideshow.
+213 ==> 463234 - Move / delete item in Album, thumbnail does not go away.
+214 ==> 464354 - When typing in the Face Tag Box whilst in "Preview", esc should just exit the type box.
+215 ==> 464499 - digiKam git crash in Sonnet::SpellCheckDecorator.
+216 ==> 464420 - Folders not ignored.
+217 ==> 099418 - Help button in dialog refers to wrong Section/Chapter in new Documentation based on Sphinx/RestructuredText.
+218 ==> 240220 - Help menu entry not working properly with new online Documentation based on Sphinx.
+219 ==> 393382 - Add documentation section about the BQM custom shell scripts tool.
+220 ==> 464569 - Days highlighting in Dates view lost when moving files to trash.
+221 ==> 464567 - Freeze on thumbnail creation (git 8.0 version).
+222 ==> 464721 - Set multiple root album paths for network albums using the GUI.
+223 ==> 464731 - JPEG XL (.jxl) support.
+224 ==> 330274 - Showfoto documentation section is missing from the new online manual based on Sphinx/ReStructuredText.
+225 ==> 464769 - Rebuild Finger-Prints Process Slow.
+226 ==> 433391 - Request to add ImageProperties fields (location, city, state, country) to Advanced Search.
+227 ==> 465015 - Moving a video with a colour tag to a directory containing a video with the same name removes tag during rename.
+228 ==> 380967 - Add option to synchronize same description in images.
+229 ==> 465286 - Add ART (another raw therapee) to list to Raw Import tools.
+230 ==> 465462 - Writing Metadata changes immediatly to files.
+231 ==> 465679 - Wrong field label in advanced search screen (geographic position part).
+232 ==> 242630 - Write online documentation sections based on Sphinx/ReStructuredText for more Post-Processing tools, as Panorama, Calendar, OCRTextConverter, etc.
+233 ==> 465832 - Recognize faces don't run because "there are no identities to recognize".
+234 ==> 465983 - Orientation of a DNG file not correct in the thumb bar.
+235 ==> 466083 - Search photos with exactly 1 face regions and not tagged.
+236 ==> 466146 - XMP metadata is not written into jxl files.
+237 ==> 465533 - Tag's aren't being removed from images.
+238 ==> 463577 - Exiv2 alters unrelated DJI Exif metadata when editing tags.
+239 ==> 466259 - digiKam crash after launch.
+240 ==> 088262 - Support for remote protocol
+241 ==> 107721 - Improve the way pictures can be uploaded to Piwigo.
+242 ==> 145767 - No albums shown when syncing with remote web-service.
+243 ==> 149580 - Piwigo export not working.
+244 ==> 154696 - Allow a selection of pictures from an album to be uploaded to Piwigo.
+245 ==> 182954 - Crashes on Piwigo export.
+246 ==> 103401 - Piwigo export upload failed.
+247 ==> 105471 - Piwigo integration for host application.
+248 ==> 143885 - Crash after attempting to export Piwigo to remote location.
+249 ==> 148952 - Cannot export to Piwigo. Gives error message "Failed to login into remote web-service. URL probably incorrect".
+250 ==> 295593 - The album list into piwigo export dialog is empty.
+251 ==> 104509 - Upload reported to fail but works actually.
+252 ==> 104127 - Wish: Upload order should follow current Album sort method.
+253 ==> 129856 - Export to remote web-service deletes Exif, when using the resize option.
+254 ==> 094493 - Support for preprocessing of images on export.
+255 ==> 178204 - Entire hierarchy is not displayed.
+256 ==> 351650 - Failed to logon with piwigo apache_authentication.
+257 ==> 105638 - Exporting comments with Piwigo.
+258 ==> 153456 - Ability to specify if the image caption should set the web-service title or description.
+259 ==> 351650 - Failed to logon with piwigo apache_authentication.
+260 ==> 466651 - Thumbnails from 16 bit float tif files are displayed very darkly in digiKam.
+261 ==> 466652 - digiKam doesn't display tags from video (.mp4) files.
+262 ==> 466873 - Batch conversion to WEBP and AV1 format.
+263 ==> 466876 - LightTable: Selected image properties are not showed when clicking each image.
+264 ==> 466594 - ExifTool information doesn't change when comparing images in digiKam/Light Table.
+265 ==> 466938 - Duplicate Detection Reference Image.
+266 ==> 466564 - Ability to rescan face regions to get better results.
+267 ==> 461651 - digiKam segfault immediately after "Scan collection for faces".
+268 ==> 467024 - Make Text in Properties Selectable for Copy.
+269 ==> 467245 - NetBSD compilation fix for Neptune.
+270 ==> 467233 - Tags added to videos files (mp4 or mov) in digiKam are not written into file metadate.
+271 ==> 467276 - FR: Better (native) integration with Darktable sidecars.
+272 ==> 467402 - No more possibility to create a new album.
+273 ==> 467413 - Saving changes in the image editor does not work.
+274 ==> 467498 - Thumbnails creation causes an assert error.
+275 ==> 467568 - "An error occurred during the internal server start".
+276 ==> 460570 - Face Recognition fails (process stuck at 0%).
+277 ==> 465078 - Progress bar stays at 0%.
+278 ==> 465434 - Problems with face recognition.
+279 ==> 147367 - Support for color correction of Oval frame fade using unfaded outer fame colors.
+280 ==> 133907 - Add new tool to perform "film noir".
+281 ==> 288060 - Add new tool to analyze photo alteration.
+282 ==> 196251 - Add new tool to emulate Graduated Filters.
+283 ==> 133880 - Add new tool to emulate some physical filters as used with SLR's.
+284 ==> 150253 - Add new tool to filter such as described in "Image Deblurring with Blurred/Noisy Image Pairs".
+285 ==> 210581 - Add new tool to eliminate purple fringing.
+286 ==> 412400 - Add new tool like Capture One or Lightroom gradient plugin.
+287 ==> 467623 - I do "Item > Write Metadata to File" = Erases the Altitude field and leaves Altitude at Zero(0).
+288 ==> 467669 - Disable DNN models download at startup.
+289 ==> 467687 - Copy of pictures from one album to another doesn't keep its manual ordering.
+290 ==> 467680 - Add a Collections Dialogue Behavior.
+291 ==> 422996 - digiKam Crash with GMicQt plugin on Mac Mojave.
+292 ==> 467215 - macOS 11.74 Big Sur: digiKam crashes unexpectedly after launching G'MIC (theme settings relevant).
+293 ==> 467643 - Ambigous text in UI - Setup/Misc.
+294 ==> 467736 - Image Quality Sort ignores disabled "Assign Pick Labels".
+295 ==> 467090 - Maps Window with Google Maps only empty.
+296 ==> 400579 - Add new option to preserve gps data with minor geolocation modification.
+297 ==> 463785 - Slideshow starts with black screen and digikam crashes.
+298 ==> 467473 - digiKam crashes when viewing pictures in full screen mode - Windows 10.
+299 ==> 467496 - Various crashes on Windows: update libde265 >= 1.0.11 and libaom >= v3.6.0.
+300 ==> 466156 - digiKam crash on Windows 10, if you click on "Show Fullscreen" of thumbnail element, and closing this.
+301 ==> 467854 - Upgrade libheif in Windows build.
+302 ==> 467906 - digiKam is crash when use slideshow.
+303 ==> 467911 - digiKam 8.0.0 crashes after second invocation of G'MIC-Qt
+304 ==> 467871 - When adding thumbnail to parent tag, not require parent tag to be applied.
+305 ==> 467916 - This version has lost the ability to drag/drop image thumbnails onto Smiley Face icons in "People".
+306 ==> 467923 - Crash when switching to 'Timeline' from "People" during face detection.
+307 ==> 467968 - Advanced slideshow using opengl re-displays some jpegs, sometimes crashes.
+308 ==> 468002 - UTF8 Encoding is not supported in IPTC when using exiftool as backend.
+309 ==> 468016 - Caption information is written to Exif UserComment and no option exists to disable.
+310 ==> 468041 - Simple Rename of a Collection in Collection list.
+311 ==> 468050 - Language changed to my system default even en-US set.
+312 ==> 468040 - Search for New Entries causes Error from Jasper 4.0.0.
+313 ==> 468083 - The program will crash.
+314 ==> 468049 - digiKam crash when image quality sorter used - terminate called after throwing an instance of 'cv::Exception'.
+315 ==> 431115 - Enable GPU optimizations support for OpenCV.
+316 ==> 468041 - Simple Rename of a Collection in Collection list.
+317 ==> 468120 - Where to rename the root album collection.
+318 ==> 467675 - digiKam fail to export to WEBP format.
+319 ==> 465038 - Scanning for faces always crashes.
+320 ==> 467116 - digiKam crashed on exit. Even the appimage not only the deb version.
+321 ==> 467448 - digiKam Crash when closing the app.
+322 ==> 268694 - Wish gps visualizer.
+323 ==> 282163 - digiKam crashed while browsing new images
+324 ==> 222828 - Automatic import from camera.
+325 ==> 140715 - Import only new photos broken.
+326 ==> 139333 - Selection of new items does not work in camera gui.
+327 ==> 093602 - New photos on camera no more detected.
+328 ==> 305850 - Selecting Digikam as Application to open Newly Inserted SD card Results in Crash.
+329 ==> 298187 - Import tool crash.
+330 ==> 298111 - Crash when try to import from digicam set as USB.
+331 ==> 297231 - digiKam crash importing.
+332 ==> 296282 - Importing from old install drive from root of old digikam folder.
+333 ==> 295897 - digiKam crashes when importing images from camera.
+334 ==> 292108 - Fuji crash.
+335 ==> 289285 - digiKam crash.
+336 ==> 288982 - digiKam crashes while showing thumbnails from imported data.
+337 ==> 288627 - digiKam crashes while trying to load images from a USB drive.
+338 ==> 287662 - Import screen crashes.
+339 ==> 286220 - Crashes on importing certain assets.
+340 ==> 286121 - digiKam is locked when importing items from Nokia N9 celular.
+341 ==> 285728 - digiKam crash after importing from an SD card.
+342 ==> 284707 - digiKam crashed upon opening import screen.
+343 ==> 282747 - digiKam crashes when import images from usb-camera.
+344 ==> 282701 - Crash when "download/delete all images" from sd-card.
+345 ==> 270307 - No option to disable importing certain file types.
+346 ==> 249483 - Camera UI is slow, when listing pictures from the camera (100% CPU usage).
+347 ==> 221166 - digiKam crash when scanning large collection during copy.
+348 ==> 177977 - Camera Download: Show details instead of thumbnails.
+349 ==> 292801 - Template with unused fields pro-actively overwriting existing fields.
+350 ==> 466664 - digiKam doesn't display tags from video (.mp4) files.
+351 ==> 122049 - Batch resize is always asking to overwrite on batch processing.
+352 ==> 159573 - Batch resizing: Resize Images - Prepare to print: aspect ratio is not preserved
+353 ==> 201259 - digiKam, batch resized image.
+354 ==> 201334 - digiKam batch resize images.
+355 ==> 468157 - digiKam is crash when use slideshow.
+356 ==> 468164 - Collections or Albums = Confusion for Beginners.
+357 ==> 209002 - Should be able to lock the aspect ratio when resizing.
+358 ==> 306792 - Crashed during resizing a Tif-File.
+359 ==> 151171 - Need support for adjusting in HSV and HSL colorspaces.
+360 ==> 160012 - Add vibrance and fill light features in ImageEditor.
+361 ==> 174177 - Proposal for implementing smart unsharp masking.
+362 ==> 184388 - More complex border style settings in Border tool.
+363 ==> 194722 - Only sharpen one channel, e.g. the "value" channel of HSV.
+364 ==> 215899 - Interactive chromatic aberration correction in digiKam image editor.
+365 ==> 468115 - digiKam 8.0.0-Beta1 hasn't imported tags.
+366 ==> 467912 - Image Editor ignores former window size at startup.
+367 ==> 468246 - Spelling error in setup text - "finguerprints".
+368 ==> 468283 - digiKam closes after closing slideshow.
+369 ==> 468284 - Non-functional recursive advanced search.
+370 ==> 465607 - digiKam quits when assigning tag to an unknown faces.
+371 ==> 465905 - Crash when adding a face tag.
+372 ==> 466856 - Face Matching.
+373 ==> 383552 - Add filename when mimetype is processed when database is created for the first time.
+374 ==> 360485 - Prevent to rescans image collection after to change system time zone.
+375 ==> 346715 - Assigning tags in side panel not possible PLUS multiple tags are not applied.
+376 ==> 343373 - Application crashed on downloading photos.
+377 ==> 317862 - New file not detected.
+378 ==> 240663 - digiKam: Bug on startup ; Fatal IO error 9.
+379 ==> 229834 - Reinsert large amount of images into database (rescan menu).
+380 ==> 224715 - digiKam crash while editing photos.
+381 ==> 220043 - digiKam crashed when scanned for new images.
+382 ==> 219813 - Unexpected shut down when doing "New Album for selection".
+383 ==> 186326 - Problem running a 1:1 copy of albumtree and digikam db.
+384 ==> 184091 - Crash at startup if albums moved between collections externally.
+385 ==> 182995 - Crash when deleting empty album.
+386 ==> 179141 - digiKam crashes when exiting.
+387 ==> 178223 - Crash on external deletion of image.
+388 ==> 165851 - Photo album management instead of photo directory management.
+389 ==> 158565 - digiKam ignores files created through external applications like gimp.
+390 ==> 151163 - digiKam fails to start after upgrade to Ubuntu.
+391 ==> 112848 - digiKam fails on startup with large pictures folder.
+392 ==> 149364 - Crashes when I attempt to save one or more images.
+393 ==> 147882 - Startup of digikam is very slow. Can take up to 5 minutes!
+394 ==> 147750 - Crash SIGSEGV every time I want to scan my HD.
+395 ==> 146887 - Album names get created with *spaces* in the filesystem.
+396 ==> 140586 - digiKam crash while switching to another album.
+397 ==> 138091 - Crash when import foto.
+398 ==> 133335 - Eternal loop when application starts.
+399 ==> 131972 - Crash when closing Digikam [backtrace].
+400 ==> 127414 - Large albums cause digikam to hang.
+401 ==> 127182 - Crash when scanning jpeg images.
+402 ==> 116247 - Usability/Technical language: don't bother user with database sync issues.
+403 ==> 113080 - "Automatic" Photo and album permissions.
+404 ==> 112426 - Problems moving photos to album with whitespace in its name.
+405 ==> 109943 - Secure password protected albums - View protection.
+406 ==> 109355 - Adding a photo fails when filename contains '%'.
+407 ==> 099896 - Copying images destroys file date.
+408 ==> 096941 - Add images without an album - images don't show in digiKam.
+409 ==> 091829 - Sub albums not supported.
+410 ==> 091424 - Crashing if out of diskspace.
+411 ==> 091290 - Database is not excaping ' in names of albums.
+412 ==> 089798 - Can't copy/move files to an album name that contains an apostrophe.
+413 ==> 460270 - New Install, with appimage, "connecting to database hangs forever.
+414 ==> 445307 - Unable to recover digiKam data on ubuntu 20.04 with Mysql server 8.0.27.
+415 ==> 461734 - macOS GUI improvements.
+416 ==> 462281 - digiKam freezes after removing directory from the database.
+417 ==> 430924 - Mac External Display menus in wrong location.
+418 ==> 462847 - The installation goes without problems but the program doesn’t start.
+419 ==> 463536 - digiKam 7.9 and 7.8 do not start on macOS 12.6.2.
+420 ==> 463940 - Unable to launch digiKam 7.9.0 on macOS 10.14.6 (Mojave).
+421 ==> 468383 - Wrong description in google photos after upload.
+422 ==> 387319 - Suggested misc. improvements for Trash.
+423 ==> 375154 - Suggestions for improving the display of images in the trashcan.
+424 ==> 465033 - Improve UX of Trash-Bin.
