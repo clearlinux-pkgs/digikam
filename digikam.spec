@@ -7,7 +7,7 @@
 #
 Name     : digikam
 Version  : 8.0.0
-Release  : 50
+Release  : 51
 URL      : https://download.kde.org/stable/digikam/8.0.0/digiKam-8.0.0.tar.xz
 Source0  : https://download.kde.org/stable/digikam/8.0.0/digiKam-8.0.0.tar.xz
 Source1  : https://download.kde.org/stable/digikam/8.0.0/digiKam-8.0.0.tar.xz.sig
@@ -167,7 +167,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1683313871
+export SOURCE_DATE_EPOCH=1685496502
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -196,7 +196,7 @@ make  %{?_smp_mflags}  -w
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1683313871
+export SOURCE_DATE_EPOCH=1685496502
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/digikam
 cp %{_builddir}/digikam-%{version}/COPYING %{buildroot}/usr/share/package-licenses/digikam/e712eadfab0d2357c0f50f599ef35ee0d87534cb || :
@@ -756,9 +756,6 @@ popd
 
 %files dev
 %defattr(-,root,root,-)
-/V3/usr/lib64/libdigikamcore.so
-/V3/usr/lib64/libdigikamdatabase.so
-/V3/usr/lib64/libdigikamgui.so
 /usr/include/digikam/batchtool.h
 /usr/include/digikam/bcgcontainer.h
 /usr/include/digikam/captionvalues.h
