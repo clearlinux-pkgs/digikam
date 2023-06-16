@@ -67,7 +67,7 @@ libpulse.so.0
 libstdc++.so.6
 libswresample.so.3
 libswscale.so.5
-libtiff.so.5
+libtiff.so.6
 libva.so.2
 libxml2.so.2
 libxslt.so.1
