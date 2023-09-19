@@ -1,5 +1,4 @@
 libEGL.so.1
-libGLX.so.0
 libKF5CalendarCore.so.5
 libKF5Completion.so.5
 libKF5ConfigCore.so.5
@@ -39,11 +38,11 @@ libQt5XmlPatterns.so.5
 libX11.so.6
 libXv.so.1
 libass.so.9
-libavcodec.so.58
-libavdevice.so.58
-libavfilter.so.7
-libavformat.so.58
-libavutil.so.56
+libavcodec.so.60
+libavdevice.so.60
+libavfilter.so.9
+libavformat.so.60
+libavutil.so.58
 libc.so.6
 libexiv2.so.27
 libexpat.so.1
@@ -65,10 +64,9 @@ libopencv_ml.so.407
 libpng16.so.16
 libpulse.so.0
 libstdc++.so.6
-libswresample.so.3
-libswscale.so.5
+libswresample.so.4
+libswscale.so.7
 libtiff.so.6
-libva.so.2
 libxml2.so.2
 libxslt.so.1
 libz.so.1

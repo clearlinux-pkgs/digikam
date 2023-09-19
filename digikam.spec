@@ -6,11 +6,11 @@
 # Source0 file verified with key 0x4A77747BC2386E50 (digikamdeveloper@gmail.com)
 #
 Name     : digikam
-Version  : 8.0.0
-Release  : 54
-URL      : https://download.kde.org/stable/digikam/8.0.0/digiKam-8.0.0.tar.xz
-Source0  : https://download.kde.org/stable/digikam/8.0.0/digiKam-8.0.0.tar.xz
-Source1  : https://download.kde.org/stable/digikam/8.0.0/digiKam-8.0.0.tar.xz.sig
+Version  : 8.1.0
+Release  : 55
+URL      : https://download.kde.org/stable/digikam/8.1.0/digiKam-8.1.0.tar.xz
+Source0  : https://download.kde.org/stable/digikam/8.1.0/digiKam-8.1.0.tar.xz
+Source1  : https://download.kde.org/stable/digikam/8.1.0/digiKam-8.1.0.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause CC0-1.0 CDDL-1.0 CECILL-1.1 GPL-2.0 GPL-3.0 LGPL-2.0 LGPL-2.1 LGPL-3.0 MIT
@@ -159,15 +159,15 @@ man components for the digikam package.
 
 
 %prep
-%setup -q -n digikam-8.0.0
-cd %{_builddir}/digikam-8.0.0
+%setup -q -n digikam-8.1.0
+cd %{_builddir}/digikam-8.1.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1686939845
+export SOURCE_DATE_EPOCH=1695141246
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -196,7 +196,7 @@ make  %{?_smp_mflags}  -w
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1686939845
+export SOURCE_DATE_EPOCH=1695141246
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/digikam
 cp %{_builddir}/digikam-%{version}/COPYING %{buildroot}/usr/share/package-licenses/digikam/e712eadfab0d2357c0f50f599ef35ee0d87534cb || :
@@ -391,13 +391,17 @@ popd
 /usr/share/digikam/templates/1_photo_10.5x14.8cm.desktop
 /usr/share/digikam/templates/1_photo_10x15cm.desktop
 /usr/share/digikam/templates/1_photo_20x25cm.desktop
+/usr/share/digikam/templates/1_photo_4x6_2_photos_2x3.desktop
+/usr/share/digikam/templates/1_photo_5x7_corner.desktop
 /usr/share/digikam/templates/1_photo_8x10.desktop
 /usr/share/digikam/templates/1_photo_9x13cm.desktop
 /usr/share/digikam/templates/2_photos_13x18cm.desktop
+/usr/share/digikam/templates/2_photos_4x6.desktop
 /usr/share/digikam/templates/2_photos_5x7.desktop
 /usr/share/digikam/templates/3_photos_10x15cm.desktop
 /usr/share/digikam/templates/3_photos_4x6.desktop
 /usr/share/digikam/templates/4_photos_10x13.33cm.desktop
+/usr/share/digikam/templates/4_photos_2.5x3.5.desktop
 /usr/share/digikam/templates/4_photos_3.5x5.desktop
 /usr/share/digikam/templates/4_photos_4.5x5cm.desktop
 /usr/share/digikam/templates/4_photos_9x13cm.desktop
@@ -787,6 +791,7 @@ popd
 /usr/include/digikam/digikam_version.h
 /usr/include/digikam/dimg.h
 /usr/include/digikam/dimgbuiltinfilter.h
+/usr/include/digikam/dimgloader.h
 /usr/include/digikam/dimgloaderobserver.h
 /usr/include/digikam/dimgloadersettings.h
 /usr/include/digikam/dimgpreviewitem.h
@@ -802,6 +807,7 @@ popd
 /usr/include/digikam/dpluginauthor.h
 /usr/include/digikam/dpluginbqm.h
 /usr/include/digikam/dplugindialog.h
+/usr/include/digikam/dplugindimg.h
 /usr/include/digikam/dplugineditor.h
 /usr/include/digikam/dplugingeneric.h
 /usr/include/digikam/dpluginloader.h
@@ -874,9 +880,9 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/V3/usr/lib64/libdigikamcore.so.8.0.0
-/V3/usr/lib64/libdigikamdatabase.so.8.0.0
-/V3/usr/lib64/libdigikamgui.so.8.0.0
+/V3/usr/lib64/libdigikamcore.so.8.1.0
+/V3/usr/lib64/libdigikamdatabase.so.8.1.0
+/V3/usr/lib64/libdigikamgui.so.8.1.0
 /V3/usr/lib64/qt5/plugins/digikam/bqm/Bqm_AntiVignetting_Plugin.so
 /V3/usr/lib64/qt5/plugins/digikam/bqm/Bqm_AssignLabels_Plugin.so
 /V3/usr/lib64/qt5/plugins/digikam/bqm/Bqm_AssignTemplate_Plugin.so
@@ -1012,9 +1018,9 @@ popd
 /V3/usr/lib64/qt5/plugins/digikam/rawimport/RawImport_Native_Plugin.so
 /V3/usr/lib64/qt5/plugins/digikam/rawimport/RawImport_RawTherapee_Plugin.so
 /V3/usr/lib64/qt5/plugins/digikam/rawimport/RawImport_UFRaw_Plugin.so
-/usr/lib64/libdigikamcore.so.8.0.0
-/usr/lib64/libdigikamdatabase.so.8.0.0
-/usr/lib64/libdigikamgui.so.8.0.0
+/usr/lib64/libdigikamcore.so.8.1.0
+/usr/lib64/libdigikamdatabase.so.8.1.0
+/usr/lib64/libdigikamgui.so.8.1.0
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_AntiVignetting_Plugin.so
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_AssignLabels_Plugin.so
 /usr/lib64/qt5/plugins/digikam/bqm/Bqm_AssignTemplate_Plugin.so
