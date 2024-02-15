@@ -9,7 +9,7 @@
 #
 Name     : digikam
 Version  : 8.2.0
-Release  : 67
+Release  : 68
 URL      : https://download.kde.org/stable/digikam/8.2.0/digiKam-8.2.0.tar.xz
 Source0  : https://download.kde.org/stable/digikam/8.2.0/digiKam-8.2.0.tar.xz
 Source1  : https://download.kde.org/stable/digikam/8.2.0/digiKam-8.2.0.tar.xz.sig
