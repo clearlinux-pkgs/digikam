@@ -57,11 +57,11 @@ liblcms2.so.2
 liblensfun.so.1
 libm.so.6
 libmarblewidget-qt5.so.28
-libopencv_core.so.408
-libopencv_dnn.so.408
-libopencv_imgcodecs.so.408
-libopencv_imgproc.so.408
-libopencv_ml.so.408
+libopencv_core.so.409
+libopencv_dnn.so.409
+libopencv_imgcodecs.so.409
+libopencv_imgproc.so.409
+libopencv_ml.so.409
 libpng16.so.16
 libpulse.so.0
 libstdc++.so.6

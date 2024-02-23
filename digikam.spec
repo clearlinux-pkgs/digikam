@@ -9,7 +9,7 @@
 #
 Name     : digikam
 Version  : 8.2.0
-Release  : 68
+Release  : 69
 URL      : https://download.kde.org/stable/digikam/8.2.0/digiKam-8.2.0.tar.xz
 Source0  : https://download.kde.org/stable/digikam/8.2.0/digiKam-8.2.0.tar.xz
 Source1  : https://download.kde.org/stable/digikam/8.2.0/digiKam-8.2.0.tar.xz.sig
@@ -167,7 +167,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1707940527
+export SOURCE_DATE_EPOCH=1708648859
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -221,7 +221,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1707940527
+export SOURCE_DATE_EPOCH=1708648859
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/digikam
 cp %{_builddir}/digikam-%{version}/COPYING %{buildroot}/usr/share/package-licenses/digikam/e712eadfab0d2357c0f50f599ef35ee0d87534cb || :
