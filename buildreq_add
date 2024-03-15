@@ -22,6 +22,7 @@ libksane-dev
 libxslt-dev
 mesa-dev
 opencv-dev
+qt6networkauth-dev
 qt6webengine-dev
 solid-dev
 threadweaver-dev

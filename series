@@ -1,2 +1,1 @@
-#webkit.patch
-#Fix-build-with-opencv-4.2.patch
+kf6-dep-fix.patch
