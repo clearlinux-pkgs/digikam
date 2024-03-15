@@ -1,5 +1,6 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
+buildreq-qt6
 ImageMagick
 akonadi-contacts-dev
 buildreq-kde
@@ -19,9 +20,10 @@ kxmlgui-dev
 lensfun-dev
 libksane-dev
 libxslt-dev
-marble-dev
 mesa-dev
 opencv-dev
 qt6webengine-dev
 solid-dev
 threadweaver-dev
+qt6networkauth-dev
+qt6scxml-dev
