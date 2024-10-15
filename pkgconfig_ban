@@ -4,8 +4,8 @@ lqr-1
 lensfun${version_string}
 libavcodec
 libavdevice
-libavformat
 libpostproc
 x265
 libheif
 libavresample
+jxl
