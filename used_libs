@@ -39,10 +39,10 @@ libQt6WebEngineWidgets.so.6
 libQt6Widgets.so.6
 libQt6Xml.so.6
 libX11.so.6
-libavcodec.so.60
-libavfilter.so.9
-libavformat.so.60
-libavutil.so.58
+libavcodec.so.61
+libavfilter.so.10
+libavformat.so.61
+libavutil.so.59
 libc.so.6
 libexiv2.so.28
 libexslt.so.0
@@ -60,9 +60,10 @@ libopencv_dnn.so.410
 libopencv_imgcodecs.so.410
 libopencv_imgproc.so.410
 libopencv_ml.so.410
+libopencv_objdetect.so.410
 libpng16.so.16
 libstdc++.so.6
-libswscale.so.7
+libswscale.so.8
 libtiff.so.6
 libxml2.so.2
 libxslt.so.1
