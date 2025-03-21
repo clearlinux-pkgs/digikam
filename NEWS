@@ -1,194 +1,193 @@
-digiKam 8.5.0 - Release date: 2024-11-17
+digiKam 8.6.0 - Release date: 2025-03-16
 
 *****************************************************************************************************
 NEW FEATURES:
 
-Bundles:         Update to last Exiv2 version 0.28.3.
-Bundles:         Update to last ExifTool version 12.99.
-Bundles:         AppImage are now based on Qt framework 6.7.3 and KDE framework 6.7.0.
-Bundles:         Windows installer are now based on KDE framework 6.7.0.
-Bundles:         New MacOS Silicon (arm64) package based on Qt6 framework 6.7.2,
-                 KDE framework 6.7.0, and FFmpeg 6.1.
+RawEngine:       Update internal Libraw to last 20250208 upstream.
+Video:           Update internal QtAVPlayer to last 20250107 upstream (Qt5 only).
+Bundles:         Update to last ExifTool version 13.19.
+Bundles:         Linux AppImage Qt6 uses last Qt 6.8.1, KDE frameworks 6.10.0 and OPenCV 4.11.0.
+Bundles:         Linux AppImage Qt5 uses last Qt 5.15.16 and OPenCV 4.11.0.
+Bundles:         Windows installer Qt6 uses last Qt 6.8.1 and KDE frameworks 6.10.0.
+Bundles:         Windows installer Qt5 uses last Qt 5.15.16.
+Bundles:         MacOS package Qt6 uses last Qt 6.8.1 and KDE frameworks 6.10.0.
+Bundles:         G'Mic-Qt BQM and Image Editor updated to last version 3.4.2.
+                 Image Editor tool can now work on the current canvas selection.
+Setup:           Add new GPU hardware support options for decoding video with FFmpeg backend (Qt6 only).
 
-Database:        Update to new unique file hash V3 added.
-RawEngine:       Update internal libraw to last 20240910 upstream.
-Video:           Update internal QtAVPlayer to last 20241104 upstream (Qt5 only).
+FaceEngine:      Complete rewrite of the Face Classifier and Face Pipeline implementations.
+                 There are significant improvements coming in 8.6.0. The pipelines have
+                 been completely rewritten and are 25%-50% faster when using full CPU. The face
+                 detector has also been improved to reduce false positives. There is a
+                 completely new face classifier using cross-validating KNN and SVM internal
+                 classifiers that increases matching accuracy even more.
+                 Everything has changed between the UI and the DNN level, including the way we call the DNN models.
+                 First, the pipelines have a whole new structure that allows us to dynamically scale the number of
+                 worker threads based on load and the hardware.
+                 Next, the way the images are loaded and converted to a format that OpenCV understands has changed.
+                 8.5.0 was converting the images to BGR format and YuNet and SFace want RGB.
+                 Another change is pipelines take better advantage of GPU processing. Images are moved to the GPU
+                 for resizing and color format conversion. We’re also passing the GPU image to the DNN layer now so
+                 DNN processing happens on the GPU via OpenCL.
+                 The final big change is the face classifier which “matches” one face to another for recognition.
+                 8.5.0 used a custom made K Nearest Neighbor (KNN) classifier. In 8.6.0 we’re using an ensemble approach
+                 using cross validating KNN and SVM classifiers from OpenCV with a single custom distance check.
+                 It’s faster and more accurate.
+                 In addition, we added a Face Image Quality Assessment (FIQA) which performs a minimum size check and
+                 a Fast Fourier Transform filter to stop small, blurry, and noisy faces from being used for training
+                 the recognition model.
+                 The only thing we’re really reusing from 8.5.0 are the YuNet and SFace models themselves.
+                 Removed old SSD and YOLOv3 DNN models.
 
-IconView:        More compact thumbnails by using a simple horizontal line instead a frame
-                 to render Color Labels.
-FacesManagement: Adding YuNet DNN model to process faces detection and replace older SSD model.
-                 Adding Sface DNN model to process face recognition and replace older OpenFace model.
-                 There are faster and requires less memory at run-time with better results.
+AutoTags:        The Autotags engine has been completely rewritten using the new pipelines and improvements found
+                 in the FaceEngine. New classifiers and the option to adjust the Autotagging confidence threshold
+                 have been added. Autotagging is now faster and more accurate using new YOLOv11, YOLOv11 XLarge,
+                 and EfficientNet B7 DNN models. The older YOLOv5 and ResNet-50 models have been removed.
+                 Auto-tags scan tool is now available in the Tags tab from the left sidebar.
+
+Image Quality    The Image Quality Sorter has been renammed to Image Quality Scanner. It is now available from the
+                 Labels tab on the left sidebar. The global Image Quality settings from the setup dialog have been removed.
+
+RedEyes:         RedEye Correction Filter tool has been updated to use an AI DNN model to detect eyes.
 
 *****************************************************************************************************
 BUGFIXES:
 
-001 ==> 490220 - digiKam crashes after a random duration during library scan.
-002 ==> 490367 - Offset of 2 Hours with the GPS tracks correlator from geolocation editor.
-003 ==> 447133 - Hangs after changing database settings.
-004 ==> 376825 - Tag displays do not display correctly after new database is selected.
-005 ==> 490385 - Remove All Metadata for File Export does not work when sidecar files are used.
-006 ==> 488576 - Crash while showing Video.
-007 ==> 490128 - digiKam freezes when I click the "metadata" button on the right.
-008 ==> 490396 - Impossible validation of exiftool.exe even though it is present in the digiKam folder.
-009 ==> 490341 - Exiftool not present.
-010 ==> 490496 - Exiftool not found.
-011 ==> 490536 - Open With not working.
-012 ==> 490552 - Import: Incorrect date during automatic file naming with “date” construct.
-013 ==> 490330 - Focus points is not displayed at all for a sony a6700 jpg, heif or raw file (arw).
-014 ==> 490671 - digiKam crashes on startup with a white window and file download dialog.
-015 ==> 488222 - Exiftool not recognized.
-016 ==> 490690 - digiKam 8.4.0, Error at Configuring, CMake Error at core/cmake/modules/FindLibheif.cmake:57.
-017 ==> 490747 - Exiftool missing in Windows 8.4 package.
-018 ==> 490793 - Find similar returns the source image in the search.
-019 ==> 490809 - XMP Toolkit error 102: Unknown namespace prefix for qualified name.
-020 ==> 490828 - Unable to delete workflow.
-021 ==> 490859 - Image color profile is not taken into account when creating thumbnails for 16 bit tiffs.
-022 ==> 490883 - Exiftool not found (digiKam 8.4.0/qt6/win64).
-023 ==> 490912 - digiKam 8.4 can't find exiftool on Windows.
-024 ==> 491007 - When Undo is scrolled over the undo choices do not appear.
-025 ==> 488662 - Incorrect Thumbnails showing on scanned Tiff files.
-026 ==> 491499 - ExifTool shipped with 8.4.0 is invalid.
-027 ==> 490866 - digiKam 8.4.0 ignores KDE font settings and scale factor.
-028 ==> 491551 - XMP field (from the right panel) empty for jxl files.
-029 ==> 491599 - Scroll index resets to item 0 in Similarity list window on delete of any list deletion.
-030 ==> 491809 - Sort view bug/behavior at Geolocation editor.
-031 ==> 491804 - Sorting by Creation Date and Group by Month Creating Multiple Month/Yr Groups.
-032 ==> 491878 - Modifying a saved search show more than saved.
-033 ==> 491905 - Ability to define new search from a already saved search.
-034 ==> 490611 - Rating missing in thumbnails.
-035 ==> 472918 - Preview mode becomes unresponsive.
-036 ==> 491997 - Remember the size of subwindows.
-037 ==> 491999 - Tagging images can change the sorted view.
-038 ==> 491983 - At start the initial zoom percent shown for preview is false.
-039 ==> 492020 - Accessibility: Mouse cursor too small.
-040 ==> 490897 - QT6 reports errors on startup while downloading face models.
-041 ==> 492040 - APPIMAGE : symbol lookup error: /usr/lib64/libgnutls.so.30: undefined symbol: nettle_rsa_oaep_sha384_decrypt, version HOGWEED_6.
-042 ==> 492054 - Default button to NO in confirmation box.
-043 ==> 490484 - Writing Meta Data to Images deletes randomly Meta Data both from Images and Database.
-044 ==> 492148 - UI flicker when rating images or rescanning collection.
-045 ==> 492164 - Wish : Map view : display not complete when two identical photos selected (groups).
-046 ==> 492191 - digiKam 8.4.0 crashes when accessing Settings->Configure digiKam.
-047 ==> 492200 - Ability to increase video playing speed when preview.
-048 ==> 204487 - HUB : caption not saved when moving images after entering caption.
-049 ==> 491778 - Add tag and move image bug.
-050 ==> 492163 - Creation of orphan sidecars.
-051 ==> 492257 - Showfoto symlink is broken in AppImage - Typo missing "w".
-052 ==> 492313 - New face tag shuts program.
-053 ==> 492366 - digiKam does not write anymore xmp data to files from Pixel devices : debug shows an Exiv2 error.
-054 ==> 491888 - DNG files misread as TIFF.
-055 ==> 492412 - In the installation I noticed there is Exiftool.exe embedded in the digiKam install, but not the libraries.
-056 ==> 492259 - Face recognition is working well but RECURRENT ISSUE on Photos that have been set in "portrait" mode.
-057 ==> 492271 - 8.3.0 -> 8.4.0 Upgrade Fails.
-058 ==> 492542 - Build failed with : metaengine.cpp:331:42: error: ‘as_const’ is not a member of ‘std’.
-059 ==> 490657 - AppImage: No system integration possible with AppImageLauncher.
-060 ==> 492686 - digiKam crash when adding a new image and refresh or auto scan.
-061 ==> 492715 - digiKam displays the metadata of JXL files incomplete and/or altered.
-062 ==> 492828 - Rating of jpg file not displayed correctly in the user interface.
-063 ==> 492789 - Do not open digiKam in full window.
-064 ==> 492784 - Changing keyboard shortcut scheme deletes 'Assign Tag' keyboard shortcuts.
-065 ==> 492941 - Fractional seconds formatter value (zzz) not being read and applied to filename.
-066 ==> 492937 - digiKam 8.5.0 isn't working with MariaDB.
-067 ==> 350446 - Port MacOS PKG to Arm64 Apple Silicon.
-068 ==> 491857 - Unable to build on MacOS arm64 with Macports.
-069 ==> 493151 - IP address setting for PTP/IP camera is mishandled.
-070 ==> 487031 - Unable to play h264 videos on apple silicon mac.
-071 ==> 490553 - Audio delay when playing movie.
-072 ==> 493193 - Deletion of image from album in thumbnail view re-indexes active position to top row.
-073 ==> 425304 - digiKam doesn't quit in full-screen mode.
-074 ==> 479033 - digiKam crashes on "Find New Items".
-075 ==> 485393 - digiKam crash on library import.
-076 ==> 486296 - Open for 2 sec and then crash.
-077 ==> 470530 - Camera list is missing when adding camera.
-078 ==> 451719 - Camera list is empty.
-079 ==> 451727 - Empty Camera List.
-080 ==> 460252 - No cameras listed in import cameras module.
-081 ==> 491870 - Slideshow: open settings with F2 and switch overlay with F4 is no longer possible.
-082 ==> 491885 - Selected tags in the settings window of the filter are not marked with a checkmark.
-083 ==> 491042 - MariaDB (MySQL) embedded files missing in fresh install.
-084 ==> 486632 - Camera is never detected using bundled gphoto2 libraries.
-085 ==> 465652 - Rescan activated for all collection when adding new collection.
-086 ==> 491040 - Unable to use Darktable for demosaicing on MacOS ARM.
-087 ==> 448045 - Reduce intensity of Colour Labels Displayed in Album/Thumbnail View or Replace with Discreet Colour Label.
-088 ==> 487799 - Geolocalization icon always black in thumbnail view.
-089 ==> 486341 - Edit Bookmarks menu item does nothing.
-090 ==> 426968 - Album title bar in icon view should be a selection switch.
-091 ==> 493388 - Inconsistent timeline display due to timezone handling in videos vs. photos.
-092 ==> 493426 - digiKam 8.4.0 crashes with STR+ALT+Fx.
-093 ==> 493453 - Pick labels partially block the filename in the main view when thumbnails are certain sizes.
-094 ==> 493106 - After ignoring one face in a photo, all other face rectangles vanish.
-095 ==> 493498 - Persisting rescaled/positioned window across sessions.
-096 ==> 493653 - Caption metadata not embedded in slideshow video.
-097 ==> 493743 - MacOS Sequoia 15.0: digikam inoperable, crashes when launching.
-098 ==> 375519 - Progress bars waste useful space: add more details about tasks.
-099 ==> 375521 - Progress bars waste useful space.
-100 ==> 493786 - After visiting trash, the display mode switches to Map.
-101 ==> 493914 - OpenCV assertion failure when tagging face without models installed.
-102 ==> 489034 - Install failure.
-103 ==> 493948 - digiKam 8.4.0 never shows.
-104 ==> 494080 - Support for OpenEXR.
-105 ==> 494115 - digiKam crash during startup (SIGILL).
-106 ==> 435367 - "deep face" a free source code for better face detection.
-107 ==> 494214 - digiKam opens window but unresponsive.
-108 ==> 494228 - Application crashes when attempting to first recognized face.
-109 ==> 485979 - Expose Yolo Resizing Parameter to Improve Face Detection Accuracy.
-110 ==> 494278 - No HEIC preview.
-111 ==> 469178 - Face recognition for group photos.
-112 ==> 494304 - HEIC not showing in album - green icon displayed instead.
-113 ==> 494308 - After deleting a picture (in full screen mode), wrong picture is displayed.
-114 ==> 472452 - Face Recognition fails (process stuck at 0%).
-115 ==> 489197 - Faces problem.
-116 ==> 494372 - Welcome page is empty.
-117 ==> 470018 - Search for similar faces by previous example selection.
-118 ==> 494471 - File disappeared from digikam while it exists in directory.
-119 ==> 494585 - XMP-dc:Subject tags not imported to the database with HEIF file.
-120 ==> 494618 - Non-functioning shortcut ALT + Return in the right sidebar.
-121 ==> 494623 - Arrow keys navigation leaves the focus from album tree-view to icon-view.
-122 ==> 489625 - Most recent weekly doesnt start under windows (ucrtbase.dll error).
-123 ==> 494528 - Thumbnails disappear with WAL option ON (pCloud lock).
-124 ==> 494729 - Cannot Choose Customized Raw Import Tools on Mac.
-125 ==> 494816 - Fails build on; coredburl.cpp:251:19: error: 'operator==' is not a member of 'QUrl'.
-126 ==> 429230 - Face recognition malfunction
-127 ==> 489751 - digiKam freezes and closes if you save a face tag.
-128 ==> 494754 - Customized Raw Import Tool Crashes (Randomly) When Using Image Editor.
-129 ==> 494890 - Star rating systematically also sets colors, and vice versa.
-130 ==> 494934 - Selecting the maintenance tool will cause Digikam to stop responding and crash every time.
-131 ==> 495014 - Why im not able to use opencl?
-132 ==> 495011 - digiKam crash when making "search faces" on an image.
-133 ==> 485029 - Upgrade YOLO to a more recent version to improve face recognition.
-134 ==> 437896 - Face Recognition with Time taken into consideration.
-135 ==> 435146 - Feature Request: Clear all unconfirmed faces before starting recognition.
-136 ==> 449310 - Add a DOB (date of birth) feature to facial recognition that will improve indexing and exclude all pictures prior to a given date.
-137 ==> 401458 - Rename file name with recognized faces-tags.
-138 ==> 495006 - digiKam crashes when trying to run yunet face detection.
-139 ==> 495199 - digiKam-8.4.0-Qt6-x86-64.AppImage does not start on Tumbleweed.
-140 ==> 494284 - Facedetecting - recommented name often not the detected name.
-141 ==> 495185 - Decimal separators need to be locale-aware.
-142 ==> 485992 - Face recognition, small part or half face.
-143 ==> 495269 - MXF files not displayed on digiKam.
-144 ==> 495428 - Binary file download is broken for digiKam >= 8.4.0.
-145 ==> 495523 - digiKam not opening on Mac Silicon.
-146 ==> 495508 - Crash in image editor wihile opening Color Auto Correction.
-147 ==> 495628 - When starting digiKam the error appears: The application "Finder" does not have the permission to open "(null)".
-148 ==> 431788 - Add option available to not resample images in viewer.
-149 ==> 491580 - How can I see the pixels?
-150 ==> 495646 - ICC metadata lost.
-151 ==> 494993 - digiKam crashes immediately upon trying to access Configuration panel (under Wayland).
-152 ==> 468980 - digiKam and Showfoto interface becomes buggy/broken after opening/closing settings page on Fedora.
-153 ==> 446511 - Heavy visual glitches when trying to move settings window on Wayland.
-154 ==> 487004 - Faces-recognition filtering.
-155 ==> 467766 - MySQL foreign key error on a zero image id.
-156 ==> 469329 - Too many wrong faces detected.
-157 ==> 431797 - Face recognition <50% despite extensive training data of up to 300 occasions of faces.
-158 ==> 415782 - Face recognition "favors" people with few images: missing faces clustering.
-159 ==> 472031 - Faces detection gets worse with lots of faces to train on.
-160 ==> 464266 - Face detection is extremely slow - face recognition is almost impossible.
-161 ==> 423113 - Deleted Faces still serve as information to Facial Recognition.
-162 ==> 444160 - Face matching is guess work at best.
-163 ==> 436544 - Problem by Face recognition.
-164 ==> 490907 - Allow us to set the "specify time delay for slideshow" to 0.5 seconds.
-165 ==> 496005 - Buttons overlap in geolocation correlator menu.
-166 ==> 495944 - Righclick -> scan for faces on a single picture is not the same as rightclick -> scan for faces on a folder.
-167 ==> 496047 - There appears to be no way of adding, deleting or editing items in the "Open with" context menu.
-168 ==> 496148 - Build failed with metaengine.cpp.
-169 ==> 496131 - Face Tagging multiple incorrectly suggested unconfirmed faces do not move to the corrected person.
+001 ==> 389046 - Face suggestions disappair each time i confirm one.
+002 ==> 496379 - No longer possible to have RAW files as sidecars.
+003 ==> 496389 - Tool to determin time difference from clock photo show diffent timestamp.
+004 ==> 496381 - Possibility to compile MacOS-x86_64 against Qt6?
+005 ==> 496395 - Check for New Version.
+006 ==> 496378 - No Scanning of Collections/Albums Happen.
+007 ==> 496436 - Improvement in Miscellaneous settings.
+008 ==> 496340 - Missing Context Menu on edit advanced search.
+009 ==> 496427 - After updating from 8.4.0 to 8.5.0 digiKam there is only a white screen on start-up.
+010 ==> 496474 - digiKam 8.5 under macOS (Apple Silicon) - problem displaying HEIC of iPhone 16 pro.
+011 ==> 496570 - {unique} does not take file extension into account.
+012 ==> 496711 - Link to documentation in People View broken.
+013 ==> 495722 - Assigning rating via keyboard shortcut doesnt work as expected (toggling vs assigning rating).
+014 ==> 496619 - Fedora 41 appimage: symbol lookup error: /usr/lib64/libgnutls.so.30.
+015 ==> 496771 - It is no longer possible to convert RAW images to DNG images.
+016 ==> 496785 - digiKam appimage does not start with symbol lookup error: undefined symbol: nettle_rsa_oaep_sha384_decrypt.
+017 ==> 496868 - The application only starts with a white window.
+018 ==> 496867 - digiKam 8.0 does not display a new album folder.
+019 ==> 480357 - digiKam 8.2.0 segfaults on importing collection.
+020 ==> 477379 - digiKam crashes on start with "failed to create drawable" / "glXCreatePbuffer failed.".
+021 ==> 492836 - Appimage Integration failed.
+022 ==> 493578 - Impossible to integrate the appimage 8.4.0 and 8.5.0 to the desktop.
+023 ==> 492813 - Appimage crashes when trying to integrate into KDE Neon 6.1 (Ubuntu 24.04 based).
+024 ==> 497037 - Error message when trying to download version 8.5.0.
+025 ==> 497058 - Installed digikam dumps core.
+026 ==> 490377 - Failed to update -- see attached screen shot.
+027 ==> 490378 - Check for upgrade fails to download. Files ending with .sha256.
+028 ==> 470342 - digiKam dont start.
+029 ==> 497106 - Rating from images is no longer respected.
+030 ==> 472138 - Request for disabling more components at compile time.
+031 ==> 496484 - (mov.) video playback distorted colors.
+032 ==> 485468 - digiKam crash with no attention when preview webm.
+033 ==> 497147 - Launching of v8.5 creates wrong initial screen: a copy of the desktop.
+034 ==> 497217 - Expand Batch Queue Manager Resize to include larger preset lengths and revise text.
+035 ==> 497264 - digiKam dock icon changes and becomes pixelated after running app.
+036 ==> 497446 - Video seek timeline/scrubber is unusable in slideshow mode.
+037 ==> 497508 - Data loss: metadata not saved despite enabling in 1st launch wizard.
+038 ==> 497640 - digiKam ARM64 pkg requires Rosetta to run the Installer.
+039 ==> 497476 - Create Tag from Address Book not functioning in Tags Manager on macOS.
+040 ==> 497642 - Edit metadata plugin don't allow you to edit metadata of the selected image from Showfoto.
+041 ==> 496691 - Duplicate search has become much slower on the release version of digiKam 8.5.
+042 ==> 493988 - digiKam crashes when trying to review some .mov files.
+043 ==> 497743 - Option to avoid saving thumbnails.
+044 ==> 497775 - Your Flatpak installation is setuid, which is not supported.
+045 ==> 497824 - Wrong location displayed for mp4.
+046 ==> 497791 - Unwanted face recognition function in preview mode when face management is disabled.
+047 ==> 497814 - Add Support for Configurable Output Color Profile When Editing with darktable.
+048 ==> 497567 - Feature Request: "No New Images for Deceased Persons".
+049 ==> 459499 - The possibility to disable persons.
+050 ==> 498005 - Provide shortcuts for videos in the slideshow.
+051 ==> 498025 - Excluded directory is still not excluded.
+052 ==> 498041 - Debian testing doesn't need libgnutls.so.30 from AppImage.
+053 ==> 498053 - The use of XMP metadata in custom renaming patterns does not work as expected.
+054 ==> 484479 - HDR video playback not supported fully on Mac.
+055 ==> 498072 - FlatPak: no sound when playing videos.
+056 ==> 498077 - digitaglinktree fails with blkid and does wrong uuid extraction [patch].
+057 ==> 498076 - Colors of .heic file are corrupted once a tag is assigned.
+058 ==> 498134 - Updating tags re-reads the image file, which is unnecessarily slow.
+059 ==> 498133 - Geolocation icon missing / disappeared in 8.5.0 appimage Linux.
+060 ==> 432760 - New items for people entries without seeing the mentioned photos.
+061 ==> 498234 - Rotated jxl images are displateyed without rotation.
+062 ==> 490848 - digiKam fails to preview animated .webp files.
+063 ==> 497364 - Not possible to redirect Sound output when previewing/playing video files.
+064 ==> 498281 - No faces detected: -215:Assertion failed) inputs[vecIdx][j] == inputs[i][j] in function 'getMemoryShapes'.
+065 ==> 498305 - digiKam states there is no libksane at configure phase.
+066 ==> 439581 - Problems under Ubuntu with digiKam as snap package.
+067 ==> 439587 - File Manager does not open.
+068 ==> 464276 - Failed to load image.
+069 ==> 477467 - digiKam 8.1 Image Editor could not interpret a Nikon Z9 NEF file.
+070 ==> 478038 - Unable to load the picture.
+071 ==> 498406 - Double click behavior.
+072 ==> 498391 - Hierarchical tags disappear.
+073 ==> 498514 - Trash a image in macOS will not shown in Trash.
+074 ==> 498519 - Build failled with mlpipelinemacros.h:53:68: error.
+075 ==> 498603 - Face detection feature stopped working.
+076 ==> 497832 - digiKam 8.5.0-Qt6 Win64 crashes on startup.
+077 ==> 498650 - Avif file fails to load, but loads after renaming the same file to `.heif`.
+078 ==> 498707 - Build failed with : dconfigdlgmodels.cpp:685:23: error: no matching function for call to ‘createIndex(int, int, const void*).
+079 ==> 498830 - Drag/Drop from thumbnail view to Album tree seems to be inoperative.
+080 ==> 498879 - Unable to load DNG image - "image cannot be loaded".
+081 ==> 469805 - No Subfolders in Albums from External Drives During Face Recognition, and Inefficient Rescan Process.
+082 ==> 498910 - In "Search in" menu for face detection/recognition only one collection/album/root directory shows subfolders.
+083 ==> 499074 - Created video filename on import is wrong (date/time).
+084 ==> 491390 - Videos not sorted into albums created by date when importing.
+085 ==> 498663 - digiKam exits with error message after a few seconds.
+086 ==> 463760 - Names are not clickable.
+087 ==> 499156 - YOLOv11 let digiKam crash.
+088 ==> 499305 - Check at startup if FaceDB needs retrained box crash digikam if apply.
+089 ==> 491473 - digiKam 8.4 does not start.
+090 ==> 499172 - Display issue of processed face recognitions when the queue is overloaded.
+091 ==> 498320 - Renaming a face tag fails to move over the training data.
+092 ==> 499361 - Possibly add exiftool "-m" parameter to.
+093 ==> 499301 - Facial recognition database update not working.
+094 ==> 475488 - In face detection, an option to suppress low quality faces as detected might improve recognition training and results.
+095 ==> 425263 - Blur Level on Face Detection.
+096 ==> 472416 - Add a new option in Face Recognition about duplication of a Confirmed Face.
+097 ==> 425981 - Clustering: limit face recognition by tags.
+098 ==> 488237 - Crash during confirming face tags.
+099 ==> 497151 - "QMYSQL: Unable to execute query" "Unknown column 'context' in 'FaceMatrices'" "1054" 2.
+100 ==> 495810 - G'Mic within Digikam Crashes when right click filter name.
+101 ==> 499466 - Using Exiftool to write tags corrupts the ICC Profile of the image.
+102 ==> 499500 - Build failed with: restorationtool.cpp:162:12: error: no matching function for call to ‘DigikamEditorRestorationToolPlugin.
+103 ==> 499156 - YOLOv11 let digiKam crash.
+104 ==> 499464 - Thumbnails Icons View shows captions incorrectly when there is a multi-line caption.
+105 ==> 498104 - Face Recognition fails.
+106 ==> 498024 - Face recognition becomes quickly useless with many faces in library.
+107 ==> 498113 - On Windows 10, digiKam background process remains running after app close.
+108 ==> 499661 - Good software but no grouping per day in miniature mode.
+109 ==> 432388 - Color tag - I wish more colors.
+110 ==> 499616 - Ability to load/unload collections and their databases (Suggestion).
+111 ==> 499720 - Refresh album view WITHOUT re-scanning thumbnails.
+112 ==> 499739 - When confirming face recommendations, clicking Enter in the name list tags current photo, plus next.
+113 ==> 499809 - Add possibility to batch rename files without modifying them too.
+114 ==> 500091 - Image Quality Sort options do not show configuration items as in v5.
+115 ==> 499880 - Update digiKam db from single file geotag.
+116 ==> 499624 - Thumbbar - Both original and v1 of image show up in thumbbar after aspect ratio crop "OK".
+117 ==> 500176 - Adding a new face does not work on Pixel 5 (work ok with digiKam 8.5).
+118 ==> 500178 - Star Rating metadata won't write to Video.
+119 ==> 500239 - Face tags from iPhone cannot overwriiten or deleted.
+120 ==> 500340 - Issue with tags using special characters UTF-8.
+121 ==> 500525 - Writing metadata to AVIF files.
+122 ==> 469408 - Tags added to videos files (mp4 or mov) in digiKam-8.0.0 are +written to file but not recognized in other software.
+123 ==> 500445 - digiKam "You have insufficient privileges on database.
+124 ==> 500881 - "Update fingerprints" taking 17 seconds / file apparently due to multiple database locks.
+125 ==> 500912 - Files in tmp not found.
+126 ==> 500140 - Couldn't adjust the deducted face area.
+127 ==> 500739 - Lens correction tools seems not working.
+128 ==> 500961 - digiKam Crash when face detection is triggered.
+129 ==> 476120 - Name confirmation on facial recognition crashes on PDF files.
+130 ==> 501021 - Small info window in fullscreen mode.
+131 ==> 501067 - Changing Creation Date with metadata Editor / Exif changes content of description field to Chinese characters.
+132 ==> 500570 - Face recognition crash.
+133 ==> 500834 - digiKam crashes automatically after 1m 50 s.
+134 ==> 492658 - digiKam crashes after adding a new collection.
+135 ==> 501275 - Database gets bigger when person is confirmed.
+136 ==> 501217 - Confirm faces - same processes in the background.
+137 ==> 501330 - Driver not loaded for mysql.
+138 ==> 501257 - People are not recognized
